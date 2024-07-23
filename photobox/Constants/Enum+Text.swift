@@ -20,4 +20,8 @@ enum Text: String {
     }
     
     enum Errors { }
+    
+    enum Buttons: String {
+        case ONBOARDING_START = "시작하기"
+    }
 }

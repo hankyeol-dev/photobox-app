@@ -7,4 +7,6 @@
 
 import Foundation
 
-final class ProfileSettingViewModel {}
+final class ProfileSettingViewModel: ViewModelProtocol {
+    
+}

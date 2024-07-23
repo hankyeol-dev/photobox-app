@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class TestViewController: BaseViewController<TestViewModel, ProfileView> {
+final class TestViewController: BaseViewController<TestViewModel, ProfileImageSelectView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()

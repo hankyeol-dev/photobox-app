@@ -13,6 +13,6 @@ struct MbtiButton {
     var isSelected: Bool
 }
 
-final class ProfileSettingViewController: UIViewController {
+final class ProfileSettingViewController: BaseViewController<ProfileSettingViewModel, ProfileSettingView> {
 
 }

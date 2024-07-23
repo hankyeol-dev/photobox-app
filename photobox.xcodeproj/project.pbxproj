@@ -26,7 +26,7 @@
 		81A4AAA32C4E853F008E2F8C /* MainViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAA22C4E853F008E2F8C /* MainViewProtocol.swift */; };
 		81A4AAA62C4E8684008E2F8C /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAA52C4E8684008E2F8C /* TestViewModel.swift */; };
 		81A4AAA82C4E8869008E2F8C /* TestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAA72C4E8869008E2F8C /* TestMainView.swift */; };
-		81A4AAAB2C4E8BCF008E2F8C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAAA2C4E8BCF008E2F8C /* ProfileView.swift */; };
+		81A4AAAB2C4E8BCF008E2F8C /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAAA2C4E8BCF008E2F8C /* ProfileSettingView.swift */; };
 		81A4AAAD2C4E8BE2008E2F8C /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAAC2C4E8BE2008E2F8C /* BaseView.swift */; };
 		81A4AAAF2C4E8D37008E2F8C /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAAE2C4E8D37008E2F8C /* ProfileImage.swift */; };
 		81A4AAB22C4E8E7D008E2F8C /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAB12C4E8E7D008E2F8C /* Extension+UIColor.swift */; };
@@ -37,6 +37,19 @@
 		81A4AABD2C4E9E86008E2F8C /* Enum+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AABC2C4E9E86008E2F8C /* Enum+Text.swift */; };
 		81A4AABF2C4EA205008E2F8C /* BoxWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AABE2C4EA205008E2F8C /* BoxWithTitle.swift */; };
 		81A4AAC22C4F315E008E2F8C /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAC12C4F315E008E2F8C /* Route.swift */; };
+		81A4AACB2C4F6746008E2F8C /* ProfileImageSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AACA2C4F6746008E2F8C /* ProfileImageSelectView.swift */; };
+		81A4AACD2C4F69B9008E2F8C /* ProfileImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AACC2C4F69B9008E2F8C /* ProfileImageItem.swift */; };
+		81A4AACF2C4F6A36008E2F8C /* Enum+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AACE2C4F6A36008E2F8C /* Enum+UIImage.swift */; };
+		81A4AAD12C4F6DDE008E2F8C /* BaseCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAD02C4F6DDE008E2F8C /* BaseCollectionItem.swift */; };
+		81C1ED9B2C4FE0C000C8C658 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1ED9A2C4FE0C000C8C658 /* Extension+UIView.swift */; };
+		81C1EDA02C4FEBDF00C8C658 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1ED9F2C4FEBDF00C8C658 /* Observable.swift */; };
+		81C1EDA22C4FEDDC00C8C658 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDA12C4FEDDC00C8C658 /* OnboardingViewController.swift */; };
+		81C1EDA42C4FEF3C00C8C658 /* NavigatingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDA32C4FEF3C00C8C658 /* NavigatingProtocol.swift */; };
+		81C1EDA72C4FF02500C8C658 /* AppNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDA62C4FF02500C8C658 /* AppNavigator.swift */; };
+		81C1EDA92C4FF0C800C8C658 /* OnboardingNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDA82C4FF0C800C8C658 /* OnboardingNavigator.swift */; };
+		81C1EDAB2C4FF16300C8C658 /* MainTabbarNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDAA2C4FF16300C8C658 /* MainTabbarNavigator.swift */; };
+		81C1EDAD2C4FF3A000C8C658 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDAC2C4FF3A000C8C658 /* OnboardingView.swift */; };
+		81C1EDAF2C4FF78400C8C658 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDAE2C4FF78400C8C658 /* OnboardingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,7 +74,7 @@
 		81A4AAA22C4E853F008E2F8C /* MainViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProtocol.swift; sourceTree = "<group>"; };
 		81A4AAA52C4E8684008E2F8C /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		81A4AAA72C4E8869008E2F8C /* TestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMainView.swift; sourceTree = "<group>"; };
-		81A4AAAA2C4E8BCF008E2F8C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		81A4AAAA2C4E8BCF008E2F8C /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		81A4AAAC2C4E8BE2008E2F8C /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		81A4AAAE2C4E8D37008E2F8C /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		81A4AAB12C4E8E7D008E2F8C /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
@@ -72,6 +85,19 @@
 		81A4AABC2C4E9E86008E2F8C /* Enum+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Text.swift"; sourceTree = "<group>"; };
 		81A4AABE2C4EA205008E2F8C /* BoxWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxWithTitle.swift; sourceTree = "<group>"; };
 		81A4AAC12C4F315E008E2F8C /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		81A4AACA2C4F6746008E2F8C /* ProfileImageSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectView.swift; sourceTree = "<group>"; };
+		81A4AACC2C4F69B9008E2F8C /* ProfileImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageItem.swift; sourceTree = "<group>"; };
+		81A4AACE2C4F6A36008E2F8C /* Enum+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+UIImage.swift"; sourceTree = "<group>"; };
+		81A4AAD02C4F6DDE008E2F8C /* BaseCollectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionItem.swift; sourceTree = "<group>"; };
+		81C1ED9A2C4FE0C000C8C658 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		81C1ED9F2C4FEBDF00C8C658 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		81C1EDA12C4FEDDC00C8C658 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		81C1EDA32C4FEF3C00C8C658 /* NavigatingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatingProtocol.swift; sourceTree = "<group>"; };
+		81C1EDA62C4FF02500C8C658 /* AppNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigator.swift; sourceTree = "<group>"; };
+		81C1EDA82C4FF0C800C8C658 /* OnboardingNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigator.swift; sourceTree = "<group>"; };
+		81C1EDAA2C4FF16300C8C658 /* MainTabbarNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarNavigator.swift; sourceTree = "<group>"; };
+		81C1EDAC2C4FF3A000C8C658 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		81C1EDAE2C4FF78400C8C658 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,9 +133,11 @@
 		81A4AA662C4E20A2008E2F8C /* photobox */ = {
 			isa = PBXGroup;
 			children = (
+				81C1ED9E2C4FEBD400C8C658 /* Utils */,
 				81A4AAB02C4E8E6D008E2F8C /* Constants */,
 				81A4AAA42C4E866C008E2F8C /* playgrounds */,
 				81A4AA8E2C4E3F3E008E2F8C /* Protocols */,
+				81C1EDA52C4FF00400C8C658 /* Navigator */,
 				81A4AA8B2C4E3F12008E2F8C /* Services */,
 				81A4AA882C4E3671008E2F8C /* Models */,
 				81A4AA912C4E6C00008E2F8C /* Views */,
@@ -152,6 +180,7 @@
 		81A4AA8E2C4E3F3E008E2F8C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				81C1EDA32C4FEF3C00C8C658 /* NavigatingProtocol.swift */,
 				81A4AA8F2C4E3F5A008E2F8C /* ServiceProtocol.swift */,
 				81A4AAA02C4E8521008E2F8C /* ViewModelProtocol.swift */,
 				81A4AAA22C4E853F008E2F8C /* MainViewProtocol.swift */,
@@ -173,6 +202,7 @@
 			children = (
 				81A4AA932C4E6C14008E2F8C /* CircleButton.swift */,
 				81A4AAAC2C4E8BE2008E2F8C /* BaseView.swift */,
+				81A4AAD02C4F6DDE008E2F8C /* BaseCollectionItem.swift */,
 				81A4AABE2C4EA205008E2F8C /* BoxWithTitle.swift */,
 				81A4AAAE2C4E8D37008E2F8C /* ProfileImage.swift */,
 				81A4AAB32C4E95D1008E2F8C /* ProfileImageChangeButton.swift */,
@@ -194,8 +224,8 @@
 		81A4AA962C4E8349008E2F8C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				81A4AA982C4E836E008E2F8C /* ProfileSettingViewController.swift */,
-				81A4AA9A2C4E8394008E2F8C /* ProfileSettingViewModel.swift */,
+				81C1ED9C2C4FEBA800C8C658 /* ViewController */,
+				81C1ED9D2C4FEBB100C8C658 /* ViewModel */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -221,7 +251,10 @@
 		81A4AAA92C4E8B07008E2F8C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				81A4AAAA2C4E8BCF008E2F8C /* ProfileView.swift */,
+				81A4AAAA2C4E8BCF008E2F8C /* ProfileSettingView.swift */,
+				81A4AACA2C4F6746008E2F8C /* ProfileImageSelectView.swift */,
+				81A4AACC2C4F69B9008E2F8C /* ProfileImageItem.swift */,
+				81C1EDAC2C4FF3A000C8C658 /* OnboardingView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -232,8 +265,46 @@
 				81A4AAB12C4E8E7D008E2F8C /* Extension+UIColor.swift */,
 				81A4AABA2C4E9DD9008E2F8C /* Extension+UIFont.swift */,
 				81A4AABC2C4E9E86008E2F8C /* Enum+Text.swift */,
+				81A4AACE2C4F6A36008E2F8C /* Enum+UIImage.swift */,
+				81C1ED9A2C4FE0C000C8C658 /* Extension+UIView.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		81C1ED9C2C4FEBA800C8C658 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EDA12C4FEDDC00C8C658 /* OnboardingViewController.swift */,
+				81A4AA982C4E836E008E2F8C /* ProfileSettingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		81C1ED9D2C4FEBB100C8C658 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EDAE2C4FF78400C8C658 /* OnboardingViewModel.swift */,
+				81A4AA9A2C4E8394008E2F8C /* ProfileSettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		81C1ED9E2C4FEBD400C8C658 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				81C1ED9F2C4FEBDF00C8C658 /* Observable.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		81C1EDA52C4FF00400C8C658 /* Navigator */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EDA62C4FF02500C8C658 /* AppNavigator.swift */,
+				81C1EDA82C4FF0C800C8C658 /* OnboardingNavigator.swift */,
+				81C1EDAA2C4FF16300C8C658 /* MainTabbarNavigator.swift */,
+			);
+			path = Navigator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,25 +389,38 @@
 				81A4AABB2C4E9DD9008E2F8C /* Extension+UIFont.swift in Sources */,
 				81A4AA9F2C4E83B8008E2F8C /* BaseViewController.swift in Sources */,
 				81A4AAAD2C4E8BE2008E2F8C /* BaseView.swift in Sources */,
+				81C1EDA22C4FEDDC00C8C658 /* OnboardingViewController.swift in Sources */,
+				81C1EDAB2C4FF16300C8C658 /* MainTabbarNavigator.swift in Sources */,
 				81A4AA8D2C4E3F2A008E2F8C /* Network.swift in Sources */,
 				81A4AA9B2C4E8394008E2F8C /* ProfileSettingViewModel.swift in Sources */,
 				81A4AA942C4E6C14008E2F8C /* CircleButton.swift in Sources */,
+				81A4AACD2C4F69B9008E2F8C /* ProfileImageItem.swift in Sources */,
+				81C1EDAD2C4FF3A000C8C658 /* OnboardingView.swift in Sources */,
 				81A4AAB82C4E9DAE008E2F8C /* ProfileNicknameValidationLabel.swift in Sources */,
+				81A4AACF2C4F6A36008E2F8C /* Enum+UIImage.swift in Sources */,
 				81A4AA7F2C4E20EE008E2F8C /* ENV.swift in Sources */,
 				81A4AAB62C4E9B15008E2F8C /* ProfileNicknameField.swift in Sources */,
 				81A4AA682C4E20A2008E2F8C /* AppDelegate.swift in Sources */,
-				81A4AAAB2C4E8BCF008E2F8C /* ProfileView.swift in Sources */,
+				81A4AAAB2C4E8BCF008E2F8C /* ProfileSettingView.swift in Sources */,
 				81A4AAA12C4E8521008E2F8C /* ViewModelProtocol.swift in Sources */,
+				81C1EDAF2C4FF78400C8C658 /* OnboardingViewModel.swift in Sources */,
+				81C1EDA02C4FEBDF00C8C658 /* Observable.swift in Sources */,
 				81A4AAA32C4E853F008E2F8C /* MainViewProtocol.swift in Sources */,
+				81A4AACB2C4F6746008E2F8C /* ProfileImageSelectView.swift in Sources */,
 				81A4AA902C4E3F5A008E2F8C /* ServiceProtocol.swift in Sources */,
 				81A4AAB22C4E8E7D008E2F8C /* Extension+UIColor.swift in Sources */,
 				81A4AAAF2C4E8D37008E2F8C /* ProfileImage.swift in Sources */,
+				81C1EDA72C4FF02500C8C658 /* AppNavigator.swift in Sources */,
+				81C1EDA42C4FEF3C00C8C658 /* NavigatingProtocol.swift in Sources */,
 				81A4AAC22C4F315E008E2F8C /* Route.swift in Sources */,
+				81C1EDA92C4FF0C800C8C658 /* OnboardingNavigator.swift in Sources */,
 				81A4AABF2C4EA205008E2F8C /* BoxWithTitle.swift in Sources */,
 				81A4AAA82C4E8869008E2F8C /* TestMainView.swift in Sources */,
 				81A4AA6A2C4E20A2008E2F8C /* SceneDelegate.swift in Sources */,
 				81A4AAA62C4E8684008E2F8C /* TestViewModel.swift in Sources */,
 				81A4AA992C4E836E008E2F8C /* ProfileSettingViewController.swift in Sources */,
+				81C1ED9B2C4FE0C000C8C658 /* Extension+UIView.swift in Sources */,
+				81A4AAD12C4F6DDE008E2F8C /* BaseCollectionItem.swift in Sources */,
 				81A4AAB42C4E95D1008E2F8C /* ProfileImageChangeButton.swift in Sources */,
 				81A4AABD2C4E9E86008E2F8C /* Enum+Text.swift in Sources */,
 			);

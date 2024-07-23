@@ -28,7 +28,7 @@
                                     <constraint firstAttribute="height" constant="160" id="4SE-z0-lXS"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_image" translatesAutoresizingMaskIntoConstraints="NO" id="XqP-So-gOD">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_image" translatesAutoresizingMaskIntoConstraints="NO" id="XqP-So-gOD">
                                 <rect key="frame" x="32" y="307" width="329" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="c9P-U3-c1z"/>
@@ -64,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
+            <point key="canvasLocation" x="57" y="161"/>
         </scene>
     </scenes>
     <resources>

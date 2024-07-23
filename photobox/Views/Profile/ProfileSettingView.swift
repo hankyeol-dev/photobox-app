@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ProfileView: BaseView, MainViewProtocol {
+final class ProfileSettingView: BaseView, MainViewProtocol {
     private let profileBackView = UIView()
     private let profileImage = ProfileImage(for: UIImage.profile0)
     let profileChangeButton = ProfileImageChangeButton()
@@ -19,8 +19,6 @@ final class ProfileView: BaseView, MainViewProtocol {
     
     private var mbti = [["E", "I"], ["N", "S"], ["F", "T"], ["P", "J"]].map { $0.map { MbtiButton(value: $0, isSelected: false) } }
     private lazy var mbtiResult = mbti.map { _ in return "" }
-    
-    
     
     override func setSubviews() {
         super.setSubviews()
