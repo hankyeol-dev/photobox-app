@@ -18,4 +18,6 @@ enum Text: String {
         case NICKNAME_ERROR_NUMBER = "닉네임에 숫자는 들어갈 수 없어요."
         case NICKNAME_SUCCESS = "정말 멋진 닉네임이에요!"
     }
+    
+    enum Errors { }
 }

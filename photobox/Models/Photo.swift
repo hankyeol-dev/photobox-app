@@ -52,7 +52,7 @@ struct PhotoStatistic: Codable {
     let historical: PhotoStatisticHistorical
 }
 
-struct PhotoStatistics: Codable {
+struct PhotoStatisticsResult: Codable {
     let downloads: PhotoStatistic
     let views: PhotoStatistic
 }

@@ -36,6 +36,7 @@
 		81A4AABB2C4E9DD9008E2F8C /* Extension+UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AABA2C4E9DD9008E2F8C /* Extension+UIFont.swift */; };
 		81A4AABD2C4E9E86008E2F8C /* Enum+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AABC2C4E9E86008E2F8C /* Enum+Text.swift */; };
 		81A4AABF2C4EA205008E2F8C /* BoxWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AABE2C4EA205008E2F8C /* BoxWithTitle.swift */; };
+		81A4AAC22C4F315E008E2F8C /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAC12C4F315E008E2F8C /* Route.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		81A4AABA2C4E9DD9008E2F8C /* Extension+UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIFont.swift"; sourceTree = "<group>"; };
 		81A4AABC2C4E9E86008E2F8C /* Enum+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Text.swift"; sourceTree = "<group>"; };
 		81A4AABE2C4EA205008E2F8C /* BoxWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxWithTitle.swift; sourceTree = "<group>"; };
+		81A4AAC12C4F315E008E2F8C /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				81A4AA8C2C4E3F2A008E2F8C /* Network.swift */,
+				81A4AAC12C4F315E008E2F8C /* Route.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				81A4AA902C4E3F5A008E2F8C /* ServiceProtocol.swift in Sources */,
 				81A4AAB22C4E8E7D008E2F8C /* Extension+UIColor.swift in Sources */,
 				81A4AAAF2C4E8D37008E2F8C /* ProfileImage.swift in Sources */,
+				81A4AAC22C4F315E008E2F8C /* Route.swift in Sources */,
 				81A4AABF2C4EA205008E2F8C /* BoxWithTitle.swift in Sources */,
 				81A4AAA82C4E8869008E2F8C /* TestMainView.swift in Sources */,
 				81A4AA6A2C4E20A2008E2F8C /* SceneDelegate.swift in Sources */,

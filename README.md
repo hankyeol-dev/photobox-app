@@ -30,6 +30,13 @@ Basic Implementation Requirements
 - [ ] 기본 조건
     - [ ] 프로젝트는 MVVM 아키텍처, Observable 패턴을 기반으로 코드 작성
     - [ ] Realm, FileManager를 활용하여 사진 자료에 대한 저장 구현
+
+- [ ] Utility
+    - [x] NetworkService : 명확한 Error 처리 구현, URLSession+Async로 구현
+    - [x] RouteService : Enum 형태로 구현
+    - [ ] UserDefaultService : 닉네임, 프로필 이미지, MBTI 값 저장
+    - [ ] RealmRepository : 좋아요 관리 목적 (+ 파일 매니저 이미지 저장 주소 관리)
+    - [ ] FileManageService : local documents에 이미지 저장, 조회, 삭제 관리
     
 - [ ] 스플래시
     - [x] 2초간 노출
