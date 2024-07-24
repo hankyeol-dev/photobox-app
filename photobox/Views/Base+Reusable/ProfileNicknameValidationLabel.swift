@@ -20,36 +20,36 @@ class ProfileNicknameValidationLabel: UILabel {
         self.init(frame: .zero)
         
         font = .sm
-        text = Text.Labels.NICKNAME_ERROR_EMPTY.rawValue
+        text = Text.Errors.NICKNAME_ERROR_EMPTY.rawValue
         textColor = .gray_md
     }
     
     func startEditing() {
-        text = Text.Labels.NICKNAME_EDITING_START.rawValue
+        text = Text.Errors.NICKNAME_EDITING_START.rawValue
     }
     
     func isLowerThanTwoOrOverTen() {
-        text = Text.Labels.NICKNAME_ERROR_COUNT.rawValue
+        text = Text.Errors.NICKNAME_ERROR_COUNT.rawValue
         textColor = .error
     }
  
     func isEmpty() {
-        text = Text.Labels.NICKNAME_ERROR_EMPTY.rawValue
+        text = Text.Errors.NICKNAME_ERROR_EMPTY.rawValue
         textColor = .gray_md
     }
     
     func isContainsNumber() {
-        text = Text.Labels.NICKNAME_ERROR_NUMBER.rawValue
+        text = Text.Errors.NICKNAME_ERROR_NUMBER.rawValue
         textColor = .error
     }
     
     func isContainsSpecialLetter() {
-        text = Text.Labels.NICKNAME_ERROR_SPECIAL_LETTER.rawValue
+        text = Text.Errors.NICKNAME_ERROR_SPECIAL_LETTER.rawValue
         textColor = .error
     }
     
-    func isSuccess() {
-        text = Text.Labels.NICKNAME_SUCCESS.rawValue
+    func isSuccess(_ success: String) {
+        text = success
         textColor = .primary
     }
 }

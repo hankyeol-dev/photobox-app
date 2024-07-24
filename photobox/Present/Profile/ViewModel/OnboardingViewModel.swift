@@ -23,7 +23,7 @@ final class OnboardingViewModel: ViewModelProtocol {
         bindingInput()
     }
     
-    private func bindingInput() {
+    func bindingInput() {
         startButtonTouchInput.bindingWithoutInitCall { [weak self] _ in
             guard let self else { return }
             self.navigator?.goToProfileSettingView()

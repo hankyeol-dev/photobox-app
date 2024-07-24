@@ -37,7 +37,19 @@ final class ProfileImageItem: BaseCollectionItem {
         profileImage.contentMode = .scaleAspectFit
     }
     
-    func setUpImage(for imageName: ProfileImages) {
+    func setUpImage(for imageName: ProfileImages, by isSelected: Bool) {
         profileImage.image = UIImage(named: imageName.rawValue)
+        
+        if isSelected {
+            profileImage.alpha = 1
+            profileImage.tintColor = .primary
+            profileImage.layer.borderWidth = 3
+            profileImage.layer.borderColor = UIColor.primary.cgColor
+        } else {
+            profileImage.alpha = 0.5
+            profileImage.tintColor = .gray_md
+            profileImage.layer.borderColor = UIColor.gray_sm.cgColor
+        }
     }
+    
 }

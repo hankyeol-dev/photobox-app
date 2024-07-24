@@ -7,4 +7,6 @@
 
 import Foundation
 
-final class TestViewModel: ViewModelProtocol {}
+final class TestViewModel: ViewModelProtocol {
+    func bindingInput() { }
+}

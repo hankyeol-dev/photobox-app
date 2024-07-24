@@ -31,8 +31,8 @@ final class ProfileImage: UIImageView {
         backgroundColor = .systemBackground
     }
     
-    func setImage(for image: UIImage) {
-        self.image = image
+    func setImage(for image: ProfileImages) {
+        self.image = UIImage(named: image.rawValue)
     }
     
     func setBorder(for isSelected: Bool) {

@@ -9,11 +9,9 @@ import UIKit
 import SnapKit
 
 final class ProfileImageSelectView: BaseView, MainViewProtocol {
-    private var dataSource: UICollectionViewDiffableDataSource<String, ProfileImages>!
-    
     private let profileBackView = UIView()
-    private let profileImage = ProfileImage(for: UIImage.profile0)
-    private lazy var profileImageCollection = UICollectionView(frame: .zero, collectionViewLayout: setCollectionLayout())
+    let profileImage = ProfileImage(for: UIImage.profile0)
+    lazy var profileImageCollection = UICollectionView(frame: .zero, collectionViewLayout: setCollectionLayout())
     
     override func setSubviews() {
         super.setSubviews()
@@ -56,7 +54,6 @@ final class ProfileImageSelectView: BaseView, MainViewProtocol {
         
         profileImage.setBorder(for: true)
         profileImageCollection.isScrollEnabled = false
-        setCollectionData()
     }
     
     private func setCollectionLayout() -> UICollectionViewCompositionalLayout {
@@ -70,31 +67,5 @@ final class ProfileImageSelectView: BaseView, MainViewProtocol {
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
-    }
-    
-    private func registerCollectionItem() -> UICollectionView.CellRegistration<ProfileImageItem, ProfileImages> {
-        return UICollectionView.CellRegistration<ProfileImageItem, ProfileImages> { cell, indexPath, item in
-            cell.setUpImage(for: item)
-        }
-    }
-    
-    private func setCollectionData() {
-        let registerdCell = registerCollectionItem()
-        var snapshot = NSDiffableDataSourceSnapshot<String, ProfileImages>()
-        
-        dataSource = UICollectionViewDiffableDataSource(
-            collectionView: profileImageCollection,
-            cellProvider: { collectionView, indexPath, item in
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: registerdCell,
-                    for: indexPath,
-                    item: item
-                )
-            }
-        )
-        
-        snapshot.appendSections(["profiles"])
-        snapshot.appendItems(ProfileImages.allCases, toSection: "profiles")
-        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

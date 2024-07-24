@@ -29,8 +29,13 @@ class ViewController<VM, MV>: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        bindData()
         setNavigation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        bindData()
     }
     
     func bindData() {}
@@ -39,4 +44,16 @@ class ViewController<VM, MV>: UIViewController {
 
 extension ViewController {
     // alert, navigation 관련
+    
+    func genLeftGoBackButton(target: Any?, action: Selector) -> UIBarButtonItem {
+        let leftItem = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.left"),
+            style: .plain,
+            target: target,
+            action: action
+        )
+        leftItem.tintColor = .primary
+        
+        return leftItem
+    }
 }

@@ -50,6 +50,10 @@
 		81C1EDAB2C4FF16300C8C658 /* MainTabbarNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDAA2C4FF16300C8C658 /* MainTabbarNavigator.swift */; };
 		81C1EDAD2C4FF3A000C8C658 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDAC2C4FF3A000C8C658 /* OnboardingView.swift */; };
 		81C1EDAF2C4FF78400C8C658 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDAE2C4FF78400C8C658 /* OnboardingViewModel.swift */; };
+		81C1EDB22C4FFEC000C8C658 /* MbtiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDB12C4FFEC000C8C658 /* MbtiButton.swift */; };
+		81C1EDB42C50786600C8C658 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDB32C50786600C8C658 /* Validation.swift */; };
+		81C1EDB62C5081F500C8C658 /* ProfileImageSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDB52C5081F500C8C658 /* ProfileImageSettingViewController.swift */; };
+		81C1EDB82C50825F00C8C658 /* ProfileImageSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDB72C50825F00C8C658 /* ProfileImageSettingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +102,10 @@
 		81C1EDAA2C4FF16300C8C658 /* MainTabbarNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarNavigator.swift; sourceTree = "<group>"; };
 		81C1EDAC2C4FF3A000C8C658 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		81C1EDAE2C4FF78400C8C658 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		81C1EDB12C4FFEC000C8C658 /* MbtiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtiButton.swift; sourceTree = "<group>"; };
+		81C1EDB32C50786600C8C658 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		81C1EDB52C5081F500C8C658 /* ProfileImageSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingViewController.swift; sourceTree = "<group>"; };
+		81C1EDB72C50825F00C8C658 /* ProfileImageSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				81A4AA892C4E368E008E2F8C /* Photo.swift */,
+				81C1EDB12C4FFEC000C8C658 /* MbtiButton.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -173,6 +182,7 @@
 			children = (
 				81A4AA8C2C4E3F2A008E2F8C /* Network.swift */,
 				81A4AAC12C4F315E008E2F8C /* Route.swift */,
+				81C1EDB32C50786600C8C658 /* Validation.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -276,6 +286,7 @@
 			children = (
 				81C1EDA12C4FEDDC00C8C658 /* OnboardingViewController.swift */,
 				81A4AA982C4E836E008E2F8C /* ProfileSettingViewController.swift */,
+				81C1EDB52C5081F500C8C658 /* ProfileImageSettingViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -285,6 +296,7 @@
 			children = (
 				81C1EDAE2C4FF78400C8C658 /* OnboardingViewModel.swift */,
 				81A4AA9A2C4E8394008E2F8C /* ProfileSettingViewModel.swift */,
+				81C1EDB72C50825F00C8C658 /* ProfileImageSettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -385,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81A4AA8A2C4E368E008E2F8C /* Photo.swift in Sources */,
+				81C1EDB62C5081F500C8C658 /* ProfileImageSettingViewController.swift in Sources */,
 				81A4AA6C2C4E20A2008E2F8C /* TestViewController.swift in Sources */,
 				81A4AABB2C4E9DD9008E2F8C /* Extension+UIFont.swift in Sources */,
 				81A4AA9F2C4E83B8008E2F8C /* BaseViewController.swift in Sources */,
@@ -394,6 +407,7 @@
 				81A4AA8D2C4E3F2A008E2F8C /* Network.swift in Sources */,
 				81A4AA9B2C4E8394008E2F8C /* ProfileSettingViewModel.swift in Sources */,
 				81A4AA942C4E6C14008E2F8C /* CircleButton.swift in Sources */,
+				81C1EDB82C50825F00C8C658 /* ProfileImageSettingViewModel.swift in Sources */,
 				81A4AACD2C4F69B9008E2F8C /* ProfileImageItem.swift in Sources */,
 				81C1EDAD2C4FF3A000C8C658 /* OnboardingView.swift in Sources */,
 				81A4AAB82C4E9DAE008E2F8C /* ProfileNicknameValidationLabel.swift in Sources */,
@@ -408,6 +422,7 @@
 				81A4AAA32C4E853F008E2F8C /* MainViewProtocol.swift in Sources */,
 				81A4AACB2C4F6746008E2F8C /* ProfileImageSelectView.swift in Sources */,
 				81A4AA902C4E3F5A008E2F8C /* ServiceProtocol.swift in Sources */,
+				81C1EDB42C50786600C8C658 /* Validation.swift in Sources */,
 				81A4AAB22C4E8E7D008E2F8C /* Extension+UIColor.swift in Sources */,
 				81A4AAAF2C4E8D37008E2F8C /* ProfileImage.swift in Sources */,
 				81C1EDA72C4FF02500C8C658 /* AppNavigator.swift in Sources */,
@@ -417,6 +432,7 @@
 				81A4AABF2C4EA205008E2F8C /* BoxWithTitle.swift in Sources */,
 				81A4AAA82C4E8869008E2F8C /* TestMainView.swift in Sources */,
 				81A4AA6A2C4E20A2008E2F8C /* SceneDelegate.swift in Sources */,
+				81C1EDB22C4FFEC000C8C658 /* MbtiButton.swift in Sources */,
 				81A4AAA62C4E8684008E2F8C /* TestViewModel.swift in Sources */,
 				81A4AA992C4E836E008E2F8C /* ProfileSettingViewController.swift in Sources */,
 				81C1ED9B2C4FE0C000C8C658 /* Extension+UIView.swift in Sources */,

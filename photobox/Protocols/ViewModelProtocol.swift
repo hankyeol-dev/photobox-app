@@ -7,4 +7,6 @@
 
 import Foundation
 
-protocol ViewModelProtocol: AnyObject { }
+protocol ViewModelProtocol: AnyObject {
+    func bindingInput()
+}

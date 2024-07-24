@@ -10,15 +10,12 @@ import SnapKit
 
 final class ProfileSettingView: BaseView, MainViewProtocol {
     private let profileBackView = UIView()
-    private let profileImage = ProfileImage(for: UIImage.profile0)
+    let profileImage = ProfileImage(for: UIImage.profile0)
     let profileChangeButton = ProfileImageChangeButton()
     let profileNicknameField = ProfileNicknameField("멋진 닉네임을 만들어보세요.")
     let profileNicknameValidationLabel = ProfileNicknameValidationLabel()
     let mbtiBox = BoxWithTitle(for: "MBTI 설정하기")
     let confirmButton = CircleButton(for: "완료")
-    
-    private var mbti = [["E", "I"], ["N", "S"], ["F", "T"], ["P", "J"]].map { $0.map { MbtiButton(value: $0, isSelected: false) } }
-    private lazy var mbtiResult = mbti.map { _ in return "" }
     
     override func setSubviews() {
         super.setSubviews()
@@ -85,14 +82,10 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
         
         profileImage.setBorder(for: true)
         
-        profileNicknameValidationLabel.isEmpty()
-        
-        generateMBTI(by: mbti)
-        
         confirmButton.isCantTouched()
     }
     
-    func generateMBTI(by mbtiArray: [[MbtiButton]]) {
+    func generateMBTI(by mbtiArray: [[MbtiButton]], target: Any?, action: Selector) {
         let totalStack = UIStackView()
         totalStack.alignment = .center
         totalStack.distribution = .fillEqually
@@ -110,7 +103,7 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
                 $0.snp.makeConstraints { make in
                     make.size.equalTo(50)
                 }
-                $0.addTarget(self, action: #selector(buttonTarget), for: .touchUpInside)
+                $0.addTarget(target, action: action, for: .touchUpInside)
                 stack.addArrangedSubview($0)
             }
             stack.distribution = .fillEqually
@@ -121,48 +114,5 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
         }
         
         mbtiBox.setUpContentsView(by: totalStack)
-    }
-    
-    @objc
-    func buttonTarget(_ sender: UIButton) {
-        if let buttonTitle = sender.configuration?.title {
-            let target = mbtiResult[sender.tag]
-            var targetMbtis = mbti[sender.tag]
-            if target.isEmpty {
-                mbtiResult[sender.tag] += buttonTitle
-                
-                targetMbtis = targetMbtis.map {
-                    if $0.value == buttonTitle {
-                        return MbtiButton(value: $0.value, isSelected: true)
-                    } else {
-                        return $0
-                    }
-                }
-                mbti[sender.tag] = targetMbtis
-            } else {
-                if target == buttonTitle {
-                    mbtiResult[sender.tag] = ""
-                    targetMbtis = targetMbtis.map {
-                        if $0.value == buttonTitle {
-                            return MbtiButton(value: $0.value, isSelected: false)
-                        } else {
-                            return $0
-                        }
-                    }
-                    mbti[sender.tag] = targetMbtis
-                } else {
-                    mbtiResult[sender.tag] = buttonTitle
-                    targetMbtis = targetMbtis.map {
-                        if $0.value == buttonTitle {
-                            return MbtiButton(value: $0.value, isSelected: true)
-                        } else {
-                            return MbtiButton(value: $0.value, isSelected: false)
-                        }
-                    }
-                    mbti[sender.tag] = targetMbtis
-                }
-            }
-            generateMBTI(by: mbti)
-        }
     }
 }

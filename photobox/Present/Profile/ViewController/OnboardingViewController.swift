@@ -12,7 +12,6 @@ final class OnboardingViewController: BaseViewController<OnboardingViewModel, On
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        print("여기 들어오는데?")
         mainView.startButton.addTarget(self, action: #selector(goToProfileSettingVC), for: .touchUpInside)
     }
     
