@@ -59,6 +59,12 @@
 		81C1EDE82C50E92F00C8C658 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDE72C50E92F00C8C658 /* TopicViewController.swift */; };
 		81C1EDEB2C50E98000C8C658 /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDEA2C50E98000C8C658 /* TopicView.swift */; };
 		81C1EDED2C50EA6300C8C658 /* TopicNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EDEC2C50EA6300C8C658 /* TopicNavigator.swift */; };
+		81C1EE012C52044800C8C658 /* ImageCardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE002C52044800C8C658 /* ImageCardItem.swift */; };
+		81C1EE042C5207D600C8C658 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 81C1EE032C5207D600C8C658 /* Kingfisher */; };
+		81C1EE0A2C524E3600C8C658 /* CapsuleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE092C524E3600C8C658 /* CapsuleItem.swift */; };
+		81C1EE0C2C527FD500C8C658 /* ImageCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE0B2C527FD500C8C658 /* ImageCardInput.swift */; };
+		81C1EE0E2C52927700C8C658 /* TopicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE0D2C52927700C8C658 /* TopicTableCell.swift */; };
+		81C1EE102C52928700C8C658 /* BaseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE0F2C52928700C8C658 /* BaseTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +122,11 @@
 		81C1EDE72C50E92F00C8C658 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 		81C1EDEA2C50E98000C8C658 /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
 		81C1EDEC2C50EA6300C8C658 /* TopicNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicNavigator.swift; sourceTree = "<group>"; };
+		81C1EE002C52044800C8C658 /* ImageCardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardItem.swift; sourceTree = "<group>"; };
+		81C1EE092C524E3600C8C658 /* CapsuleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleItem.swift; sourceTree = "<group>"; };
+		81C1EE0B2C527FD500C8C658 /* ImageCardInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardInput.swift; sourceTree = "<group>"; };
+		81C1EE0D2C52927700C8C658 /* TopicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTableCell.swift; sourceTree = "<group>"; };
+		81C1EE0F2C52928700C8C658 /* BaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81C1EE042C5207D600C8C658 /* Kingfisher in Frameworks */,
 				81A4AA852C4E2ED1008E2F8C /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,6 +195,7 @@
 			children = (
 				81A4AA892C4E368E008E2F8C /* Photo.swift */,
 				81C1EDB12C4FFEC000C8C658 /* MbtiButton.swift */,
+				81C1EE0B2C527FD500C8C658 /* ImageCardInput.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,11 +238,14 @@
 				81A4AA932C4E6C14008E2F8C /* CircleButton.swift */,
 				81A4AAAC2C4E8BE2008E2F8C /* BaseView.swift */,
 				81A4AAD02C4F6DDE008E2F8C /* BaseCollectionItem.swift */,
+				81C1EE0F2C52928700C8C658 /* BaseTableCell.swift */,
 				81A4AABE2C4EA205008E2F8C /* BoxWithTitle.swift */,
 				81A4AAAE2C4E8D37008E2F8C /* ProfileImage.swift */,
 				81A4AAB32C4E95D1008E2F8C /* ProfileImageChangeButton.swift */,
 				81A4AAB52C4E9B15008E2F8C /* ProfileNicknameField.swift */,
 				81A4AAB72C4E9DAE008E2F8C /* ProfileNicknameValidationLabel.swift */,
+				81C1EE002C52044800C8C658 /* ImageCardItem.swift */,
+				81C1EE092C524E3600C8C658 /* CapsuleItem.swift */,
 			);
 			path = "Base+Reusable";
 			sourceTree = "<group>";
@@ -362,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				81C1EDEA2C50E98000C8C658 /* TopicView.swift */,
+				81C1EE0D2C52927700C8C658 /* TopicTableCell.swift */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -384,6 +401,7 @@
 			name = photobox;
 			packageProductDependencies = (
 				81A4AA842C4E2ED1008E2F8C /* SnapKit */,
+				81C1EE032C5207D600C8C658 /* Kingfisher */,
 			);
 			productName = photobox;
 			productReference = 81A4AA642C4E20A2008E2F8C /* photobox.app */;
@@ -415,6 +433,7 @@
 			mainGroup = 81A4AA5B2C4E20A2008E2F8C;
 			packageReferences = (
 				81A4AA832C4E2ED1008E2F8C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				81C1EE022C5207D600C8C658 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 81A4AA652C4E20A2008E2F8C /* Products */;
 			projectDirPath = "";
@@ -444,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81A4AA8A2C4E368E008E2F8C /* Photo.swift in Sources */,
+				81C1EE102C52928700C8C658 /* BaseTableCell.swift in Sources */,
 				81C1EDEB2C50E98000C8C658 /* TopicView.swift in Sources */,
 				81C1EDB62C5081F500C8C658 /* ProfileImageSettingViewController.swift in Sources */,
 				81A4AA6C2C4E20A2008E2F8C /* TestViewController.swift in Sources */,
@@ -451,8 +471,11 @@
 				81A4AA9F2C4E83B8008E2F8C /* BaseViewController.swift in Sources */,
 				81A4AAAD2C4E8BE2008E2F8C /* BaseView.swift in Sources */,
 				81C1EDA22C4FEDDC00C8C658 /* OnboardingViewController.swift in Sources */,
+				81C1EE012C52044800C8C658 /* ImageCardItem.swift in Sources */,
 				81C1EDAB2C4FF16300C8C658 /* MainTabbarNavigator.swift in Sources */,
 				81C1EDED2C50EA6300C8C658 /* TopicNavigator.swift in Sources */,
+				81C1EE0E2C52927700C8C658 /* TopicTableCell.swift in Sources */,
+				81C1EE0C2C527FD500C8C658 /* ImageCardInput.swift in Sources */,
 				81A4AA8D2C4E3F2A008E2F8C /* Network.swift in Sources */,
 				81A4AA9B2C4E8394008E2F8C /* ProfileSettingViewModel.swift in Sources */,
 				81C1EDE82C50E92F00C8C658 /* TopicViewController.swift in Sources */,
@@ -475,6 +498,7 @@
 				81A4AA902C4E3F5A008E2F8C /* ServiceProtocol.swift in Sources */,
 				81C1EDB42C50786600C8C658 /* Validation.swift in Sources */,
 				81A4AAB22C4E8E7D008E2F8C /* Extension+UIColor.swift in Sources */,
+				81C1EE0A2C524E3600C8C658 /* CapsuleItem.swift in Sources */,
 				81A4AAAF2C4E8D37008E2F8C /* ProfileImage.swift in Sources */,
 				81C1EDA72C4FF02500C8C658 /* AppNavigator.swift in Sources */,
 				81C1EDA42C4FEF3C00C8C658 /* NavigatingProtocol.swift in Sources */,
@@ -718,6 +742,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		81C1EE022C5207D600C8C658 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -725,6 +757,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 81A4AA832C4E2ED1008E2F8C /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		81C1EE032C5207D600C8C658 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81C1EE022C5207D600C8C658 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
