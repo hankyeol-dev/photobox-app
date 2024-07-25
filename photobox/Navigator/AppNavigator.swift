@@ -17,7 +17,36 @@ final class AppNavigator: NavigatingProtocol {
     }
     
     func start() {
-        startEntryNavigator(for: OnboardingNavigator(controller: controller))
+        let values = UserDefaultsService.shared.getValues()
+        if (values.filter { $0 != nil }).count != values.count {
+            startOnboarding()
+        } else {
+            startMainTabbar()
+        }
+        
+    }
+    
+    func startOnboarding() {
+        let navigator = OnboardingNavigator(controller: controller)
+        navigator.parentNavigator = self
+        children.removeAll()
+        children.append(navigator)
+        navigator.start()
+    }
+    
+    func startMainTabbar() {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = scene?.delegate as? SceneDelegate
+        
+        let window = sceneDelegate?.window
+        
+        let navigator = MainTabbarNavigator(controller: controller)
+        children.removeAll()
+        navigator.parentNavigator = self
+        navigator.start()
+        
+        window?.rootViewController = controller
+        window?.makeKeyAndVisible()
     }
     
     func startEntryNavigator(for navigator: NavigatingProtocol) {

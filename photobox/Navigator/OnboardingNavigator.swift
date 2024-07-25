@@ -34,7 +34,7 @@ final class OnboardingNavigator: NavigatingProtocol, StartNavigation, ProfileSet
     
     func goToProfileImageSettingView(image: ProfileImages, completionHanlder: @escaping (ProfileImages) -> Void) {
         
-        var viewModel = ProfileImageSettingViewModel(navigator: self)
+        let viewModel = ProfileImageSettingViewModel(navigator: self)
         viewModel.currentImage = image
         viewModel.sender = completionHanlder
         
@@ -43,6 +43,19 @@ final class OnboardingNavigator: NavigatingProtocol, StartNavigation, ProfileSet
         )
         
         controller.pushViewController(profileImageSettingVC, animated: true)
+    }
+    
+    func goToMainTabbar() {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = scene?.delegate as? SceneDelegate
+        
+        let window = sceneDelegate?.window
+        let navigator = MainTabbarNavigator(controller: controller)
+        
+        children.removeAll()
+        
+        window?.rootViewController = navigator.goToMainTabbar()
+        window?.makeKeyAndVisible()
     }
 
     func goBack() {

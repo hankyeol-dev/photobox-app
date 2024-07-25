@@ -18,9 +18,23 @@ final class MainTabbarNavigator: NavigatingProtocol {
         self.controller = controller
     }
     
-    func start() {
-        //
+    func start() { }
+}
+
+extension MainTabbarNavigator {
+    func goToMainTabbar() -> UITabBarController {
+        let tabbarController = UITabBarController()
+        
+        let TopicVC = UINavigationController(rootViewController: TopicViewController(viewModel: TopicViewModel(), mainView: TopicView()))
+        TopicVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tapTrendInactive, selectedImage: UIImage.tabTrend)
+        
+        let viewControllers = [TopicVC]
+        
+        tabbarController.setViewControllers(viewControllers, animated: true)
+        tabbarController.tabBar.backgroundColor = .systemBackground
+        tabbarController.tabBar.tintColor = .gray_lg
+        
+        controller.viewControllers.removeAll()
+        return tabbarController
     }
-    
-    
 }

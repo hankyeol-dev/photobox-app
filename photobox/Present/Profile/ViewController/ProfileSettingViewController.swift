@@ -53,6 +53,14 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
                 }
             }
         }
+        viewModel.profileCreationOutput.bindingWithoutInitCall { [weak self] output in
+            guard let self else { return }
+            if output {
+                self.mainView.confirmButton.isAbled()
+            } else {
+                self.mainView.confirmButton.isCantTouched()
+            }
+        }
     }
     
     override func setNavigation() {
@@ -67,6 +75,7 @@ extension ProfileSettingViewController {
     private func bindingAction() {
         mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(fieldEndEditing)))
         mainView.profileChangeButton.addTarget(self, action: #selector(goToProfileImageSelect), for: .touchUpInside)
+        mainView.confirmButton.addTarget(self, action: #selector(saveUserProfile), for: .touchUpInside)
     }
     
     @objc
@@ -88,6 +97,13 @@ extension ProfileSettingViewController {
     @objc
     func goBack() {
         viewModel.goBackInput.value = ()
+    }
+    
+    @objc
+    func saveUserProfile() {
+        if viewModel.profileCreationOutput.value {
+            viewModel.saveUserProfileInput.value = ()
+        }
     }
 }
 
