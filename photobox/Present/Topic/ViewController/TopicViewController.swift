@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast
 
 final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
         
@@ -15,7 +16,7 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
         case architect = "architecture-interior"
     }
     
-    var topicDatas: [[Photo]] = [[], [], []]
+    var topicDatas: [[SearchedPhotoOutput]] = [[], [], []]
     
     
     struct ItemModel: Hashable {
@@ -39,12 +40,18 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
     override func setNavigation() {
         super.setNavigation()
         
-//        if let userProfileImage = UserDefaultsService.shared.getValue(for: .profileImage) {
-//            let image = UIImageView(image: UIImage(named: userProfileImage))
-//            let right = UIBarButtonItem(customView: image)
-//            navigationItem.rightBarButtonItem = right
-//        }
+        if let userImage = UserDefaultsService.shared.getValue(for: .profileImage) {
+            mainView.setUserImage(for: userImage)            
+        }
+    }
+    
+    override func bindData() {
+        super.bindData()
         
+        viewModel.likeButtonOutput.bindingWithoutInitCall { [weak self] output in
+            guard let self else { return }
+            self.mainView.makeToast(output, duration: 1, position: .top)
+        }
     }
 }
 
@@ -55,13 +62,12 @@ extension TopicViewController {
     func goToProfileConfigurePage() { }
     
     private func bindingFetch() async {
-       
-        TopicViewController.SectionKind.allCases.enumerated().forEach { (idx, value) in
+        SectionKind.allCases.enumerated().forEach { (idx, value) in
             Task {
                 let output = await NetworkService.shared.fetch(by: .topic(topicName: value.rawValue), of: [Photo].self)
                 switch output {
                 case .success(let success):
-                    topicDatas[idx] = success
+                    topicDatas[idx] = success.map { SearchedPhotoOutput(id: $0.id, url: $0.urls.regular!, likes: $0.likes, isLiked: false) }
                     DispatchQueue.main.async {
                         self.mainView.topicTable.reloadSections(IndexSet(integer: 0), with: .none)
                     }
@@ -70,33 +76,6 @@ extension TopicViewController {
                 }
             }
         }
-//        
-//        let goldenOutput = await NetworkService.shared.fetch(by: .topic(topicName: "golden-hour"), of: [Photo].self)
-//        
-//        switch goldenOutput {
-//        case .success(let success):
-//            topicDatas[0] = success
-//        case .failure(let failure):
-//            print(failure)
-//        }
-//        
-//        let businessOutput = await NetworkService.shared.fetch(by: .topic(topicName: "business-work"), of: [Photo].self)
-//        switch businessOutput {
-//        case .success(let success):
-//            topicDatas[1] = success
-//        case .failure(let failure):
-//            print(failure)
-//        }
-//        
-//        let architectOutput = await NetworkService.shared.fetch(by: .topic(topicName: "architecture-interior"), of: [Photo].self)
-//        switch architectOutput {
-//        case .success(let success):
-//            topicDatas[2] = success
-//        case .failure(let failure):
-//            print(failure)
-//        }
-        
-        
     }
 }
 
@@ -107,6 +86,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         table.dataSource = self
         table.register(TopicTableCell.self, forCellReuseIdentifier: TopicTableCell.identifier)
         table.rowHeight = 300
+        table.separatorStyle = .none
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -136,9 +116,12 @@ extension TopicViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let item = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCardItem.identifier, for: indexPath) as? ImageCardItem else { return UICollectionViewCell() }
         
-        item.setUIWithData(for: topicDatas[collectionView.tag][indexPath.row])
-        item.likeButtonHandler = {
-            print("여기 잘 들어와야 하는데!!")
+        let data = topicDatas[collectionView.tag][indexPath.row]
+        
+        item.setUIWithData(for: data)
+        item.likeButtonHandler = { [weak self] in
+            guard let self else { return }
+            self.viewModel.likeButtonInput.value = data
         }
         
         return item

@@ -65,6 +65,14 @@
 		81C1EE0C2C527FD500C8C658 /* ImageCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE0B2C527FD500C8C658 /* ImageCardInput.swift */; };
 		81C1EE0E2C52927700C8C658 /* TopicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE0D2C52927700C8C658 /* TopicTableCell.swift */; };
 		81C1EE102C52928700C8C658 /* BaseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE0F2C52928700C8C658 /* BaseTableCell.swift */; };
+		81C1EE162C52A79A00C8C658 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE152C52A79A00C8C658 /* SearchViewModel.swift */; };
+		81C1EE182C52A7D100C8C658 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE172C52A7D100C8C658 /* SearchView.swift */; };
+		81C1EE1A2C52A7F100C8C658 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE192C52A7F100C8C658 /* SearchViewController.swift */; };
+		81C1EE1C2C52AEE300C8C658 /* SearchFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE1B2C52AEE300C8C658 /* SearchFilterMenu.swift */; };
+		81C1EE1F2C52B11000C8C658 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 81C1EE1E2C52B11000C8C658 /* RealmSwift */; };
+		81C1EE222C52B2CC00C8C658 /* LikedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE212C52B2CC00C8C658 /* LikedPhoto.swift */; };
+		81C1EE242C53275D00C8C658 /* FileManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE232C53275D00C8C658 /* FileManage.swift */; };
+		81C1EE272C5342BD00C8C658 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 81C1EE262C5342BD00C8C658 /* Toast */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +135,12 @@
 		81C1EE0B2C527FD500C8C658 /* ImageCardInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardInput.swift; sourceTree = "<group>"; };
 		81C1EE0D2C52927700C8C658 /* TopicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTableCell.swift; sourceTree = "<group>"; };
 		81C1EE0F2C52928700C8C658 /* BaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableCell.swift; sourceTree = "<group>"; };
+		81C1EE152C52A79A00C8C658 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		81C1EE172C52A7D100C8C658 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		81C1EE192C52A7F100C8C658 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		81C1EE1B2C52AEE300C8C658 /* SearchFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterMenu.swift; sourceTree = "<group>"; };
+		81C1EE212C52B2CC00C8C658 /* LikedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedPhoto.swift; sourceTree = "<group>"; };
+		81C1EE232C53275D00C8C658 /* FileManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +148,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81C1EE272C5342BD00C8C658 /* Toast in Frameworks */,
+				81C1EE1F2C52B11000C8C658 /* RealmSwift in Frameworks */,
 				81C1EE042C5207D600C8C658 /* Kingfisher in Frameworks */,
 				81A4AA852C4E2ED1008E2F8C /* SnapKit in Frameworks */,
 			);
@@ -196,6 +212,7 @@
 				81A4AA892C4E368E008E2F8C /* Photo.swift */,
 				81C1EDB12C4FFEC000C8C658 /* MbtiButton.swift */,
 				81C1EE0B2C527FD500C8C658 /* ImageCardInput.swift */,
+				81C1EE212C52B2CC00C8C658 /* LikedPhoto.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,6 +224,7 @@
 				81A4AAC12C4F315E008E2F8C /* Route.swift */,
 				81C1EDB32C50786600C8C658 /* Validation.swift */,
 				81C1EDE02C50E2D100C8C658 /* UserDefaults.swift */,
+				81C1EE232C53275D00C8C658 /* FileManage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -227,6 +245,7 @@
 			children = (
 				81A4AA922C4E6C08008E2F8C /* Base+Reusable */,
 				81A4AAA92C4E8B07008E2F8C /* Profile */,
+				81C1EE112C52A76600C8C658 /* Search */,
 				81C1EDE92C50E96300C8C658 /* Topic */,
 			);
 			path = Views;
@@ -246,6 +265,7 @@
 				81A4AAB72C4E9DAE008E2F8C /* ProfileNicknameValidationLabel.swift */,
 				81C1EE002C52044800C8C658 /* ImageCardItem.swift */,
 				81C1EE092C524E3600C8C658 /* CapsuleItem.swift */,
+				81C1EE1B2C52AEE300C8C658 /* SearchFilterMenu.swift */,
 			);
 			path = "Base+Reusable";
 			sourceTree = "<group>";
@@ -255,6 +275,7 @@
 			children = (
 				81A4AA9D2C4E83AF008E2F8C /* Base */,
 				81A4AA962C4E8349008E2F8C /* Profile */,
+				81C1EE122C52A77100C8C658 /* Search */,
 				81C1EDE22C50E8F500C8C658 /* Topic */,
 			);
 			path = Present;
@@ -383,6 +404,39 @@
 			path = Topic;
 			sourceTree = "<group>";
 		};
+		81C1EE112C52A76600C8C658 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE172C52A7D100C8C658 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		81C1EE122C52A77100C8C658 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE132C52A78500C8C658 /* ViewController */,
+				81C1EE142C52A78E00C8C658 /* ViewModel */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		81C1EE132C52A78500C8C658 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE192C52A7F100C8C658 /* SearchViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		81C1EE142C52A78E00C8C658 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE152C52A79A00C8C658 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -402,6 +456,8 @@
 			packageProductDependencies = (
 				81A4AA842C4E2ED1008E2F8C /* SnapKit */,
 				81C1EE032C5207D600C8C658 /* Kingfisher */,
+				81C1EE1E2C52B11000C8C658 /* RealmSwift */,
+				81C1EE262C5342BD00C8C658 /* Toast */,
 			);
 			productName = photobox;
 			productReference = 81A4AA642C4E20A2008E2F8C /* photobox.app */;
@@ -434,6 +490,8 @@
 			packageReferences = (
 				81A4AA832C4E2ED1008E2F8C /* XCRemoteSwiftPackageReference "SnapKit" */,
 				81C1EE022C5207D600C8C658 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				81C1EE1D2C52B10F00C8C658 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				81C1EE252C5342BC00C8C658 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 81A4AA652C4E20A2008E2F8C /* Products */;
 			projectDirPath = "";
@@ -465,6 +523,7 @@
 				81A4AA8A2C4E368E008E2F8C /* Photo.swift in Sources */,
 				81C1EE102C52928700C8C658 /* BaseTableCell.swift in Sources */,
 				81C1EDEB2C50E98000C8C658 /* TopicView.swift in Sources */,
+				81C1EE242C53275D00C8C658 /* FileManage.swift in Sources */,
 				81C1EDB62C5081F500C8C658 /* ProfileImageSettingViewController.swift in Sources */,
 				81A4AA6C2C4E20A2008E2F8C /* TestViewController.swift in Sources */,
 				81A4AABB2C4E9DD9008E2F8C /* Extension+UIFont.swift in Sources */,
@@ -472,6 +531,7 @@
 				81A4AAAD2C4E8BE2008E2F8C /* BaseView.swift in Sources */,
 				81C1EDA22C4FEDDC00C8C658 /* OnboardingViewController.swift in Sources */,
 				81C1EE012C52044800C8C658 /* ImageCardItem.swift in Sources */,
+				81C1EE182C52A7D100C8C658 /* SearchView.swift in Sources */,
 				81C1EDAB2C4FF16300C8C658 /* MainTabbarNavigator.swift in Sources */,
 				81C1EDED2C50EA6300C8C658 /* TopicNavigator.swift in Sources */,
 				81C1EE0E2C52927700C8C658 /* TopicTableCell.swift in Sources */,
@@ -486,6 +546,7 @@
 				81A4AAB82C4E9DAE008E2F8C /* ProfileNicknameValidationLabel.swift in Sources */,
 				81A4AACF2C4F6A36008E2F8C /* Enum+UIImage.swift in Sources */,
 				81A4AA7F2C4E20EE008E2F8C /* ENV.swift in Sources */,
+				81C1EE162C52A79A00C8C658 /* SearchViewModel.swift in Sources */,
 				81A4AAB62C4E9B15008E2F8C /* ProfileNicknameField.swift in Sources */,
 				81A4AA682C4E20A2008E2F8C /* AppDelegate.swift in Sources */,
 				81C1EDE62C50E92400C8C658 /* TopicViewModel.swift in Sources */,
@@ -508,8 +569,11 @@
 				81A4AAA82C4E8869008E2F8C /* TestMainView.swift in Sources */,
 				81A4AA6A2C4E20A2008E2F8C /* SceneDelegate.swift in Sources */,
 				81C1EDE12C50E2D100C8C658 /* UserDefaults.swift in Sources */,
+				81C1EE1C2C52AEE300C8C658 /* SearchFilterMenu.swift in Sources */,
 				81C1EDB22C4FFEC000C8C658 /* MbtiButton.swift in Sources */,
+				81C1EE222C52B2CC00C8C658 /* LikedPhoto.swift in Sources */,
 				81A4AAA62C4E8684008E2F8C /* TestViewModel.swift in Sources */,
+				81C1EE1A2C52A7F100C8C658 /* SearchViewController.swift in Sources */,
 				81A4AA992C4E836E008E2F8C /* ProfileSettingViewController.swift in Sources */,
 				81C1ED9B2C4FE0C000C8C658 /* Extension+UIView.swift in Sources */,
 				81A4AAD12C4F6DDE008E2F8C /* BaseCollectionItem.swift in Sources */,
@@ -750,6 +814,22 @@
 				minimumVersion = 7.12.0;
 			};
 		};
+		81C1EE1D2C52B10F00C8C658 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.52.2;
+			};
+		};
+		81C1EE252C5342BC00C8C658 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -762,6 +842,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 81C1EE022C5207D600C8C658 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		81C1EE1E2C52B11000C8C658 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81C1EE1D2C52B10F00C8C658 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		81C1EE262C5342BD00C8C658 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81C1EE252C5342BC00C8C658 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

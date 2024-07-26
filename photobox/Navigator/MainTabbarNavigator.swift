@@ -25,10 +25,27 @@ extension MainTabbarNavigator {
     func goToMainTabbar() -> UITabBarController {
         let tabbarController = UITabBarController()
         
-        let TopicVC = UINavigationController(rootViewController: TopicViewController(viewModel: TopicViewModel(), mainView: TopicView()))
-        TopicVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tapTrendInactive, selectedImage: UIImage.tabTrend)
+        let topicVC = UINavigationController(
+            rootViewController: TopicViewController(
+                viewModel: TopicViewModel(
+                    fileManageService:
+                        FileManageService.shared, likedPhotoRepository: LikedPhotoRepository.shared),
+                mainView: TopicView()
+            )
+        )
+        topicVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tapTrendInactive, selectedImage: UIImage.tabTrend)
         
-        let viewControllers = [TopicVC]
+        let searchVC = UINavigationController(
+            rootViewController: SearchViewController(
+                viewModel: SearchViewModel(
+                    networkManager: NetworkService.shared,
+                    repositoryManager: LikedPhotoRepository.shared),
+                mainView: SearchView()
+            )
+        )
+        searchVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tabSearchInactive, selectedImage: UIImage.tabSearch)
+        
+        let viewControllers = [searchVC]
         
         tabbarController.setViewControllers(viewControllers, animated: true)
         tabbarController.tabBar.backgroundColor = .systemBackground

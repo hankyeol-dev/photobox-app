@@ -22,8 +22,5 @@ final class TopicNavigator: NavigatingProtocol {
         showTopicVC()
     }
     
-    func showTopicVC() {
-        let vc = TopicViewController(viewModel: TopicViewModel(), mainView: TopicView())
-        controller.pushViewController(vc, animated: true)
-    }
+    func showTopicVC() {} 
 }

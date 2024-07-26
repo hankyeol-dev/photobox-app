@@ -56,3 +56,12 @@ struct PhotoStatisticsResult: Codable {
     let downloads: PhotoStatistic
     let views: PhotoStatistic
 }
+
+
+// MARK: For Ouptut
+struct SearchedPhotoOutput: Hashable {
+    let id: String
+    let url: String
+    let likes: Int
+    let isLiked: Bool
+}

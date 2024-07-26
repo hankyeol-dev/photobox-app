@@ -46,27 +46,33 @@ final class ImageCardItem: BaseCollectionItem {
         super.setUI()
         
         cardImage.contentMode = .scaleToFill
-        likeButton.setImage(.likeCircleInactive, for: .normal)
         likeButton.addTarget(self, action: #selector(onTouchLikeButton), for: .touchUpInside)
     }
     
     /// 받아야 하는 데이터
     /// 이미지, 좋아요 카운트, 좋아요 여부
-    func setUIWithData(for data: Photo) {
+    func setUIWithData(for data: SearchedPhotoOutput) {
         likeCountView.bind(
             backgroundColor: .gray_lg,
             image: UIImage(systemName: "star.fill")!.withTintColor(.systemYellow, renderingMode: .alwaysTemplate),
             text: String(data.likes.formatted())
         )
         
-        if let imageUrl = data.urls.regular {
-            cardImage.kf.setImage(with: URL(string: imageUrl))
+        cardImage.kf.setImage(with: URL(string: data.url))
+        
+        if data.isLiked {
+            isLikedImage()
+        } else {
+            isNotLikedImage()
         }
     }
     
-    func bindLikeButton() {
+    private func isLikedImage() {
         likeButton.setImage(.likeCircle, for: .normal)
-        
+    }
+    
+    private func isNotLikedImage() {
+        likeButton.setImage(.likeCircleInactive, for: .normal)
     }
     
     @objc
