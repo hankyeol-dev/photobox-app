@@ -47,6 +47,42 @@ final class NetworkService: ServiceProtocol {
         } catch {
             return .failure(.responseError)
         }
+    }
+    
+    typealias handler<T> = (Result<T, NetworkErrors>) -> ()
+    
+    func fetch<D: Decodable>(by route: RouteService, of model: D.Type, handler: @escaping handler<D>){
+        var urlComponent = URLComponents()
+        urlComponent.scheme = SCHEME
+        urlComponent.host = HOST
+        urlComponent.path = route.path
+        urlComponent.queryItems = route.queryString
         
+        guard let url = urlComponent.url else {
+            handler(.failure(.requestError))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = [HEADER_AUTHORIZATION_KEY: HEADER_AUTHORIZATION]
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            guard error == nil else {
+                handler(.failure(.requestError))
+                return
+            }
+            
+            guard let data else {
+                handler(.failure(.dataNotFound))
+                return
+            }
+           
+            do {
+                let result = try JSONDecoder().decode(D.self, from: data)
+                handler(.success(result))
+            } catch {
+                handler(.failure(.responseError))
+            }
+        }.resume()
     }
 }

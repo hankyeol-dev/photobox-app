@@ -10,20 +10,6 @@ import Toast
 
 final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
         
-    enum SectionKind: String, CaseIterable {
-        case golden = "golden-hour"
-        case business = "business-work"
-        case architect = "architecture-interior"
-    }
-    
-    var topicDatas: [[SearchedPhotoOutput]] = [[], [], []]
-    
-    
-    struct ItemModel: Hashable {
-        let urls: String
-        let likes: Int
-    }
-    
     override func loadView() {
         self.view = mainView
     }
@@ -32,9 +18,6 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
         super.viewDidLoad()
         
         setTable()
-        Task {
-            await bindingFetch()
-        }
     }
     
     override func setNavigation() {
@@ -47,8 +30,21 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
     
     override func bindData() {
         super.bindData()
-        
+        viewModel.didLoadInput.value = ()
+        viewModel.didLoadOutput.binding { [weak self] output in
+            guard let self else { return }
+            if (output.filter { $0.count != 0 }).count != 0 {
+                self.mainView.topicTable.reloadData()
+            }
+        }
         viewModel.likeButtonOutput.bindingWithoutInitCall { [weak self] output in
+            guard let self else { return }
+            self.mainView.makeToast(output, duration: 1, position: .top)
+            DispatchQueue.main.async {
+                self.mainView.topicTable.reloadData()
+            }
+        }
+        viewModel.failureOutput.bindingWithoutInitCall { [weak self] output in
             guard let self else { return }
             self.mainView.makeToast(output, duration: 1, position: .top)
         }
@@ -62,20 +58,7 @@ extension TopicViewController {
     func goToProfileConfigurePage() { }
     
     private func bindingFetch() async {
-        SectionKind.allCases.enumerated().forEach { (idx, value) in
-            Task {
-                let output = await NetworkService.shared.fetch(by: .topic(topicName: value.rawValue), of: [Photo].self)
-                switch output {
-                case .success(let success):
-                    topicDatas[idx] = success.map { SearchedPhotoOutput(id: $0.id, url: $0.urls.regular!, likes: $0.likes, isLiked: false) }
-                    DispatchQueue.main.async {
-                        self.mainView.topicTable.reloadSections(IndexSet(integer: 0), with: .none)
-                    }
-                case .failure(let failure):
-                    print(failure)
-                }
-            }
-        }
+        
     }
 }
 
@@ -90,7 +73,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SectionKind.allCases.count
+        return viewModel.didLoadOutput.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,11 +81,12 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         
         let collection = cell.sectionCollection
         
-        cell.setSectionTitle(for: SectionKind.allCases[indexPath.row].rawValue)
+        cell.setSectionTitle(for: TopicViewModel.SectionKind.allCases[indexPath.row].rawValue)
         collection.delegate = self
         collection.dataSource = self
         collection.register(ImageCardItem.self, forCellWithReuseIdentifier: ImageCardItem.identifier)
         collection.tag = indexPath.row
+        collection.reloadData()
  
         return cell
     }
@@ -110,13 +94,13 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension TopicViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return topicDatas[collectionView.tag].count
+        return viewModel.didLoadOutput.value[collectionView.tag].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let item = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCardItem.identifier, for: indexPath) as? ImageCardItem else { return UICollectionViewCell() }
         
-        let data = topicDatas[collectionView.tag][indexPath.row]
+        let data = viewModel.didLoadOutput.value[collectionView.tag][indexPath.row]
         
         item.setUIWithData(for: data)
         item.likeButtonHandler = { [weak self] in

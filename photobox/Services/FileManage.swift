@@ -29,7 +29,7 @@ final class FileManageService: ServiceProtocol {
             return .failure(.directoryError)
         }
         
-        let filePath = directory.appendingPathComponent("\(name).jpg")
+        let filePath = directory.appendingPathComponent(name, conformingTo: .jpeg)
         
         if let url = URL(string: imageURL) {
             DispatchQueue.global().async {
@@ -60,7 +60,7 @@ final class FileManageService: ServiceProtocol {
             return .failure(.directoryError)
         }
         
-        let filePath = directory.appendingPathExtension("\(name).jpg")
+        let filePath = directory.appendingPathComponent(name, conformingTo: .jpeg)
         
         if FileManager.default.fileExists(atPath: filePath.absoluteString) {
             print(filePath.absoluteString)
@@ -77,17 +77,13 @@ final class FileManageService: ServiceProtocol {
             return .failure(.directoryError)
         }
         
-        let filePath = directory.appendingPathExtension("\(name).jpg")
+        let filePath = directory.appendingPathComponent(name, conformingTo: .jpeg)
         
-        if FileManager.default.fileExists(atPath: filePath.absoluteString) {
-            do {
-                try FileManager.default.removeItem(at: filePath.absoluteURL)
-                return .success("사진 삭제 성공")
-            } catch {
-                return .failure(.deleteError)
-            }
-        } else {
-            return .failure(.directoryError)
+        do {
+            try FileManager.default.removeItem(at: filePath)
+            return .success("사진 삭제 성공")
+        } catch {
+            return .failure(.deleteError)
         }
     }
 }

@@ -20,7 +20,7 @@ final class SearchViewModel: ViewModelProtocol {
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
     var searchTextInput = Observable<String?>(nil)
-    
+
     // MARK: Output
     var didLoadOutput = Observable<[SearchedPhotoOutput]>([])
     var searchErrorOutput = Observable<String?>(nil)
@@ -86,10 +86,6 @@ final class SearchViewModel: ViewModelProtocol {
     }
     
     private func validatingIsLikedImage(by imageId: String) -> Bool {
-        if (repositoryManager?.getLikedPhotoById(for: imageId)) != nil {
-            return true
-        } else {
-            return false
-        }
+        return (repositoryManager?.getLikedPhotoById(for: imageId)) != nil
     }
 }

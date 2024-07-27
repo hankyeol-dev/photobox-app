@@ -57,6 +57,9 @@ extension SearchViewController: UICollectionViewDelegate {
     private func bindCollectionDataSource(for datas: [SearchedPhotoOutput]) {
         let cellRegister = UICollectionView.CellRegistration<ImageCardItem, SearchedPhotoOutput> { cell, indexPath, item in
             cell.setUIWithData(for: item)
+            cell.likeButtonHandler = {
+                
+            }
         }
         
         dataSource = UICollectionViewDiffableDataSource(

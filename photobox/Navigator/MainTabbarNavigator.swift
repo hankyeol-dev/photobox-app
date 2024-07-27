@@ -28,8 +28,10 @@ extension MainTabbarNavigator {
         let topicVC = UINavigationController(
             rootViewController: TopicViewController(
                 viewModel: TopicViewModel(
-                    fileManageService:
-                        FileManageService.shared, likedPhotoRepository: LikedPhotoRepository.shared),
+                    networkManager: NetworkService.shared,
+                    fileManageService: FileManageService.shared,
+                    likedPhotoRepository: LikedPhotoRepository.shared
+                ),
                 mainView: TopicView()
             )
         )
@@ -39,13 +41,14 @@ extension MainTabbarNavigator {
             rootViewController: SearchViewController(
                 viewModel: SearchViewModel(
                     networkManager: NetworkService.shared,
-                    repositoryManager: LikedPhotoRepository.shared),
+                    repositoryManager: LikedPhotoRepository.shared
+                ),
                 mainView: SearchView()
             )
         )
         searchVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tabSearchInactive, selectedImage: UIImage.tabSearch)
         
-        let viewControllers = [searchVC]
+        let viewControllers = [topicVC, searchVC]
         
         tabbarController.setViewControllers(viewControllers, animated: true)
         tabbarController.tabBar.backgroundColor = .systemBackground
