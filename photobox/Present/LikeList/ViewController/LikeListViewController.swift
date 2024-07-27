@@ -1,15 +1,16 @@
 //
-//  SearchViewController.swift
+//  LikeListViewController.swift
 //  photobox
 //
-//  Created by 강한결 on 7/26/24.
+//  Created by 강한결 on 7/27/24.
 //
 
 import UIKit
 
-final class SearchViewController: BaseViewController<SearchViewModel, SearchView> {
+final class LikeListViewController: BaseViewController<LikeListViewModel, LikeListView> {
+    
     private var dataSource: UICollectionViewDiffableDataSource<String, SearchedPhotoOutput>!
-   
+    
     override func loadView() {
         self.view = mainView
     }
@@ -17,13 +18,12 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollection()
-        setSearchController()
     }
     
     override func setNavigation() {
         super.setNavigation()
         
-        navigationItem.title = "사진 검색"
+        navigationItem.title = "좋아요한 사진 목록"
     }
     
     override func bindData() {
@@ -32,36 +32,24 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
         viewModel.didLoadInput.value = ()
         viewModel.didLoadOutput.binding { [weak self] output in
             guard let self else { return }
-            if output.count == 0 {
-                self.mainView.onSearchNoneView()
+            if output.count != 0 {
+                self.bindCollectionDataSource(for: output)
+                self.mainView.onListView()
             } else {
-                DispatchQueue.main.async {
-                    self.mainView.onSearchTableView()
-                    self.bindCollectionDataSource(for: output)
-                }
-            }
-        }
-        viewModel.searchErrorOutput.bindingWithoutInitCall { [weak self] output in
-            guard let output, let self else { return }
-            self.mainView.makeToast(output, duration: 2, position: .top)
-        }
-        viewModel.likeButtonOutput.bindingWithoutInitCall { [weak self] message in
-            guard let self else { return }
-            if message.count != 0 {
-                self.mainView.makeToast(message, duration: 1, position: .top)
+                self.mainView.onListNoneView()
             }
         }
     }
 }
 
-extension SearchViewController: UICollectionViewDelegate {
+extension LikeListViewController: UICollectionViewDelegate {
     private func setCollection() {
-        mainView.searchCollection.delegate = self
+        mainView.listCollection.delegate = self
     }
     
     private func bindCollectionDataSource(for datas: [SearchedPhotoOutput]) {
         let cellRegister = UICollectionView.CellRegistration<ImageCardItem, SearchedPhotoOutput> { cell, indexPath, item in
-            cell.setUIWithData(for: item, showLikeCount:  true)
+            cell.setUIWithData(for: item)
             cell.likeButtonHandler = { [weak self] in
                 guard let self else { return }
                 self.viewModel.likeButtonInput.value = item
@@ -69,7 +57,7 @@ extension SearchViewController: UICollectionViewDelegate {
         }
         
         dataSource = UICollectionViewDiffableDataSource(
-            collectionView: mainView.searchCollection,
+            collectionView: mainView.listCollection,
             cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
                     using: cellRegister, for: indexPath, item: item)
@@ -80,18 +68,5 @@ extension SearchViewController: UICollectionViewDelegate {
         snapshot.appendItems(datas, toSection: "main")
         
         dataSource.apply(snapshot, animatingDifferences: true)
-    }
-    
-    
-}
-
-extension SearchViewController: UISearchBarDelegate {
-    private func setSearchController() {
-        mainView.searchBar.delegate = self
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        mainView.endEditing(true)
-        viewModel.searchTextInput.value = searchBar.text
     }
 }

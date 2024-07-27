@@ -12,6 +12,7 @@ final class SearchViewModel: ViewModelProtocol {
     
     weak var networkManager: NetworkService?
     weak var repositoryManager: LikedPhotoRepository?
+    weak var fileManageService: FileManageService?
     
     // MARK: Not Observable variables
     private var total = 0
@@ -20,15 +21,18 @@ final class SearchViewModel: ViewModelProtocol {
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
     var searchTextInput = Observable<String?>(nil)
+    var likeButtonInput = Observable<SearchedPhotoOutput?>(nil)
 
     // MARK: Output
     var didLoadOutput = Observable<[SearchedPhotoOutput]>([])
+    var likeButtonOutput = Observable<String>("")
     var searchErrorOutput = Observable<String?>(nil)
     
     
-    init(networkManager: NetworkService, repositoryManager: LikedPhotoRepository) {
+    init(networkManager: NetworkService, repositoryManager: LikedPhotoRepository, fileManageService: FileManageService) {
         self.networkManager = networkManager
         self.repositoryManager = repositoryManager
+        self.fileManageService = fileManageService
         
         bindingInput()
     }
@@ -42,6 +46,10 @@ final class SearchViewModel: ViewModelProtocol {
         searchTextInput.bindingWithoutInitCall { [weak self] text in
             guard let self else { return }
             self.bindingSearchTextInput(for: text)
+        }
+        likeButtonInput.bindingWithoutInitCall { [weak self] photo in
+            guard let self else { return }
+            self.photoLikeHandler(for: photo)
         }
     }
     
@@ -87,5 +95,62 @@ final class SearchViewModel: ViewModelProtocol {
     
     private func validatingIsLikedImage(by imageId: String) -> Bool {
         return (repositoryManager?.getLikedPhotoById(for: imageId)) != nil
+    }
+    
+    private func photoLikeHandler(for photo: SearchedPhotoOutput?) {
+        guard let photo else { return }
+        
+        if photo.isLiked {
+            let removeResult = fileManageService?.removeImage(for: photo.id)
+            
+            switch removeResult {
+            case .success(_):
+                let dbResult = repositoryManager?.deleteLikedPhotoById(by: photo.id)
+                
+                switch dbResult {
+                case .success(let success):
+                    likeButtonOutput.value = success
+                    DispatchQueue.main.async {
+                        self.didLoadOutput.value = self.didLoadOutput.value.map {
+                            SearchedPhotoOutput(id: $0.id, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.id))
+                        }
+                    }
+                case .failure(let failure):
+                    searchErrorOutput.value = failure.rawValue
+                case nil:
+                    break
+                }
+            case .failure(let failure):
+                searchErrorOutput.value = failure.rawValue
+            case nil:
+                break
+            }
+            
+        } else {
+            let removeResult = fileManageService?.saveImage(for: photo.url, by: photo.id)
+            
+            switch removeResult {
+            case .success(_):
+                let dbResult = repositoryManager?.addLikedPhoto(for: LikedPhoto(id: photo.id))
+                
+                switch dbResult {
+                case .success(let success):
+                    likeButtonOutput.value = success
+                    DispatchQueue.main.async {
+                        self.didLoadOutput.value = self.didLoadOutput.value.map {
+                            SearchedPhotoOutput(id: $0.id, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.id))
+                        }
+                    }
+                case .failure(let failure):
+                    searchErrorOutput.value = failure.rawValue
+                case nil:
+                    break
+                }
+            case .failure(let failure):
+                searchErrorOutput.value = failure.rawValue
+            case nil:
+                break
+            }
+        }
     }
 }

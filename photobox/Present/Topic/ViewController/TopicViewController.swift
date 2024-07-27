@@ -102,7 +102,7 @@ extension TopicViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         let data = viewModel.didLoadOutput.value[collectionView.tag][indexPath.row]
         
-        item.setUIWithData(for: data)
+        item.setUIWithData(for: data, showLikeCount: false)
         item.likeButtonHandler = { [weak self] in
             guard let self else { return }
             self.viewModel.likeButtonInput.value = data

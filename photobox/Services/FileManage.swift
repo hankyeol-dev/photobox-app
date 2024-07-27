@@ -11,6 +11,8 @@ import Kingfisher
 final class FileManageService: ServiceProtocol {
     static let shared = FileManageService()
     
+    private let filemanager = FileManager.default
+    
     enum FileManageError: String, Error {
         case directoryError = "저장 위치를 찾을 수 없어요"
         case imageError = "이미지를 확인할 수 없어요"
@@ -23,7 +25,7 @@ final class FileManageService: ServiceProtocol {
     private init() {}
     
     func saveImage(for imageURL: String, by name: String) -> Result<String, FileManageError> {
-        guard let directory = FileManager.default.urls(
+        guard let directory = filemanager.urls(
             for: .documentDirectory,
             in: .userDomainMask).first else {
             return .failure(.directoryError)
@@ -38,7 +40,6 @@ final class FileManageService: ServiceProtocol {
                         DispatchQueue.main.async {
                             let compressedData = image.jpegData(compressionQuality: 0.5)
                             do {
-                                print(filePath)
                                 try compressedData?.write(to: filePath)
                             } catch {
                                 print("error")
@@ -53,8 +54,8 @@ final class FileManageService: ServiceProtocol {
         }
     }
     
-    func getImage(for name: String) -> Result<UIImage?, FileManageError> {
-        guard let directory = FileManager.default.urls(
+    func getImage(for name: String) -> Result<String, FileManageError> {
+        guard let directory = filemanager.urls(
             for: .documentDirectory,
             in: .userDomainMask).first else {
             return .failure(.directoryError)
@@ -62,16 +63,37 @@ final class FileManageService: ServiceProtocol {
         
         let filePath = directory.appendingPathComponent(name, conformingTo: .jpeg)
         
-        if FileManager.default.fileExists(atPath: filePath.absoluteString) {
-            print(filePath.absoluteString)
-            return .success(UIImage(contentsOfFile: filePath.absoluteString))
+        if filemanager.fileExists(atPath: filePath.path) {
+            return .success(filePath.path)
         } else {
             return .failure(.findError)
         }
     }
     
+    func getImages() -> Result<[String]?, FileManageError> {
+        guard let directory = filemanager.urls(
+            for: .documentDirectory,
+            in: .userDomainMask).first else {
+            return .failure(.directoryError)
+        }
+        print(directory)
+        
+        do {
+            let fileURLs = try filemanager.contentsOfDirectory(
+                at: directory, includingPropertiesForKeys: nil
+            )
+            let imageURLs = fileURLs.filter { $0.pathExtension.lowercased() == "jpeg" }
+            let images = imageURLs.compactMap { $0.path }
+
+            return .success(images)
+        
+        } catch {
+            return .failure(.findError)
+        }
+    }
+    
     func removeImage(for name: String) -> Result<String, FileManageError> {
-        guard let directory = FileManager.default.urls(
+        guard let directory = filemanager.urls(
             for: .documentDirectory,
             in: .userDomainMask).first else {
             return .failure(.directoryError)

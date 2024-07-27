@@ -19,7 +19,7 @@ final class ImageCardItem: BaseCollectionItem {
     
     override func setSubviews() {
         super.setSubviews()
-        [cardImage, likeCountView, likeButton].forEach {
+        [cardImage, likeButton].forEach {
             contentView.addSubview($0)
         }
     }
@@ -30,11 +30,7 @@ final class ImageCardItem: BaseCollectionItem {
         cardImage.snp.makeConstraints { make in
             make.edges.equalTo(guide)
         }
-        likeCountView.snp.makeConstraints { make in
-            make.leading.bottom.equalTo(guide).inset(12)
-            make.height.equalTo(32)
-            make.width.equalTo(100)
-        }
+        
         likeButton.snp.makeConstraints { make in
             make.trailing.bottom.equalTo(guide).inset(12)
             make.size.equalTo(32)
@@ -51,14 +47,35 @@ final class ImageCardItem: BaseCollectionItem {
     
     /// 받아야 하는 데이터
     /// 이미지, 좋아요 카운트, 좋아요 여부
-    func setUIWithData(for data: SearchedPhotoOutput) {
-        likeCountView.bind(
-            backgroundColor: .gray_lg,
-            image: UIImage(systemName: "star.fill")!.withTintColor(.systemYellow, renderingMode: .alwaysTemplate),
-            text: String(data.likes.formatted())
-        )
+    func setUIWithData(for data: SearchedPhotoOutput, showLikeCount: Bool) {
+        
+        if showLikeCount {
+            contentView.addSubview(likeCountView)
+            
+            likeCountView.snp.makeConstraints { make in
+                make.leading.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(12)
+                make.height.equalTo(32)
+                make.width.equalTo(100)
+            }
+            
+            likeCountView.bind(
+                backgroundColor: .gray_lg,
+                image: UIImage(systemName: "star.fill")!.withTintColor(.systemYellow, renderingMode: .alwaysTemplate),
+                text: String(data.likes.formatted())
+            )
+        }
         
         cardImage.kf.setImage(with: URL(string: data.url))
+        
+        if data.isLiked {
+            isLikedImage()
+        } else {
+            isNotLikedImage()
+        }
+    }
+    
+    func setUIWithData(for data: SearchedPhotoOutput) {
+        cardImage.image = UIImage(contentsOfFile: data.url)
         
         if data.isLiked {
             isLikedImage()

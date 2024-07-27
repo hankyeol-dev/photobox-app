@@ -88,7 +88,7 @@ final class TopicViewModel: ViewModelProtocol {
             let removeResult = fileManageService?.removeImage(for: photo.id)
             
             switch removeResult {
-            case .success(let success):
+            case .success(_):
                 let dbResult = likedPhotoRepository?.deleteLikedPhotoById(by: photo.id)
                 
                 switch dbResult {

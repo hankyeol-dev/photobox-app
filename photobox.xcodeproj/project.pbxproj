@@ -73,6 +73,9 @@
 		81C1EE222C52B2CC00C8C658 /* LikedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE212C52B2CC00C8C658 /* LikedPhoto.swift */; };
 		81C1EE242C53275D00C8C658 /* FileManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE232C53275D00C8C658 /* FileManage.swift */; };
 		81C1EE272C5342BD00C8C658 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 81C1EE262C5342BD00C8C658 /* Toast */; };
+		81C1EE2B2C5494A700C8C658 /* LikeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE2A2C5494A700C8C658 /* LikeListView.swift */; };
+		81C1EE2F2C5494D600C8C658 /* LikeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE2E2C5494D600C8C658 /* LikeListViewController.swift */; };
+		81C1EE312C54950500C8C658 /* LikeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE302C54950500C8C658 /* LikeListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +144,9 @@
 		81C1EE1B2C52AEE300C8C658 /* SearchFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterMenu.swift; sourceTree = "<group>"; };
 		81C1EE212C52B2CC00C8C658 /* LikedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedPhoto.swift; sourceTree = "<group>"; };
 		81C1EE232C53275D00C8C658 /* FileManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManage.swift; sourceTree = "<group>"; };
+		81C1EE2A2C5494A700C8C658 /* LikeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListView.swift; sourceTree = "<group>"; };
+		81C1EE2E2C5494D600C8C658 /* LikeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewController.swift; sourceTree = "<group>"; };
+		81C1EE302C54950500C8C658 /* LikeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +252,7 @@
 				81A4AA922C4E6C08008E2F8C /* Base+Reusable */,
 				81A4AAA92C4E8B07008E2F8C /* Profile */,
 				81C1EE112C52A76600C8C658 /* Search */,
+				81C1EE292C54949900C8C658 /* LikeList */,
 				81C1EDE92C50E96300C8C658 /* Topic */,
 			);
 			path = Views;
@@ -276,6 +283,7 @@
 				81A4AA9D2C4E83AF008E2F8C /* Base */,
 				81A4AA962C4E8349008E2F8C /* Profile */,
 				81C1EE122C52A77100C8C658 /* Search */,
+				81C1EE282C54948F00C8C658 /* LikeList */,
 				81C1EDE22C50E8F500C8C658 /* Topic */,
 			);
 			path = Present;
@@ -437,6 +445,39 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		81C1EE282C54948F00C8C658 /* LikeList */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE2D2C5494CE00C8C658 /* ViewController */,
+				81C1EE2C2C5494C500C8C658 /* ViewModel */,
+			);
+			path = LikeList;
+			sourceTree = "<group>";
+		};
+		81C1EE292C54949900C8C658 /* LikeList */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE2A2C5494A700C8C658 /* LikeListView.swift */,
+			);
+			path = LikeList;
+			sourceTree = "<group>";
+		};
+		81C1EE2C2C5494C500C8C658 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE302C54950500C8C658 /* LikeListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		81C1EE2D2C5494CE00C8C658 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE2E2C5494D600C8C658 /* LikeListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -547,8 +588,10 @@
 				81A4AACF2C4F6A36008E2F8C /* Enum+UIImage.swift in Sources */,
 				81A4AA7F2C4E20EE008E2F8C /* ENV.swift in Sources */,
 				81C1EE162C52A79A00C8C658 /* SearchViewModel.swift in Sources */,
+				81C1EE2F2C5494D600C8C658 /* LikeListViewController.swift in Sources */,
 				81A4AAB62C4E9B15008E2F8C /* ProfileNicknameField.swift in Sources */,
 				81A4AA682C4E20A2008E2F8C /* AppDelegate.swift in Sources */,
+				81C1EE2B2C5494A700C8C658 /* LikeListView.swift in Sources */,
 				81C1EDE62C50E92400C8C658 /* TopicViewModel.swift in Sources */,
 				81A4AAAB2C4E8BCF008E2F8C /* ProfileSettingView.swift in Sources */,
 				81A4AAA12C4E8521008E2F8C /* ViewModelProtocol.swift in Sources */,
@@ -561,6 +604,7 @@
 				81A4AAB22C4E8E7D008E2F8C /* Extension+UIColor.swift in Sources */,
 				81C1EE0A2C524E3600C8C658 /* CapsuleItem.swift in Sources */,
 				81A4AAAF2C4E8D37008E2F8C /* ProfileImage.swift in Sources */,
+				81C1EE312C54950500C8C658 /* LikeListViewModel.swift in Sources */,
 				81C1EDA72C4FF02500C8C658 /* AppNavigator.swift in Sources */,
 				81C1EDA42C4FEF3C00C8C658 /* NavigatingProtocol.swift in Sources */,
 				81A4AAC22C4F315E008E2F8C /* Route.swift in Sources */,
