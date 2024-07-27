@@ -82,7 +82,23 @@ extension SearchViewController: UICollectionViewDelegate {
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let data = dataSource.itemIdentifier(for: indexPath) else { return }
+        
+        let vm = DetailViewModel(
+            networkManager: NetworkService.shared,
+            repository: LikedPhotoRepository.shared,
+            fileManager: FileManageService.shared,
+            navigator: MainTabbarNavigator(controller: UINavigationController())
+        )
+        vm.didLoadInput.value = data.photoId
+        
+        let mv = DetailView()
+        
+        let detailVC = DetailViewController(viewModel: vm, mainView: mv)
+        
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {

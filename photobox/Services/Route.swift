@@ -35,8 +35,8 @@ enum RouteService {
             return "/topics/\(topicName)/photos"
         case .search:
             return "/search/photos"
-        case .detail:
-            return "/photos"
+        case .detail(let id):
+            return "/photos/\(id)"
         case .statistic(let id):
             return "/photos/\(id)/statistics"
         }
@@ -57,10 +57,6 @@ enum RouteService {
                 URLQueryItem(name: "per_page", value: String(per_page)),
                 URLQueryItem(name: "order_by", value: order_by.rawValue),
                 URLQueryItem(name: "color_by", value: color_by.rawValue)
-            ]
-        case .detail(let id):
-            return [
-                URLQueryItem(name: "id", value: id)
             ]
         default:
             return []

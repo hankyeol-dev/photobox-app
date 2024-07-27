@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol GoBackNavigation: AnyObject {
-    func goBack()
-}
-
 final class ProfileImageSettingViewModel: ViewModelProtocol {
     
     weak var navigator: GoBackNavigation?

@@ -76,6 +76,11 @@
 		81C1EE2B2C5494A700C8C658 /* LikeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE2A2C5494A700C8C658 /* LikeListView.swift */; };
 		81C1EE2F2C5494D600C8C658 /* LikeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE2E2C5494D600C8C658 /* LikeListViewController.swift */; };
 		81C1EE312C54950500C8C658 /* LikeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE302C54950500C8C658 /* LikeListViewModel.swift */; };
+		81C1EE372C54A84800C8C658 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE362C54A84800C8C658 /* DetailView.swift */; };
+		81C1EE3A2C54A87300C8C658 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE392C54A87300C8C658 /* DetailViewController.swift */; };
+		81C1EE3C2C54A87C00C8C658 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE3B2C54A87C00C8C658 /* DetailViewModel.swift */; };
+		81C1EE3E2C54BFDC00C8C658 /* DetailOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE3D2C54BFDC00C8C658 /* DetailOwnerView.swift */; };
+		81C1EE402C54CD1B00C8C658 /* DetailInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE3F2C54CD1B00C8C658 /* DetailInfoItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +152,11 @@
 		81C1EE2A2C5494A700C8C658 /* LikeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListView.swift; sourceTree = "<group>"; };
 		81C1EE2E2C5494D600C8C658 /* LikeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewController.swift; sourceTree = "<group>"; };
 		81C1EE302C54950500C8C658 /* LikeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewModel.swift; sourceTree = "<group>"; };
+		81C1EE362C54A84800C8C658 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		81C1EE392C54A87300C8C658 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		81C1EE3B2C54A87C00C8C658 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		81C1EE3D2C54BFDC00C8C658 /* DetailOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOwnerView.swift; sourceTree = "<group>"; };
+		81C1EE3F2C54CD1B00C8C658 /* DetailInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +264,7 @@
 				81C1EE112C52A76600C8C658 /* Search */,
 				81C1EE292C54949900C8C658 /* LikeList */,
 				81C1EDE92C50E96300C8C658 /* Topic */,
+				81C1EE332C54A81800C8C658 /* Detail */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,6 +296,7 @@
 				81C1EE122C52A77100C8C658 /* Search */,
 				81C1EE282C54948F00C8C658 /* LikeList */,
 				81C1EDE22C50E8F500C8C658 /* Topic */,
+				81C1EE322C54A81200C8C658 /* Detail */,
 			);
 			path = Present;
 			sourceTree = "<group>";
@@ -478,6 +490,41 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		81C1EE322C54A81200C8C658 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE352C54A83700C8C658 /* ViewController */,
+				81C1EE342C54A82C00C8C658 /* ViewModel */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		81C1EE332C54A81800C8C658 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE362C54A84800C8C658 /* DetailView.swift */,
+				81C1EE3D2C54BFDC00C8C658 /* DetailOwnerView.swift */,
+				81C1EE3F2C54CD1B00C8C658 /* DetailInfoItem.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		81C1EE342C54A82C00C8C658 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE3B2C54A87C00C8C658 /* DetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		81C1EE352C54A83700C8C658 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE392C54A87300C8C658 /* DetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -568,6 +615,7 @@
 				81C1EDB62C5081F500C8C658 /* ProfileImageSettingViewController.swift in Sources */,
 				81A4AA6C2C4E20A2008E2F8C /* TestViewController.swift in Sources */,
 				81A4AABB2C4E9DD9008E2F8C /* Extension+UIFont.swift in Sources */,
+				81C1EE3A2C54A87300C8C658 /* DetailViewController.swift in Sources */,
 				81A4AA9F2C4E83B8008E2F8C /* BaseViewController.swift in Sources */,
 				81A4AAAD2C4E8BE2008E2F8C /* BaseView.swift in Sources */,
 				81C1EDA22C4FEDDC00C8C658 /* OnboardingViewController.swift in Sources */,
@@ -605,9 +653,12 @@
 				81C1EE0A2C524E3600C8C658 /* CapsuleItem.swift in Sources */,
 				81A4AAAF2C4E8D37008E2F8C /* ProfileImage.swift in Sources */,
 				81C1EE312C54950500C8C658 /* LikeListViewModel.swift in Sources */,
+				81C1EE3E2C54BFDC00C8C658 /* DetailOwnerView.swift in Sources */,
 				81C1EDA72C4FF02500C8C658 /* AppNavigator.swift in Sources */,
 				81C1EDA42C4FEF3C00C8C658 /* NavigatingProtocol.swift in Sources */,
 				81A4AAC22C4F315E008E2F8C /* Route.swift in Sources */,
+				81C1EE3C2C54A87C00C8C658 /* DetailViewModel.swift in Sources */,
+				81C1EE402C54CD1B00C8C658 /* DetailInfoItem.swift in Sources */,
 				81C1EDA92C4FF0C800C8C658 /* OnboardingNavigator.swift in Sources */,
 				81A4AABF2C4EA205008E2F8C /* BoxWithTitle.swift in Sources */,
 				81A4AAA82C4E8869008E2F8C /* TestMainView.swift in Sources */,
@@ -622,6 +673,7 @@
 				81C1ED9B2C4FE0C000C8C658 /* Extension+UIView.swift in Sources */,
 				81A4AAD12C4F6DDE008E2F8C /* BaseCollectionItem.swift in Sources */,
 				81A4AAB42C4E95D1008E2F8C /* ProfileImageChangeButton.swift in Sources */,
+				81C1EE372C54A84800C8C658 /* DetailView.swift in Sources */,
 				81A4AABD2C4E9E86008E2F8C /* Enum+Text.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

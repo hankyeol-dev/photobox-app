@@ -26,6 +26,24 @@ struct Photo: Codable {
     let urls: PhotoUrls
     let user: PhotoOwner
     let likes: Int
+    let views: Int?
+    let downloads: Int?
+    
+    var formattedDate: String {
+        if let dateArray = created_at.components(separatedBy: "T").first {
+            return (dateArray.split(separator: "-").enumerated().map { idx, value in
+                if idx == 0 {
+                    return value + "년 "
+                } else if idx == 1 {
+                    return value + "월 "
+                } else {
+                    return value + "일"
+                }
+            }).joined() + " 게시됨"
+        } else {
+            return ""
+        }
+    }
 }
 
 
@@ -59,9 +77,15 @@ struct PhotoStatisticsResult: Codable {
 
 
 // MARK: For Ouptut
-struct SearchedPhotoOutput: Hashable {
-    let id: String
+struct SearchedPhotoOutput: Hashable, Identifiable {
+    let id = UUID()
+    let photoId: String
     let url: String
     let likes: Int
     let isLiked: Bool
+}
+
+struct DetailOutput {
+    let photo: Photo
+    var isLiked: Bool
 }

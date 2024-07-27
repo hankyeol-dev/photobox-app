@@ -13,6 +13,7 @@ final class SearchViewModel: ViewModelProtocol {
     weak var networkManager: NetworkService?
     weak var repositoryManager: LikedPhotoRepository?
     weak var fileManageService: FileManageService?
+    weak var navigator: DetailViewNavigatingProtocol?
     
     // MARK: Not Observable variables
     private var total = 0
@@ -29,10 +30,16 @@ final class SearchViewModel: ViewModelProtocol {
     var searchErrorOutput = Observable<String?>(nil)
     
     
-    init(networkManager: NetworkService, repositoryManager: LikedPhotoRepository, fileManageService: FileManageService) {
+    init(
+        networkManager: NetworkService,
+        repositoryManager: LikedPhotoRepository,
+        fileManageService: FileManageService,
+        navigator: DetailViewNavigatingProtocol
+    ) {
         self.networkManager = networkManager
         self.repositoryManager = repositoryManager
         self.fileManageService = fileManageService
+        self.navigator = navigator
         
         bindingInput()
     }
@@ -75,7 +82,7 @@ final class SearchViewModel: ViewModelProtocol {
                         if let url = $0.urls.regular {
                             self.didLoadOutput.value.append(
                                 SearchedPhotoOutput(
-                                    id: $0.id,
+                                    photoId: $0.id,
                                     url: url,
                                     likes: $0.likes,
                                     isLiked: self.validatingIsLikedImage(by: $0.id)
@@ -101,18 +108,18 @@ final class SearchViewModel: ViewModelProtocol {
         guard let photo else { return }
         
         if photo.isLiked {
-            let removeResult = fileManageService?.removeImage(for: photo.id)
+            let removeResult = fileManageService?.removeImage(for: photo.photoId)
             
             switch removeResult {
             case .success(_):
-                let dbResult = repositoryManager?.deleteLikedPhotoById(by: photo.id)
+                let dbResult = repositoryManager?.deleteLikedPhotoById(by: photo.photoId)
                 
                 switch dbResult {
                 case .success(let success):
                     likeButtonOutput.value = success
                     DispatchQueue.main.async {
                         self.didLoadOutput.value = self.didLoadOutput.value.map {
-                            SearchedPhotoOutput(id: $0.id, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.id))
+                            SearchedPhotoOutput(photoId: $0.photoId, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.photoId))
                         }
                     }
                 case .failure(let failure):
@@ -127,18 +134,18 @@ final class SearchViewModel: ViewModelProtocol {
             }
             
         } else {
-            let removeResult = fileManageService?.saveImage(for: photo.url, by: photo.id)
+            let saveResult = fileManageService?.saveImage(for: photo.url, by: photo.photoId)
             
-            switch removeResult {
+            switch saveResult {
             case .success(_):
-                let dbResult = repositoryManager?.addLikedPhoto(for: LikedPhoto(id: photo.id))
+                let dbResult = repositoryManager?.addLikedPhoto(for: LikedPhoto(id: photo.photoId))
                 
                 switch dbResult {
                 case .success(let success):
                     likeButtonOutput.value = success
                     DispatchQueue.main.async {
                         self.didLoadOutput.value = self.didLoadOutput.value.map {
-                            SearchedPhotoOutput(id: $0.id, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.id))
+                            SearchedPhotoOutput(photoId: $0.photoId, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.photoId))
                         }
                     }
                 case .failure(let failure):

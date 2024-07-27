@@ -12,6 +12,7 @@ final class TopicViewModel: ViewModelProtocol {
     weak var networkManager: NetworkService?
     weak var fileManageService: FileManageService?
     weak var likedPhotoRepository: LikedPhotoRepository?
+    weak var navigator: DetailViewNavigatingProtocol?
     
     enum SectionKind: String, CaseIterable {
         case golden = "golden-hour"
@@ -28,10 +29,16 @@ final class TopicViewModel: ViewModelProtocol {
     var likeButtonOutput = Observable<String>("")
     var failureOutput = Observable<String>("")
     
-    init(networkManager: NetworkService, fileManageService: FileManageService, likedPhotoRepository: LikedPhotoRepository) {
+    init(
+        networkManager: NetworkService,
+        fileManageService: FileManageService,
+        likedPhotoRepository: LikedPhotoRepository,
+        navigator: DetailViewNavigatingProtocol
+    ) {
         self.networkManager = networkManager
         self.fileManageService = fileManageService
         self.likedPhotoRepository = likedPhotoRepository
+        self.navigator = navigator
         
         bindingInput()
     }
@@ -46,6 +53,7 @@ final class TopicViewModel: ViewModelProtocol {
             guard let self else { return }
             self.photoLikeHandler(for: photo)
         }
+
     }
     
     private func bindingDidLoadOutput() {
@@ -64,7 +72,7 @@ final class TopicViewModel: ViewModelProtocol {
                         DispatchQueue.main.async {
                             self.didLoadOutput.value[idx] = result.map {
                                 SearchedPhotoOutput(
-                                    id: $0.id, url: $0.urls.regular!, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.id)
+                                    photoId: $0.id, url: $0.urls.regular!, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.id)
                                 )
                             }
                         }
@@ -85,11 +93,11 @@ final class TopicViewModel: ViewModelProtocol {
         if photo.isLiked {
             // 이미 좋아요된 사진이라면 -> 좋아요 취소
             // 사진을 먼저 삭제
-            let removeResult = fileManageService?.removeImage(for: photo.id)
+            let removeResult = fileManageService?.removeImage(for: photo.photoId)
             
             switch removeResult {
             case .success(_):
-                let dbResult = likedPhotoRepository?.deleteLikedPhotoById(by: photo.id)
+                let dbResult = likedPhotoRepository?.deleteLikedPhotoById(by: photo.photoId)
                 
                 switch dbResult {
                 case .success(let success):
@@ -97,7 +105,7 @@ final class TopicViewModel: ViewModelProtocol {
                     DispatchQueue.main.async {
                         self.didLoadOutput.value = self.didLoadOutput.value.map {
                             $0.map {
-                                SearchedPhotoOutput(id: $0.id, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.id))
+                                SearchedPhotoOutput(photoId: $0.photoId, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.photoId))
                             }
                         }
                     }
@@ -115,11 +123,11 @@ final class TopicViewModel: ViewModelProtocol {
         } else {
             // 좋아요 되지 않은 사진이라면,
             // 사진을 먼저 저장
-            let saveResult = fileManageService?.saveImage(for: photo.url, by: photo.id)
+            let saveResult = fileManageService?.saveImage(for: photo.url, by: photo.photoId)
             
             switch saveResult {
             case .success(_):
-                let dbResult =  likedPhotoRepository?.addLikedPhoto(for: LikedPhoto(id: photo.id))
+                let dbResult =  likedPhotoRepository?.addLikedPhoto(for: LikedPhoto(id: photo.photoId))
                 
                 switch dbResult {
                 case .success(let success):
@@ -127,7 +135,7 @@ final class TopicViewModel: ViewModelProtocol {
                     DispatchQueue.main.async {
                         self.didLoadOutput.value = self.didLoadOutput.value.map {
                             $0.map {
-                                SearchedPhotoOutput(id: $0.id, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.id))
+                                SearchedPhotoOutput(photoId: $0.photoId, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.photoId))
                             }
                         }
                     }
@@ -151,5 +159,4 @@ final class TopicViewModel: ViewModelProtocol {
     private func validatingIsLikedImage(by imageId: String) -> Bool {
         return (likedPhotoRepository?.getLikedPhotoById(for: imageId)) != nil
     }
-    
 }

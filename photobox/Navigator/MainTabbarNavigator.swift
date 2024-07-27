@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainTabbarNavigator: NavigatingProtocol {
+final class MainTabbarNavigator: NavigatingProtocol  {
     var parentNavigator: (any NavigatingProtocol)?
     
     var children: [any NavigatingProtocol] = []
@@ -21,7 +21,7 @@ final class MainTabbarNavigator: NavigatingProtocol {
     func start() { }
 }
 
-extension MainTabbarNavigator {
+extension MainTabbarNavigator: GoBackNavigation, DetailViewNavigatingProtocol {
     func goToMainTabbar() -> UITabBarController {
         let tabbarController = UITabBarController()
         
@@ -30,7 +30,8 @@ extension MainTabbarNavigator {
                 viewModel: TopicViewModel(
                     networkManager: NetworkService.shared,
                     fileManageService: FileManageService.shared,
-                    likedPhotoRepository: LikedPhotoRepository.shared
+                    likedPhotoRepository: LikedPhotoRepository.shared,
+                    navigator: self
                 ),
                 mainView: TopicView()
             )
@@ -42,7 +43,8 @@ extension MainTabbarNavigator {
                 viewModel: SearchViewModel(
                     networkManager: NetworkService.shared,
                     repositoryManager: LikedPhotoRepository.shared,
-                    fileManageService: FileManageService.shared
+                    fileManageService: FileManageService.shared,
+                    navigator: MainTabbarNavigator(controller: controller)
                 ),
                 mainView: SearchView()
             )
@@ -53,7 +55,8 @@ extension MainTabbarNavigator {
             rootViewController: LikeListViewController(
                 viewModel: LikeListViewModel(
                     repository: LikedPhotoRepository.shared,
-                    filemanger: FileManageService.shared
+                    filemanger: FileManageService.shared,
+                    navigator: self
                 ),
                 mainView: LikeListView()
             )
@@ -61,7 +64,9 @@ extension MainTabbarNavigator {
         likeListVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tabLikeInactive, selectedImage: UIImage.tabLike)
         
         
-        let viewControllers = [likeListVC]
+        
+        
+        let viewControllers = [topicVC, searchVC, likeListVC]
         
         tabbarController.setViewControllers(viewControllers, animated: true)
         tabbarController.tabBar.backgroundColor = .systemBackground
@@ -69,5 +74,27 @@ extension MainTabbarNavigator {
         
         controller.viewControllers.removeAll()
         return tabbarController
+    }
+    
+    func goBack() {
+        print("여긴 잘 들어와!")
+        controller.popViewController(animated: true)
+    }
+    
+    func goToDetail(by photoId: String) {
+        print(photoId)
+        let viewModel = DetailViewModel(
+            networkManager: NetworkService.shared,
+            repository: LikedPhotoRepository.shared,
+            fileManager: FileManageService.shared,
+            navigator: self
+        )
+        viewModel.didLoadInput.value = photoId
+        
+        let mainView = DetailView()
+        
+        let detailVC = DetailViewController(viewModel: viewModel, mainView: mainView)
+        
+        controller.pushViewController(detailVC, animated: true)
     }
 }

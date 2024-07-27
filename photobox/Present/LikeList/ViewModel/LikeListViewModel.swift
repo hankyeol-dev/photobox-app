@@ -11,6 +11,7 @@ final class LikeListViewModel: ViewModelProtocol {
     
     weak var repository: LikedPhotoRepository?
     weak var filemanger: FileManageService?
+    weak var navigator: DetailViewNavigatingProtocol?
     
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
@@ -24,10 +25,12 @@ final class LikeListViewModel: ViewModelProtocol {
     
     init(
         repository: LikedPhotoRepository,
-        filemanger: FileManageService
+        filemanger: FileManageService,
+        navigator: DetailViewNavigatingProtocol
     ) {
         self.repository = repository
         self.filemanger = filemanger
+        self.navigator = navigator
         
         bindingInput()
     }
@@ -48,12 +51,12 @@ final class LikeListViewModel: ViewModelProtocol {
         let likedRecords = repository?.getLikedPhotos()
         
         if let likedRecords, likedRecords.count != 0 {
+            self.didLoadOutput.value = []
             likedRecords.forEach {
                 let savedImageResult = filemanger?.getImage(for: $0.id)
                 switch savedImageResult {
                 case .success(let success):
-                    
-                    self.didLoadOutput.value.append(SearchedPhotoOutput(id: $0.id, url: success, likes: 0, isLiked: true))
+                    self.didLoadOutput.value.append(SearchedPhotoOutput(photoId: $0.id, url: success, likes: 0, isLiked: true))
                 case .failure(let failure):
                     self.failureOutput.value = failure.rawValue
                 case .none:
@@ -66,12 +69,12 @@ final class LikeListViewModel: ViewModelProtocol {
     private func photoLikeHandler(for photo: SearchedPhotoOutput?) {
         guard let photo else { return }
         
-        let removeResult = filemanger?.removeImage(for: photo.id)
+        let removeResult = filemanger?.removeImage(for: photo.photoId)
         
         switch removeResult {
         case .success(_):
             DispatchQueue.main.async {
-                let dbResult = self.repository?.deleteLikedPhotoById(by: photo.id)
+                let dbResult = self.repository?.deleteLikedPhotoById(by: photo.photoId)
                 
                 switch dbResult {
                 case .success(let success):
@@ -88,10 +91,5 @@ final class LikeListViewModel: ViewModelProtocol {
         case nil:
             break
         }
-    }
-    
-    
-    private func validatingIsLikedImage(by imageId: String) -> Bool {
-        return (repository?.getLikedPhotoById(for: imageId)) != nil
     }
 }

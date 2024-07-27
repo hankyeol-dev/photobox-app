@@ -111,5 +111,20 @@ extension TopicViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return item
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+                
+        let vm = DetailViewModel(
+            networkManager: NetworkService.shared,
+            repository: LikedPhotoRepository.shared,
+            fileManager: FileManageService.shared,
+            navigator: MainTabbarNavigator(controller: UINavigationController())
+        )
+        vm.didLoadInput.value = viewModel.didLoadOutput.value[collectionView.tag][indexPath.row].photoId
+        
+        let mv = DetailView()
+        
+        let detailVC = DetailViewController(viewModel: vm, mainView: mv)
+        
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }

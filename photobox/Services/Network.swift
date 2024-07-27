@@ -51,7 +51,7 @@ final class NetworkService: ServiceProtocol {
     
     typealias handler<T> = (Result<T, NetworkErrors>) -> ()
     
-    func fetch<D: Decodable>(by route: RouteService, of model: D.Type, handler: @escaping handler<D>){
+    func fetch<D: Decodable>(by route: RouteService, of model: D.Type, handler: @escaping handler<D>) {
         var urlComponent = URLComponents()
         urlComponent.scheme = SCHEME
         urlComponent.host = HOST

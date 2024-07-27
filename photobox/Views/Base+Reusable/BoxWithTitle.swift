@@ -36,7 +36,7 @@ final class BoxWithTitle: BaseView {
         }
         
         contentsView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(self.safeAreaLayoutGuide).inset(8)
+            make.verticalEdges.equalTo(self.safeAreaLayoutGuide).inset(16)
             make.leading.equalTo(titleLabel.snp.trailing).offset(4)
             make.trailing.equalTo(self.safeAreaLayoutGuide).inset(16)
         }

@@ -25,3 +25,11 @@ extension NavigatingProtocol {
         }
     }
 }
+
+protocol GoBackNavigation: AnyObject {
+    func goBack()
+}
+
+protocol DetailViewNavigatingProtocol: AnyObject {
+    func goToDetail(by photoId: String)
+}
