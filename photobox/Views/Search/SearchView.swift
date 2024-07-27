@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class SearchView: BaseView, MainViewProtocol {
+    var sender: ((OrderBy) -> Void)?
+    
     let searchBar = UISearchBar()
     let searchFilterMenu = SearchFilterMenu()
     lazy var searchCollection = UICollectionView(frame: .zero, collectionViewLayout: setCollectionLayout())
@@ -34,6 +36,8 @@ final class SearchView: BaseView, MainViewProtocol {
         
         searchBar.placeholder = "사진을 검색해보세요."
         searchBar.searchBarStyle = .minimal
+        
+        setPullDownButton()
     }
     
     private func setCollectionLayout() -> UICollectionViewCompositionalLayout {
@@ -80,6 +84,21 @@ final class SearchView: BaseView, MainViewProtocol {
         searchNoneView.text = "검색 결과가 없습니다."
         searchNoneView.textAlignment = .center
         searchNoneView.font = .systemFont(ofSize: 16, weight: .semibold)
+    }
+    
+    
+    private func setPullDownButton() {
+        
+        let menus = OrderBy.allCases.map { order in
+            UIAction(title: order.byKorean) { [weak self] action in
+                guard let self else { return }
+                self.searchFilterMenu.sortButton.configuration?.title = order.byKorean
+                self.sender?(order)
+            }
+        }
+       
+        searchFilterMenu.sortButton.menu = UIMenu(
+            identifier: nil, options: .singleSelection, children: menus)
     }
 }
 

@@ -9,7 +9,6 @@ import Foundation
 
 final class ProfileImageSettingViewModel: ViewModelProtocol {
     
-    weak var navigator: GoBackNavigation?
     var sender: ((ProfileImages) -> Void)?
     
     // MARK: NotObservableValue
@@ -17,15 +16,12 @@ final class ProfileImageSettingViewModel: ViewModelProtocol {
     
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
-    var goBackInput = Observable<Void?>(nil)
     var collecionItemSelectInput = Observable<ProfileImages?>(nil)
     
     // MARK: Output
     var didLoadOutput = Observable<ProfileImages?>(nil)
     
-    init(navigator: GoBackNavigation) {
-        self.navigator = navigator
-        
+    init() {        
         bindingInput()
     }
     
@@ -34,11 +30,6 @@ final class ProfileImageSettingViewModel: ViewModelProtocol {
         didLoadInput.bindingWithoutInitCall { [weak self] _ in
             guard let self else { return }
             bindingDidLoadOutput()
-        }
-        
-        goBackInput.bindingWithoutInitCall { [weak self] _ in
-            guard let self else { return }
-            self.navigator?.goBack()
         }
         
         collecionItemSelectInput.bindingWithoutInitCall { [weak self] profileImage in

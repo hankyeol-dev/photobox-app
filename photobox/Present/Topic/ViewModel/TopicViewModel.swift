@@ -12,13 +12,16 @@ final class TopicViewModel: ViewModelProtocol {
     weak var networkManager: NetworkService?
     weak var fileManageService: FileManageService?
     weak var likedPhotoRepository: LikedPhotoRepository?
-    weak var navigator: DetailViewNavigatingProtocol?
     
     enum SectionKind: String, CaseIterable {
         case golden = "golden-hour"
         case business = "business-work"
         case architect = "architecture-interior"
     }
+    
+    var userNickname = UserDefaultsService.shared.getValue(for: .nickname)
+    var userProfileImage = UserDefaultsService.shared.getValue(for: .profileImage)
+    var userMbti = UserDefaultsService.shared.getValue(for: .mbti)
     
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
@@ -32,13 +35,11 @@ final class TopicViewModel: ViewModelProtocol {
     init(
         networkManager: NetworkService,
         fileManageService: FileManageService,
-        likedPhotoRepository: LikedPhotoRepository,
-        navigator: DetailViewNavigatingProtocol
+        likedPhotoRepository: LikedPhotoRepository
     ) {
         self.networkManager = networkManager
         self.fileManageService = fileManageService
         self.likedPhotoRepository = likedPhotoRepository
-        self.navigator = navigator
         
         bindingInput()
     }
@@ -47,8 +48,8 @@ final class TopicViewModel: ViewModelProtocol {
         didLoadInput.bindingWithoutInitCall { [weak self] _ in
             guard let self else { return }
             self.bindingDidLoadOutput()
+            self.userProfileImage = UserDefaultsService.shared.getValue(for: .profileImage)
         }
-        
         likeButtonInput.bindingWithoutInitCall { [weak self] photo in
             guard let self else { return }
             self.photoLikeHandler(for: photo)

@@ -9,7 +9,7 @@ import UIKit
 
 final class SearchViewController: BaseViewController<SearchViewModel, SearchView> {
     private var dataSource: UICollectionViewDiffableDataSource<String, SearchedPhotoOutput>!
-   
+    
     override func loadView() {
         self.view = mainView
     }
@@ -18,6 +18,12 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
         super.viewDidLoad()
         setCollection()
         setSearchController()
+        bindAction()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        mainView.searchBar.text = ""
     }
     
     override func setNavigation() {
@@ -33,7 +39,9 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
         viewModel.didLoadOutput.binding { [weak self] output in
             guard let self else { return }
             if output.count == 0 {
-                self.mainView.onSearchNoneView()
+                DispatchQueue.main.async {
+                    self.mainView.onSearchNoneView()
+                }
             } else {
                 DispatchQueue.main.async {
                     self.mainView.onSearchTableView()
@@ -50,6 +58,11 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
             if message.count != 0 {
                 self.mainView.makeToast(message, duration: 1, position: .top)
             }
+        }
+        
+        mainView.sender = { [weak self] order in
+            guard let self else { return }
+            self.viewModel.sortOptionInput.value = order
         }
     }
 }
@@ -88,8 +101,7 @@ extension SearchViewController: UICollectionViewDelegate {
         let vm = DetailViewModel(
             networkManager: NetworkService.shared,
             repository: LikedPhotoRepository.shared,
-            fileManager: FileManageService.shared,
-            navigator: MainTabbarNavigator(controller: UINavigationController())
+            fileManager: FileManageService.shared
         )
         vm.didLoadInput.value = data.photoId
         
@@ -99,15 +111,43 @@ extension SearchViewController: UICollectionViewDelegate {
         
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let query = mainView.searchBar.text else { return }
+        let collection = mainView.searchCollection
+        
+        if collection.contentOffset.y >= (collection.contentSize.height - collection.bounds.size.height) {
+            viewModel.scrollInput.value = ()
+        }
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     private func setSearchController() {
         mainView.searchBar.delegate = self
     }
-
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchTextDidChangeInput.value = searchText
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         mainView.endEditing(true)
-        viewModel.searchTextInput.value = searchBar.text
+        viewModel.searchTextDidClickedInput.value = searchBar.text
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.searchTextDidChangeInput.value = ""
+    }
+}
+
+extension SearchViewController {
+    private func bindAction() {
+        mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bindEndEditing)))
+    }
+    
+    @objc
+    private func bindEndEditing() {
+        mainView.endEditing(true)
     }
 }

@@ -115,4 +115,8 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
         
         mbtiBox.setUpContentsView(by: totalStack)
     }
+    
+    func hideConfirmButton() {
+        confirmButton.isHidden = true
+    }
 }

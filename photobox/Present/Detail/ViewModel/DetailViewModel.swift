@@ -12,7 +12,6 @@ final class DetailViewModel: ViewModelProtocol {
     weak var networkManager: NetworkService?
     weak var repository: LikedPhotoRepository?
     weak var fileManager: FileManageService?
-    weak var navigator: GoBackNavigation?
     
     
     // MARK: Input
@@ -26,27 +25,26 @@ final class DetailViewModel: ViewModelProtocol {
     init(
         networkManager: NetworkService,
         repository: LikedPhotoRepository,
-        fileManager: FileManageService,
-        navigator: GoBackNavigation
+        fileManager: FileManageService
     ) {
         self.networkManager = networkManager
         self.repository = repository
         self.fileManager = fileManager
-        self.navigator = navigator
         
         bindingInput()
     }
     
     func bindingInput() {
-        didLoadInput.binding { [weak self] photoId in
+        didLoadInput.bindingWithoutInitCall { [weak self] photoId in
             guard let self else { return }
             self.fetchPhoto(by: photoId)
         }
         
-        likeButtonInput.binding { [weak self] _ in
+        likeButtonInput.bindingWithoutInitCall { [weak self] _ in
             guard let self else { return }
             self.photoLikeHandler()
         }
+        
     }
     
     private func fetchPhoto(by photoId: String) {

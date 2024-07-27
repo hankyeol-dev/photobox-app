@@ -9,22 +9,35 @@ import UIKit
 import Toast
 
 final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
-        
+    
     override func loadView() {
         self.view = mainView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTable()
     }
     
     override func setNavigation() {
         super.setNavigation()
         
-        if let userImage = UserDefaultsService.shared.getValue(for: .profileImage) {
-            mainView.setUserImage(for: userImage)            
+        if let userImage = viewModel.userProfileImage {
+            let back = UIView()
+            let button = UIButton()
+            back.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+            button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+            back.layer.cornerRadius = 16
+            back.clipsToBounds = true
+            back.layer.borderColor = UIColor.primary.cgColor
+            back.layer.borderWidth = 1
+            button.setImage(UIImage(named: userImage), for: .normal)
+            
+            back.addSubview(button)
+            
+            button.addTarget(self, action: #selector(goToProfileConfigurePage), for: .touchUpInside)
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: back)
         }
     }
     
@@ -52,14 +65,27 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
 }
 
 extension TopicViewController {
-    private func bindingAction() {}
-    
     @objc
-    func goToProfileConfigurePage() { }
-    
-    private func bindingFetch() async {
+    func goToProfileConfigurePage() {
+        if let nickname = viewModel.userNickname,
+           let profileImage = viewModel.userProfileImage,
+           let mbtiString = viewModel.userMbti {
+            
+            
+            let viewModel = ProfileSettingViewModel(
+                isInitial: false)
+            viewModel.bindUpdateValues(
+                profileImageName: profileImage, nickname: nickname, mbti: mbtiString)
+            let profileSettingVC = ProfileSettingViewController(
+                viewModel: viewModel, mainView: ProfileSettingView()
+            )
+            
+            navigationController?.pushViewController(profileSettingVC, animated: true)
+            
+        }
         
     }
+    
 }
 
 extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
@@ -87,7 +113,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         collection.register(ImageCardItem.self, forCellWithReuseIdentifier: ImageCardItem.identifier)
         collection.tag = indexPath.row
         collection.reloadData()
- 
+        
         return cell
     }
 }
@@ -112,12 +138,11 @@ extension TopicViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                
+        
         let vm = DetailViewModel(
             networkManager: NetworkService.shared,
             repository: LikedPhotoRepository.shared,
-            fileManager: FileManageService.shared,
-            navigator: MainTabbarNavigator(controller: UINavigationController())
+            fileManager: FileManageService.shared
         )
         vm.didLoadInput.value = viewModel.didLoadOutput.value[collectionView.tag][indexPath.row].photoId
         

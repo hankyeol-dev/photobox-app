@@ -8,9 +8,20 @@
 import Foundation
 
 enum OrderBy: String, CaseIterable {
-    case popular
-    case latest
     case relevant
+    case latest
+    case popular
+    
+    var byKorean: String {
+        switch self {
+        case .relevant:
+            return "관련순"
+        case .latest:
+            return "최신순"
+        case .popular:
+            return "인기순"
+        }
+    }
 }
 
 enum ColorBy: String, CaseIterable {
@@ -21,11 +32,30 @@ enum ColorBy: String, CaseIterable {
     case purple
     case green
     case blue
+    
+    var byKorean: String {
+        switch self {
+        case .black:
+            return "검정"
+        case .white:
+            return "하양"
+        case .yellow:
+            return "노랑"
+        case .red:
+            return "빨강"
+        case .purple:
+            return "보라"
+        case .green:
+            return "초록"
+        case .blue:
+            return "파랑"
+        }
+    }
 }
 
 enum RouteService {
     case topic(topicName: String)
-    case search(query: String, page: Int = 1, per_page: Int = 20, order_by: OrderBy = .latest, color: ColorBy = .black)
+    case search(query: String, page: Int = 1, per_page: Int = 20, order_by: OrderBy = .relevant, color: ColorBy = .black)
     case detail(id: String)
     case statistic(id: String)
     

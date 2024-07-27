@@ -13,16 +13,21 @@ final class SearchViewModel: ViewModelProtocol {
     weak var networkManager: NetworkService?
     weak var repositoryManager: LikedPhotoRepository?
     weak var fileManageService: FileManageService?
-    weak var navigator: DetailViewNavigatingProtocol?
     
     // MARK: Not Observable variables
-    private var total = 0
+    private var query = ""
+    private var current_page = 0
     private var total_pages = 0
+    private var isFetching = false
+    private var currentOrder: OrderBy = .relevant
     
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
-    var searchTextInput = Observable<String?>(nil)
+    var searchTextDidChangeInput = Observable<String?>(nil)
+    var searchTextDidClickedInput = Observable<String?>(nil)
     var likeButtonInput = Observable<SearchedPhotoOutput?>(nil)
+    var scrollInput = Observable<Void?>(nil)
+    var sortOptionInput = Observable<OrderBy>(.latest)
 
     // MARK: Output
     var didLoadOutput = Observable<[SearchedPhotoOutput]>([])
@@ -33,13 +38,11 @@ final class SearchViewModel: ViewModelProtocol {
     init(
         networkManager: NetworkService,
         repositoryManager: LikedPhotoRepository,
-        fileManageService: FileManageService,
-        navigator: DetailViewNavigatingProtocol
+        fileManageService: FileManageService
     ) {
         self.networkManager = networkManager
         self.repositoryManager = repositoryManager
         self.fileManageService = fileManageService
-        self.navigator = navigator
         
         bindingInput()
     }
@@ -50,13 +53,33 @@ final class SearchViewModel: ViewModelProtocol {
             guard let self else { return }
             self.didLoadOutput.value = []
         }
-        searchTextInput.bindingWithoutInitCall { [weak self] text in
+        searchTextDidChangeInput.bindingWithoutInitCall { [weak self] input in
+            guard let self, let input else { return }
+            self.query = input
+            if query.isEmpty {
+                self.didLoadOutput.value = []
+            }
+        }
+        searchTextDidClickedInput.bindingWithoutInitCall { [weak self] text in
             guard let self else { return }
+            self.didLoadOutput.value = []
             self.bindingSearchTextInput(for: text)
         }
         likeButtonInput.bindingWithoutInitCall { [weak self] photo in
             guard let self else { return }
             self.photoLikeHandler(for: photo)
+        }
+        scrollInput.bindingWithoutInitCall { [weak self] _ in
+            guard let self else { return }
+            self.bindScrollInput()
+        }
+        sortOptionInput.bindingWithoutInitCall { [weak self] order in
+            guard let self else { return }
+            if order != currentOrder && !self.query.isEmpty {
+                self.currentOrder = order
+                self.didLoadOutput.value = []
+                self.bindingSearchTextInput(for: self.query)
+            }
         }
     }
     
@@ -65,17 +88,22 @@ final class SearchViewModel: ViewModelProtocol {
             self.didLoadOutput.value = []
             return
         }
+        query = text
+        
+        if query.isEmpty {
+            didLoadOutput.value = []
+        }
         
         Task {
             let result = await networkManager?.fetch(
-                by: .search(query: text),
+                by: .search(query: text, order_by: currentOrder),
                 of: PhotoSearchResult.self
             )
             
             switch result {
             case .success(let success):
-                total = success.total
                 total_pages = success.total_pages
+                current_page = 1
                 
                 DispatchQueue.main.async {
                     success.results.forEach {
@@ -157,6 +185,44 @@ final class SearchViewModel: ViewModelProtocol {
                 searchErrorOutput.value = failure.rawValue
             case nil:
                 break
+            }
+        }
+    }
+    
+    private func bindScrollInput() {
+        guard !query.isEmpty else { return }
+        
+        Task {
+            if total_pages > current_page && !isFetching {
+                isFetching = true
+                let result = await networkManager?.fetch(
+                    by: .search(query: query, page: current_page + 1, order_by: currentOrder),
+                    of: PhotoSearchResult.self
+                )
+                
+                switch result {
+                case .success(let success):
+                    current_page += 1
+                    DispatchQueue.main.async {
+                        success.results.forEach {
+                            if let url = $0.urls.regular {
+                                self.didLoadOutput.value.append(
+                                    SearchedPhotoOutput(
+                                        photoId: $0.id,
+                                        url: url,
+                                        likes: $0.likes,
+                                        isLiked: self.validatingIsLikedImage(by: $0.id)
+                                    )
+                                )
+                            }
+                        }
+                    }
+                case .failure(let failure):
+                    searchErrorOutput.value = failure.rawValue
+                case .none:
+                    break
+                }
+                isFetching = false
             }
         }
     }

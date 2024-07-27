@@ -76,8 +76,7 @@ extension LikeListViewController: UICollectionViewDelegate {
         let vm = DetailViewModel(
             networkManager: NetworkService.shared,
             repository: LikedPhotoRepository.shared,
-            fileManager: FileManageService.shared,
-            navigator: MainTabbarNavigator(controller: UINavigationController())
+            fileManager: FileManageService.shared
         )
         vm.didLoadInput.value = data.photoId
         

@@ -11,7 +11,6 @@ final class OnboardingViewController: BaseViewController<OnboardingViewModel, On
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         mainView.startButton.addTarget(self, action: #selector(goToProfileSettingVC), for: .touchUpInside)
     }
     
@@ -21,6 +20,10 @@ final class OnboardingViewController: BaseViewController<OnboardingViewModel, On
     
     @objc
     func goToProfileSettingVC() {
-        viewModel.startButtonTouchInput.value = ()
+        let vc = ProfileSettingViewController(
+            viewModel: ProfileSettingViewModel(isInitial: true),
+            mainView: ProfileSettingView()
+        )
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

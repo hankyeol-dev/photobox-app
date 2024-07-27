@@ -35,6 +35,10 @@ final class ProfileImage: UIImageView {
         self.image = UIImage(named: image.rawValue)
     }
     
+    func setImage(for imageName: String) {
+        self.image = UIImage(named: imageName)
+    }
+    
     func setBorder(for isSelected: Bool) {
         if isSelected {
             layer.borderColor = UIColor.primary.cgColor

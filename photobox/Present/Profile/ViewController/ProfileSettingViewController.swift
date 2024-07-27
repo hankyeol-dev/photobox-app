@@ -18,6 +18,10 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
         
         setTextField()
         bindingAction()
+        
+        if !viewModel.isInitial {
+            mainView.hideConfirmButton()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +35,7 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
         viewModel.didLoadOutput.binding { [weak self] output in
             guard let self else { return }
             if let output, output.mbtiButtons.count != 0 {
+                mainView.profileNicknameField.text = output.currentNickname
                 mainView.profileImage.setImage(for: output.currentImage)
                 mainView.generateMBTI(by: output.mbtiButtons, target: self, action: #selector(bindingMbtiButtonAction))
             }
@@ -44,21 +49,45 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
                 switch failure {
                 case .isEmpty:
                     self.mainView.profileNicknameValidationLabel.isEmpty()
+                    self.mainView.confirmButton.isCantTouched()
                 case .isLowerOrOverCount:
                     self.mainView.profileNicknameValidationLabel.isLowerThanTwoOrOverTen()
+                    self.mainView.confirmButton.isCantTouched()
                 case .isContainNumber:
                     self.mainView.profileNicknameValidationLabel.isContainsNumber()
+                    self.mainView.confirmButton.isCantTouched()
                 case .isContainSpecialLetter:
                     self.mainView.profileNicknameValidationLabel.isContainsSpecialLetter()
+                    self.mainView.confirmButton.isCantTouched()
                 }
             }
         }
         viewModel.profileCreationOutput.bindingWithoutInitCall { [weak self] output in
             guard let self else { return }
+            print(output)
             if output {
                 self.mainView.confirmButton.isAbled()
+                self.navigationItem.rightBarButtonItem?.tintColor = .primary
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
             } else {
                 self.mainView.confirmButton.isCantTouched()
+                self.navigationItem.rightBarButtonItem?.tintColor = .gray_lg
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            }
+        }
+        viewModel.saveProfileOutput.bindingWithoutInitCall { [weak self] _ in
+            guard let self else { return }
+            
+            if self.viewModel.isInitial {
+                let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                let sceneDelegate = scene?.delegate as? SceneDelegate
+                
+                let window = sceneDelegate?.window
+                
+                window?.rootViewController = MainTabBarController()
+                window?.makeKeyAndVisible()
+            } else {
+                navigationController?.popViewController(animated: true)
             }
         }
     }
@@ -67,6 +96,17 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
         super.setNavigation()
         navigationItem.title = "프로필 생성"
         navigationItem.leftBarButtonItem = genLeftGoBackButton(target: self, action: #selector(goBack))
+        
+        if !viewModel.isInitial {
+            let rightSaveButton = UIBarButtonItem(
+                title: "저장",
+                style: .plain,
+                target: self,
+                action: #selector(saveUserProfile)
+            )
+
+            navigationItem.setRightBarButton(rightSaveButton, animated: true)
+        }
     }
    
 }
@@ -79,32 +119,43 @@ extension ProfileSettingViewController {
     }
     
     @objc
-    func bindingMbtiButtonAction(_ sender: UIButton) {
+    private func bindingMbtiButtonAction(_ sender: UIButton) {
          viewModel.mbtiButtonTouchInput.value = (sender.tag, sender.configuration?.title)
     }
     
     @objc
-    func fieldEndEditing() {
+    private func fieldEndEditing() {
         mainView.profileNicknameField.fieldOutFocus()
         mainView.endEditing(true)
     }
     
     @objc
-    func goToProfileImageSelect() {
-        viewModel.profileImageSelectInput.value = ()
+    private func goToProfileImageSelect() {
+        if let currentImage = viewModel.currentProfileImage {
+            let vm = ProfileImageSettingViewModel()
+            vm.currentImage = currentImage
+            vm.sender = { image in
+                self.viewModel.currentProfileImage = image
+            }
+            let vc = ProfileImageSettingViewController(
+                viewModel: vm, mainView: ProfileImageSelectView()
+            )
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @objc
-    func goBack() {
-        viewModel.goBackInput.value = ()
+    private func goBack() {
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
-    func saveUserProfile() {
+    private func saveUserProfile() {
         if viewModel.profileCreationOutput.value {
             viewModel.saveUserProfileInput.value = ()
         }
     }
+
 }
 
 extension ProfileSettingViewController: UITextFieldDelegate {

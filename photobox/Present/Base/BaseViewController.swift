@@ -29,13 +29,13 @@ class ViewController<VM, MV>: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        setNavigation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         bindData()
+        setNavigation()
     }
     
     func bindData() {}

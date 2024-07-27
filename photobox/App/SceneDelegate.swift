@@ -10,21 +10,19 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var mainNavigator: NavigatingProtocol?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let controller = UINavigationController()
         let users = UserDefaultsService.shared.getValues()
         
         if (users.filter { $0 != nil }).count != users.count {
-            mainNavigator = OnboardingNavigator(controller: controller)
-            mainNavigator?.start()
-            window?.rootViewController = controller
+            window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController(
+                viewModel: OnboardingViewModel(), mainView: OnboardingView()
+            ))
         } else {
-            window?.rootViewController = MainTabbarNavigator(controller: controller).goToMainTabbar()
+            window?.rootViewController = MainTabBarController()
         }
         
         

@@ -46,10 +46,14 @@ final class SearchFilterMenu: BaseView {
         sortButton.layer.borderColor = UIColor.gray_lg.cgColor
         sortButton.configuration?.cornerStyle = .capsule
         sortButton.configuration?.image = .sort
-        sortButton.configuration?.title = "최신순"
+        sortButton.configuration?.title = "관련순"
         sortButton.configuration?.imagePadding = 4
         sortButton.configuration?.baseBackgroundColor = .white
         sortButton.configuration?.baseForegroundColor = .gray_lg
+    }
+    
+    func hideFilterCollection() {
+        filterCollection.isHidden = true
     }
 }
 

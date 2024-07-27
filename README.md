@@ -19,7 +19,10 @@
 <br />
 
 ### 프로젝트 안에서 고민한 것들
-(tbd)
+
+- 왜 네비게이팅 패턴이 잘 먹히지 않았을까? (삽질을 많이 했지만 잘 해결하지 못했음)
+- sender?() 와 같이 클로저로 값을 캡쳐하는 경우에는 클로저 정의를 ViewModel에서 하는게 맞을까 아니면 ViewController, View 또는 필요한 곳마다 하는게 좋을까?
+(TBD)
 
 <br />
 
@@ -27,16 +30,16 @@
 
 Basic Implementation Requirements
 
-- [ ] 기본 조건
-    - [ ] 프로젝트는 MVVM 아키텍처, Observable 패턴을 기반으로 코드 작성
-    - [ ] Realm, FileManager를 활용하여 사진 자료에 대한 저장 구현
+- [x] 기본 조건
+    - [x] 프로젝트는 MVVM 아키텍처, Observable 패턴을 기반으로 코드 작성
+    - [x] Realm, FileManager를 활용하여 사진 자료에 대한 저장 구현
 
-- [ ] Utility
+- [x] Utility
     - [x] NetworkService : 명확한 Error 처리 구현, URLSession+Async로 구현
     - [x] RouteService : Enum 형태로 구현
-    - [ ] UserDefaultService : 닉네임, 프로필 이미지, MBTI 값 저장
-    - [ ] RealmRepository : 좋아요 관리 목적 (+ 파일 매니저 이미지 저장 주소 관리)
-    - [ ] FileManageService : local documents에 이미지 저장, 조회, 삭제 관리
+    - [x] UserDefaultService : 닉네임, 프로필 이미지, MBTI 값 저장
+    - [x] RealmRepository : 좋아요 관리 목적 (+ 파일 매니저 이미지 저장 주소 관리)
+    - [x] FileManageService : local documents에 이미지 저장, 조회, 삭제 관리
     
 - [x] 스플래시
     - [x] 2초간 노출
@@ -79,11 +82,11 @@ Basic Implementation Requirements
 - [ ] 사진 검색 화면 (탭-3)
     - [x] Photo Search API 활용하여 검색한 키워드에 맞는 이미지 노출
     - [x] 기본 데이터 갯수: 20
-    - [ ] 스크롤 기반 페이지네이션 구현
+    - [x] 스크롤 기반 페이지네이션 구현
     - [x] 컬렉션 아이템은 메인 화면의 것과 동일
     - 정렬
-        - [ ] default: 관련순
-        - [ ] 다른 선택지: 최신순
+        - [x] default: 관련순
+        - [x] 다른 선택지: 최신순, 인기순
     - 필터
         - [ ] 색감 선택 버튼 (레드, 퍼플, 그린, 블루)
 
@@ -101,6 +104,6 @@ Basic Implementation Requirements
     - [x] 정보까지 노출
 
 - [ ] 프로필 수정 화면
-    - [ ] 프로필 설정 화면과 UI 동일
+    - [x] 프로필 설정 화면과 UI 동일
     - [ ] 완료 버튼 대신 `회원 탈퇴` 레이블 버튼 반영
-    - [ ] 닉네임, 이미지, MBTI 수정 가능
+    - [x] 닉네임, 이미지, MBTI 수정 가능

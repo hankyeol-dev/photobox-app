@@ -11,7 +11,6 @@ final class LikeListViewModel: ViewModelProtocol {
     
     weak var repository: LikedPhotoRepository?
     weak var filemanger: FileManageService?
-    weak var navigator: DetailViewNavigatingProtocol?
     
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
@@ -25,12 +24,10 @@ final class LikeListViewModel: ViewModelProtocol {
     
     init(
         repository: LikedPhotoRepository,
-        filemanger: FileManageService,
-        navigator: DetailViewNavigatingProtocol
+        filemanger: FileManageService
     ) {
         self.repository = repository
         self.filemanger = filemanger
-        self.navigator = navigator
         
         bindingInput()
     }

@@ -49,8 +49,8 @@ final class ProfileImageSettingViewController: BaseViewController<ProfileImageSe
 
 extension ProfileImageSettingViewController {
     @objc
-    func goBack() {
-        viewModel.goBackInput.value = ()
+    private func goBack() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

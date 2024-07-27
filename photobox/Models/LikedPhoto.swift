@@ -11,6 +11,7 @@ import RealmSwift
 
 final class LikedPhoto: Object {
     @Persisted(primaryKey: true) var id: String
+    @Persisted var created_at = Date()
     
     convenience init(id: String) {
         self.init()

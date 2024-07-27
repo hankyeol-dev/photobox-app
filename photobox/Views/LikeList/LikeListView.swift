@@ -44,6 +44,8 @@ final class LikeListView: BaseView, MainViewProtocol {
             make.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(16)
             make.bottom.equalTo(self.safeAreaLayoutGuide)
         }
+        
+        listFilterMenu.hideFilterCollection()
     }
     
     func onListNoneView() {

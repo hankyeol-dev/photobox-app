@@ -31,9 +31,21 @@ final class DetailViewController: BaseViewController<DetailViewModel, DetailView
         }
     }
     
+    override func setNavigation() {
+        super.setNavigation()
+        
+        navigationItem.leftBarButtonItem = genLeftGoBackButton(target: self, action: #selector(goBack))
+    }
+    
+    
     @objc
     func onTouchLikebutton() {
         viewModel.likeButtonInput.value = ()
+    }
+    
+    @objc
+    func goBack() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

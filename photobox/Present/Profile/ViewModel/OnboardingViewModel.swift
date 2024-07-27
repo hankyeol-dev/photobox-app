@@ -7,26 +7,11 @@
 
 import Foundation
 
-protocol StartNavigation: AnyObject {
-    func goToProfileSettingView()
-}
-
 final class OnboardingViewModel: ViewModelProtocol {
     
-    weak var navigator: StartNavigation?
-    
-    var startButtonTouchInput = Observable<Void?>(nil)
-    
-    init(navigator: StartNavigation) {
-        self.navigator = navigator
-        
+    init() {
         bindingInput()
     }
     
-    func bindingInput() {
-        startButtonTouchInput.bindingWithoutInitCall { [weak self] _ in
-            guard let self else { return }
-            self.navigator?.goToProfileSettingView()
-        }
-    }
+    func bindingInput() { }
 }
