@@ -75,6 +75,14 @@
 		81C1EE402C54CD1B00C8C658 /* DetailInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE3F2C54CD1B00C8C658 /* DetailInfoItem.swift */; };
 		81C1EE4C2C554E4700C8C658 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE4B2C554E4700C8C658 /* MainTabbarController.swift */; };
 		81C1EE4E2C55D15000C8C658 /* Enum+Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE4D2C55D15000C8C658 /* Enum+Toast.swift */; };
+		81C1EE512C55E78400C8C658 /* DummyDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE502C55E78400C8C658 /* DummyDataSet.swift */; };
+		81C1EE532C55EB4700C8C658 /* DummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE522C55EB4700C8C658 /* DummyView.swift */; };
+		81C1EE552C55EB9F00C8C658 /* DummyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE542C55EB9F00C8C658 /* DummyCell.swift */; };
+		81C1EE572C55EE3200C8C658 /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE562C55EE3200C8C658 /* DummyViewController.swift */; };
+		81C1EE5A2C56070100C8C658 /* RandomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE592C56070100C8C658 /* RandomView.swift */; };
+		81C1EE5E2C56077C00C8C658 /* RandomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE5D2C56077C00C8C658 /* RandomViewModel.swift */; };
+		81C1EE612C56094B00C8C658 /* RandomViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE602C56094B00C8C658 /* RandomViewItem.swift */; };
+		81C1EE632C5609B700C8C658 /* RandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE622C5609B700C8C658 /* RandomViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +153,14 @@
 		81C1EE3F2C54CD1B00C8C658 /* DetailInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoItem.swift; sourceTree = "<group>"; };
 		81C1EE4B2C554E4700C8C658 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		81C1EE4D2C55D15000C8C658 /* Enum+Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Toast.swift"; sourceTree = "<group>"; };
+		81C1EE502C55E78400C8C658 /* DummyDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyDataSet.swift; sourceTree = "<group>"; };
+		81C1EE522C55EB4700C8C658 /* DummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyView.swift; sourceTree = "<group>"; };
+		81C1EE542C55EB9F00C8C658 /* DummyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyCell.swift; sourceTree = "<group>"; };
+		81C1EE562C55EE3200C8C658 /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
+		81C1EE592C56070100C8C658 /* RandomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomView.swift; sourceTree = "<group>"; };
+		81C1EE5D2C56077C00C8C658 /* RandomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomViewModel.swift; sourceTree = "<group>"; };
+		81C1EE602C56094B00C8C658 /* RandomViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomViewItem.swift; sourceTree = "<group>"; };
+		81C1EE622C5609B700C8C658 /* RandomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +199,7 @@
 		81A4AA662C4E20A2008E2F8C /* photobox */ = {
 			isa = PBXGroup;
 			children = (
+				81C1EE4F2C55E77A00C8C658 /* Dummy */,
 				81C1ED9E2C4FEBD400C8C658 /* Utils */,
 				81A4AAB02C4E8E6D008E2F8C /* Constants */,
 				81A4AA8E2C4E3F3E008E2F8C /* Protocols */,
@@ -249,6 +266,7 @@
 				81C1EE112C52A76600C8C658 /* Search */,
 				81C1EE292C54949900C8C658 /* LikeList */,
 				81C1EDE92C50E96300C8C658 /* Topic */,
+				81C1EE582C5606EF00C8C658 /* Random */,
 				81C1EE332C54A81800C8C658 /* Detail */,
 			);
 			path = Views;
@@ -281,6 +299,7 @@
 				81C1EE122C52A77100C8C658 /* Search */,
 				81C1EE282C54948F00C8C658 /* LikeList */,
 				81C1EDE22C50E8F500C8C658 /* Topic */,
+				81C1EE5B2C56076A00C8C658 /* Random */,
 				81C1EE322C54A81200C8C658 /* Detail */,
 			);
 			path = Present;
@@ -491,6 +510,51 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		81C1EE4F2C55E77A00C8C658 /* Dummy */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE502C55E78400C8C658 /* DummyDataSet.swift */,
+				81C1EE522C55EB4700C8C658 /* DummyView.swift */,
+				81C1EE542C55EB9F00C8C658 /* DummyCell.swift */,
+				81C1EE562C55EE3200C8C658 /* DummyViewController.swift */,
+			);
+			path = Dummy;
+			sourceTree = "<group>";
+		};
+		81C1EE582C5606EF00C8C658 /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE592C56070100C8C658 /* RandomView.swift */,
+				81C1EE602C56094B00C8C658 /* RandomViewItem.swift */,
+			);
+			path = Random;
+			sourceTree = "<group>";
+		};
+		81C1EE5B2C56076A00C8C658 /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE5F2C56078400C8C658 /* ViewController */,
+				81C1EE5C2C56077200C8C658 /* ViewModel */,
+			);
+			path = Random;
+			sourceTree = "<group>";
+		};
+		81C1EE5C2C56077200C8C658 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE5D2C56077C00C8C658 /* RandomViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		81C1EE5F2C56078400C8C658 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				81C1EE622C5609B700C8C658 /* RandomViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -574,6 +638,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81C1EE5E2C56077C00C8C658 /* RandomViewModel.swift in Sources */,
 				81A4AA8A2C4E368E008E2F8C /* Photo.swift in Sources */,
 				81C1EE102C52928700C8C658 /* BaseTableCell.swift in Sources */,
 				81C1EDEB2C50E98000C8C658 /* TopicView.swift in Sources */,
@@ -585,6 +650,7 @@
 				81A4AAAD2C4E8BE2008E2F8C /* BaseView.swift in Sources */,
 				81C1EDA22C4FEDDC00C8C658 /* OnboardingViewController.swift in Sources */,
 				81C1EE012C52044800C8C658 /* ImageCardItem.swift in Sources */,
+				81C1EE632C5609B700C8C658 /* RandomViewController.swift in Sources */,
 				81C1EE182C52A7D100C8C658 /* SearchView.swift in Sources */,
 				81C1EE0E2C52927700C8C658 /* TopicTableCell.swift in Sources */,
 				81C1EE0C2C527FD500C8C658 /* ProfileUpdateOutput.swift in Sources */,
@@ -599,6 +665,7 @@
 				81A4AACF2C4F6A36008E2F8C /* Enum+UIImage.swift in Sources */,
 				81C1EE4E2C55D15000C8C658 /* Enum+Toast.swift in Sources */,
 				81A4AA7F2C4E20EE008E2F8C /* ENV.swift in Sources */,
+				81C1EE612C56094B00C8C658 /* RandomViewItem.swift in Sources */,
 				81C1EE162C52A79A00C8C658 /* SearchViewModel.swift in Sources */,
 				81C1EE2F2C5494D600C8C658 /* LikeListViewController.swift in Sources */,
 				81A4AAB62C4E9B15008E2F8C /* ProfileNicknameField.swift in Sources */,
@@ -607,12 +674,14 @@
 				81C1EDE62C50E92400C8C658 /* TopicViewModel.swift in Sources */,
 				81A4AAAB2C4E8BCF008E2F8C /* ProfileSettingView.swift in Sources */,
 				81C1EE4C2C554E4700C8C658 /* MainTabbarController.swift in Sources */,
+				81C1EE5A2C56070100C8C658 /* RandomView.swift in Sources */,
 				81A4AAA12C4E8521008E2F8C /* ViewModelProtocol.swift in Sources */,
 				81C1EDAF2C4FF78400C8C658 /* OnboardingViewModel.swift in Sources */,
 				81C1EDA02C4FEBDF00C8C658 /* Observable.swift in Sources */,
 				81A4AAA32C4E853F008E2F8C /* MainViewProtocol.swift in Sources */,
 				81A4AACB2C4F6746008E2F8C /* ProfileImageSelectView.swift in Sources */,
 				81A4AA902C4E3F5A008E2F8C /* ServiceProtocol.swift in Sources */,
+				81C1EE512C55E78400C8C658 /* DummyDataSet.swift in Sources */,
 				81C1EDB42C50786600C8C658 /* Validation.swift in Sources */,
 				81A4AAB22C4E8E7D008E2F8C /* Extension+UIColor.swift in Sources */,
 				81C1EE0A2C524E3600C8C658 /* CapsuleItem.swift in Sources */,
@@ -626,11 +695,14 @@
 				81A4AA6A2C4E20A2008E2F8C /* SceneDelegate.swift in Sources */,
 				81C1EDE12C50E2D100C8C658 /* UserDefaults.swift in Sources */,
 				81C1EE1C2C52AEE300C8C658 /* SearchFilterMenu.swift in Sources */,
+				81C1EE572C55EE3200C8C658 /* DummyViewController.swift in Sources */,
 				81C1EDB22C4FFEC000C8C658 /* MbtiButton.swift in Sources */,
+				81C1EE552C55EB9F00C8C658 /* DummyCell.swift in Sources */,
 				81C1EE222C52B2CC00C8C658 /* LikedPhoto.swift in Sources */,
 				81C1EE1A2C52A7F100C8C658 /* SearchViewController.swift in Sources */,
 				81A4AA992C4E836E008E2F8C /* ProfileSettingViewController.swift in Sources */,
 				81C1ED9B2C4FE0C000C8C658 /* Extension+UIView.swift in Sources */,
+				81C1EE532C55EB4700C8C658 /* DummyView.swift in Sources */,
 				81A4AAD12C4F6DDE008E2F8C /* BaseCollectionItem.swift in Sources */,
 				81A4AAB42C4E95D1008E2F8C /* ProfileImageChangeButton.swift in Sources */,
 				81C1EE372C54A84800C8C658 /* DetailView.swift in Sources */,

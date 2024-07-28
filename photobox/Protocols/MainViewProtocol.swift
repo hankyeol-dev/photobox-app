@@ -7,4 +7,8 @@
 
 import UIKit
 
-protocol MainViewProtocol: UIView {}
+protocol MainViewProtocol: UIView {
+    func setSubviews()
+    func setLayout()
+    func setUI()
+}

@@ -45,7 +45,22 @@ class MainTabBarController: UITabBarController {
         )
         likeListVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tabLikeInactive, selectedImage: UIImage.tabLike)
         
-        setViewControllers([topicVC, searchVC, likeListVC], animated: true)
+        let randomVC = UINavigationController(
+            rootViewController: RandomViewController(
+                viewModel: RandomViewModel(
+                    repository: LikedPhotoRepository.shared,
+                    fileManager: FileManageService.shared,
+                    networkManager: NetworkService.shared),
+                mainView: RandomView())
+        )
+        randomVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tabRandomInactive, selectedImage: .tabRandom)
+        
+        
+        setViewControllers([topicVC, randomVC, searchVC, likeListVC], animated: true)
+        
+        tabBar.backgroundColor = .systemBackground
+        tabBar.tintColor = .gray_lg
+        tabBar.unselectedItemTintColor = .gray_md
     }
 
 }

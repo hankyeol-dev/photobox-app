@@ -79,7 +79,7 @@ Basic Implementation Requirements
         - [x] 좋아요 버튼: 유저가 직접 터치하여 좋아요 반영
     - [x] MVVM 패턴으로 교체
     
-- [ ] 사진 검색 화면 (탭-3)
+- [x] 사진 검색 화면 (탭-3)
     - [x] Photo Search API 활용하여 검색한 키워드에 맞는 이미지 노출
     - [x] 기본 데이터 갯수: 20
     - [x] 스크롤 기반 페이지네이션 구현
@@ -87,8 +87,6 @@ Basic Implementation Requirements
     - 정렬
         - [x] default: 관련순
         - [x] 다른 선택지: 최신순, 인기순
-    - 필터
-        - [ ] 색감 선택 버튼 (레드, 퍼플, 그린, 블루)
 
 - [x] 좋아요 목록 (탭-4)
     - [x] 탭-1~3에서 조회한 이미지별 좋아요를 터치한 이미지만 모아서 노출
@@ -107,3 +105,17 @@ Basic Implementation Requirements
     - [x] 프로필 설정 화면과 UI 동일
     - [x] 완료 버튼 대신 `회원 탈퇴` 레이블 버튼 반영
     - [x] 닉네임, 이미지, MBTI 수정 가능
+
+---
+
+Advanced Requirements
+
+- [ ] DetailView
+    - [ ] 스크롤 뷰 반영하여 이미지 사이즈에 맞게 스크롤 크기 반영
+    - [ ] statistics 데이터 기반으로 차트 구현
+    
+- [x] RandomImageView
+    - [x] randomAPI를 사용해서 전체 페이지 기반의 컬렉션 뷰 구현
+
+- [ ] SearchView
+    - [ ] 색감 선택 버튼 컬랙션

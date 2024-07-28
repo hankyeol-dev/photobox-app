@@ -58,6 +58,7 @@ enum RouteService {
     case search(query: String, page: Int = 1, per_page: Int = 20, order_by: OrderBy = .relevant, color: ColorBy = .black)
     case detail(id: String)
     case statistic(id: String)
+    case random
     
     var path: String {
         switch self {
@@ -69,6 +70,8 @@ enum RouteService {
             return "/photos/\(id)"
         case .statistic(let id):
             return "/photos/\(id)/statistics"
+        case .random:
+            return "/photos/random"
         }
     }
     
@@ -87,6 +90,10 @@ enum RouteService {
                 URLQueryItem(name: "per_page", value: String(per_page)),
                 URLQueryItem(name: "order_by", value: order_by.rawValue),
                 URLQueryItem(name: "color_by", value: color_by.rawValue)
+            ]
+        case .random:
+            return [
+                URLQueryItem(name: "count", value: "10")
             ]
         default:
             return []
