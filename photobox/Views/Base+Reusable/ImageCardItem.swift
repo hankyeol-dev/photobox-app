@@ -84,6 +84,11 @@ final class ImageCardItem: BaseCollectionItem {
         }
     }
     
+    func isRoundedUI() {
+        cardImage.layer.cornerRadius = 12
+        cardImage.clipsToBounds = true
+    }
+    
     private func isLikedImage() {
         likeButton.setImage(.likeCircle, for: .normal)
     }

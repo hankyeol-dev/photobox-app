@@ -40,6 +40,7 @@ final class CapsuleItem: BaseView {
         image.tintColor = .systemYellow
         label.font = .systemFont(ofSize: 13)
         label.textColor = .gray_sm
+        label.textAlignment = .right
     }
     
     func bind(backgroundColor: UIColor, image: UIImage, text: String) {

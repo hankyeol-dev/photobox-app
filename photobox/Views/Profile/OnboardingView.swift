@@ -52,7 +52,7 @@ final class OnboardingView: BaseView, MainViewProtocol {
     override func setUI() {
         titleImage.contentMode = .scaleAspectFit
         polarImage.contentMode = .scaleAspectFit
-        nameLabel.text = "강한결"
+        nameLabel.text = Text.APP_NAME.rawValue
         nameLabel.textAlignment = .center
         nameLabel.font = .systemFont(ofSize: 24, weight: .medium)
         startButton.isAbled()

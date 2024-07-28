@@ -12,10 +12,10 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
     private let profileBackView = UIView()
     let profileImage = ProfileImage(for: UIImage.profile0)
     let profileChangeButton = ProfileImageChangeButton()
-    let profileNicknameField = ProfileNicknameField("멋진 닉네임을 만들어보세요.")
+    let profileNicknameField = ProfileNicknameField(Text.Placeholder.NICKNAMEFIELD.rawValue)
     let profileNicknameValidationLabel = ProfileNicknameValidationLabel()
-    let mbtiBox = BoxWithTitle(for: "MBTI 설정하기")
-    let confirmButton = CircleButton(for: "완료")
+    let mbtiBox = BoxWithTitle(for: Text.Titles.MBTIBOX.rawValue)
+    let confirmButton = CircleButton(for: Text.Buttons.PROFILE_CONFIRM.rawValue)
     let withdrawButton = UIButton()
     
     override func setSubviews() {
@@ -90,6 +90,7 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
         profileBackView.layer.shadowPath = nil
         
         profileImage.setBorder(for: true)
+        profileImage.isUserInteractionEnabled = true
         
         confirmButton.isCantTouched()
         setWithdrawButton()
@@ -141,6 +142,7 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
         withdrawButton.configuration?.baseForegroundColor = .error
         var titleContainer = AttributeContainer()
         titleContainer.font = UIFont.boldSystemFont(ofSize: 14)
-        withdrawButton.configuration?.attributedTitle = AttributedString("프로필 삭제하기", attributes: titleContainer)
+        withdrawButton.configuration?.attributedTitle = AttributedString(
+            Text.Buttons.PROFILE_DELETE.rawValue, attributes: titleContainer)
     }
 }

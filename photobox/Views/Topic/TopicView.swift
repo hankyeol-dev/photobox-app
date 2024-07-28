@@ -24,8 +24,6 @@ final class TopicView: BaseView, MainViewProtocol {
         super.setLayout()
         let guide = self.safeAreaLayoutGuide
         
-
-        
         largeTitle.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(guide).inset(16)
             make.height.equalTo(36)
@@ -41,7 +39,7 @@ final class TopicView: BaseView, MainViewProtocol {
         super.setUI()
         
         largeTitle.font = .boldSystemFont(ofSize: 28)
-        largeTitle.text = "토픽별 이미지"
+        largeTitle.text = Text.Titles.TOPIC_MAIN_TITLE.rawValue
     }
 }
 

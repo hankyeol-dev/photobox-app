@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Toast
 
 final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
     
@@ -41,25 +40,34 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
         }
     }
     
-    override func bindData() {
-        super.bindData()
+    override func bindDataAtDidLoad() {
+        super.bindDataAtDidLoad()
         viewModel.didLoadInput.value = ()
         viewModel.didLoadOutput.binding { [weak self] output in
             guard let self else { return }
+            let row = self.viewModel.selectedIndex.0
+            let section = self.viewModel.selectedIndex.1
             if (output.filter { $0.count != 0 }).count != 0 {
                 self.mainView.topicTable.reloadData()
+            } else if row == -1 || section == -1 {
+                self.mainView.topicTable.reloadData()
+            } else {
+                self.mainView.topicTable.reloadRows(at: [IndexPath(row: row, section: section)], with: .none)
             }
         }
+    }
+    
+    override func bindData() {
+        super.bindData()
         viewModel.likeButtonOutput.bindingWithoutInitCall { [weak self] output in
             guard let self else { return }
-            self.mainView.makeToast(output, duration: 1, position: .top)
+            self.genToast(for: output, state: .success)
             DispatchQueue.main.async {
                 self.mainView.topicTable.reloadData()
             }
         }
         viewModel.failureOutput.bindingWithoutInitCall { [weak self] output in
             guard let self else { return }
-//            self.mainView.makeToast(output, duration: 1, position: .top)
             self.genToast(for: output, state: .error)
         }
     }
@@ -108,7 +116,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         
         let collection = cell.sectionCollection
         
-        cell.setSectionTitle(for: TopicViewModel.SectionKind.allCases[indexPath.row].rawValue)
+        cell.setSectionTitle(for: TopicViewModel.SectionKind.allCases[indexPath.row].byKorean)
         collection.delegate = self
         collection.dataSource = self
         collection.register(ImageCardItem.self, forCellWithReuseIdentifier: ImageCardItem.identifier)
@@ -129,9 +137,11 @@ extension TopicViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         let data = viewModel.didLoadOutput.value[collectionView.tag][indexPath.row]
         
-        item.setUIWithData(for: data, showLikeCount: false)
+        item.setUIWithData(for: data, showLikeCount: true)
+        item.isRoundedUI()
         item.likeButtonHandler = { [weak self] in
             guard let self else { return }
+            self.viewModel.selectedIndex = (collectionView.tag, indexPath.row)
             self.viewModel.likeButtonInput.value = data
         }
         

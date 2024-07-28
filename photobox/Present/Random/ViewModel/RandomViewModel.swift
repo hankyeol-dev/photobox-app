@@ -71,7 +71,7 @@ final class RandomViewModel: ViewModelProtocol {
     }
     
     private func bindingLikeButtonOutput(by tag: Int) {
-        var target = didLoadOutput.value[tag]
+        let target = didLoadOutput.value[tag]
         
         if target.isLiked {
             let removeResult = fileManager?.removeImage(for: target.photo.id)
@@ -97,30 +97,52 @@ final class RandomViewModel: ViewModelProtocol {
                 break
             }
         } else {
-            guard let url = target.photo.urls.regular else { return }
-            let saveResult = fileManager?.saveImage(for: url, by: target.photo.id)
-            
-            switch saveResult {
-            case .success(_):
-                DispatchQueue.main.async {
-                    let dbResult = self.repository?.addLikedPhoto(for: LikedPhoto(id: target.photo.id))
+            Task {
+                let result = await networkManager?.fetch(by: .detail(id: target.photo.id), of: Photo.self)
+                
+                switch result {
+                case .success(let success):
+                    guard let url = target.photo.urls.regular else { return }
+                    let saveResult = fileManager?.saveImage(for: url, by: target.photo.id)
                     
-                    switch dbResult {
-                    case .success(let success):
-                        self.likeButtonTouchOutput.value = success
+                    switch saveResult {
+                    case .success(_):
                         DispatchQueue.main.async {
-                            self.didLoadOutput.value[tag] = DetailOutput(photo: target.photo, isLiked: true)
+                            let dbResult = self.repository?.addLikedPhoto(
+                                for: LikedPhoto(
+                                    id: success.id,
+                                    ownerName: success.user.username,
+                                    ownerImage: success.user.profile_image.small,
+                                    ownerCreatedAt: success.created_at,
+                                    width: success.width,
+                                    height: success.height,
+                                    views: success.views,
+                                    downloads: success.downloads
+                                )
+                            )
+                            
+                            switch dbResult {
+                            case .success(let success):
+                                self.likeButtonTouchOutput.value = success
+                                DispatchQueue.main.async {
+                                    self.didLoadOutput.value[tag] = DetailOutput(photo: target.photo, isLiked: true)
+                                }
+                            case .failure(let failure):
+                                self.failureOutput.value = failure.rawValue
+                            case nil:
+                                break
+                            }
                         }
                     case .failure(let failure):
-                        self.failureOutput.value = failure.rawValue
+                        failureOutput.value = failure.rawValue
                     case nil:
                         break
                     }
+                case .failure(let failure):
+                    failureOutput.value = failure.rawValue
+                case nil:
+                    break
                 }
-            case .failure(let failure):
-                failureOutput.value = failure.rawValue
-            case nil:
-                break
             }
         }
     }

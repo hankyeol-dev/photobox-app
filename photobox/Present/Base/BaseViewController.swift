@@ -29,6 +29,8 @@ class ViewController<VM, MV>: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        bindDataAtDidLoad()
+        bindAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,13 +40,15 @@ class ViewController<VM, MV>: UIViewController {
         setNavigation()
     }
     
-    func bindData() {}
     func setNavigation() {}
+    func bindDataAtDidLoad() {}
+    func bindData() {}
+    func bindAction() {}
 }
 
 extension ViewController {
-    // alert, navigation 관련
-    
+   
+    // navigation goBack button
     func genLeftGoBackButton(target: Any?, action: Selector) -> UIBarButtonItem {
         let leftItem = UIBarButtonItem(
             image: UIImage(systemName: "chevron.left"),
@@ -57,9 +61,11 @@ extension ViewController {
         return leftItem
     }
     
+    // custom toast generator
     func genToast(for message : String, state: ToastState) {
         let toast = UILabel()
         
+        toast.frame = CGRect(x: 0, y: 0, width: 120, height: 36)
         toast.backgroundColor = state.stateColor
         toast.textColor = UIColor.white
         toast.font = .systemFont(ofSize: 14, weight: .semibold)
@@ -72,12 +78,12 @@ extension ViewController {
         
         view.addSubview(toast)
         toast.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(120)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(80)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(80)
             make.height.equalTo(44)
         }
         
-        UIView.animate(withDuration: 1.5, delay: 0.1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 3, delay: 0.1, options: .curveLinear, animations: {
             toast.alpha = 0.0
         }, completion: { _ in
             toast.removeFromSuperview()

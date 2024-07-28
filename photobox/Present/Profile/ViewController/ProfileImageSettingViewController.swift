@@ -30,13 +30,18 @@ final class ProfileImageSettingViewController: BaseViewController<ProfileImageSe
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func setNavigation() {
         super.setNavigation()
-        navigationItem.title = "프로필 이미지 선택"
+        navigationItem.title = Text.Titles.NAVIGATION_PROFILE_IMAGE_SETTING.rawValue
         navigationItem.leftBarButtonItem = genLeftGoBackButton(target: self, action: #selector(goBack))
     }
     
     override func bindData() {
+        super.bindData()
         viewModel.didLoadInput.value = ()
         viewModel.didLoadOutput.bindingWithoutInitCall { [weak self] profileImage in
             if let self, let profileImage {

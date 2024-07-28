@@ -162,29 +162,53 @@ final class SearchViewModel: ViewModelProtocol {
             }
             
         } else {
-            let saveResult = fileManageService?.saveImage(for: photo.url, by: photo.photoId)
-            
-            switch saveResult {
-            case .success(_):
-                let dbResult = repositoryManager?.addLikedPhoto(for: LikedPhoto(id: photo.photoId))
+            Task {
+                let result = await networkManager?.fetch(by: .detail(id: photo.photoId), of: Photo.self)
                 
-                switch dbResult {
+                switch result {
                 case .success(let success):
-                    likeButtonOutput.value = success
-                    DispatchQueue.main.async {
-                        self.didLoadOutput.value = self.didLoadOutput.value.map {
-                            SearchedPhotoOutput(photoId: $0.photoId, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.photoId))
+                    let saveResult = fileManageService?.saveImage(for: photo.url, by: photo.photoId)
+                    
+                    switch saveResult {
+                    case .success(_):
+                        DispatchQueue.main.async {
+                            let dbResult = self.repositoryManager?.addLikedPhoto(
+                                for: LikedPhoto(
+                                    id: success.id,
+                                    ownerName: success.user.username,
+                                    ownerImage: success.user.profile_image.small,
+                                    ownerCreatedAt: success.created_at,
+                                    width: success.width,
+                                    height: success.height,
+                                    views: success.views,
+                                    downloads: success.downloads
+                                )
+                            )
+                            
+                            switch dbResult {
+                            case .success(let success):
+                                self.likeButtonOutput.value = success
+                                DispatchQueue.main.async {
+                                    self.didLoadOutput.value = self.didLoadOutput.value.map {
+                                        SearchedPhotoOutput(photoId: $0.photoId, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.photoId))
+                                    }
+                                }
+                            case .failure(let failure):
+                                self.searchErrorOutput.value = failure.rawValue
+                            case nil:
+                                break
+                            }
                         }
+                    case .failure(let failure):
+                        searchErrorOutput.value = failure.rawValue
+                    case nil:
+                        break
                     }
                 case .failure(let failure):
                     searchErrorOutput.value = failure.rawValue
-                case nil:
+                case .none:
                     break
                 }
-            case .failure(let failure):
-                searchErrorOutput.value = failure.rawValue
-            case nil:
-                break
             }
         }
     }

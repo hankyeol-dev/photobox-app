@@ -42,7 +42,7 @@ final class FileManageService: ServiceProtocol {
                             do {
                                 try compressedData?.write(to: filePath)
                             } catch {
-                                print("error")
+                                return
                             }
                         }
                     }
@@ -76,7 +76,6 @@ final class FileManageService: ServiceProtocol {
             in: .userDomainMask).first else {
             return .failure(.directoryError)
         }
-        print(directory)
         
         do {
             let fileURLs = try filemanager.contentsOfDirectory(

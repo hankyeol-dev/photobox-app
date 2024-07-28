@@ -15,23 +15,21 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTextField()
-        bindingAction()
-        
-        if !viewModel.isInitial {
-            mainView.showWithdrawButton()
-        } else {
-            mainView.showConfirmButton()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    override func bindData() {
-        super.bindData()
+    override func bindDataAtDidLoad() {
+        super.bindDataAtDidLoad()
+     
+        if !viewModel.isInitial {
+            mainView.showWithdrawButton()
+        } else {
+            mainView.showConfirmButton()
+        }
         
         viewModel.didLoadInput.value = ()
         viewModel.didLoadOutput.binding { [weak self] output in
@@ -42,6 +40,11 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
                 mainView.generateMBTI(by: output.mbtiButtons, target: self, action: #selector(bindingMbtiButtonAction))
             }
         }
+    }
+    
+    override func bindData() {
+        super.bindData()
+        
         viewModel.nicknameOutput.bindingWithoutInitCall { [weak self] result in
             guard let self else { return }
             switch result {
@@ -95,12 +98,12 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
     
     override func setNavigation() {
         super.setNavigation()
-        navigationItem.title = "프로필 생성"
+        navigationItem.title = Text.Titles.NAVIGATION_PROFILE_SETTING.rawValue
         navigationItem.leftBarButtonItem = genLeftGoBackButton(target: self, action: #selector(goBack))
         
         if !viewModel.isInitial {
             let rightSaveButton = UIBarButtonItem(
-                title: "저장",
+                title: Text.Buttons.PROFILE_UPDATE.rawValue,
                 style: .plain,
                 target: self,
                 action: #selector(saveUserProfile)
@@ -109,17 +112,18 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
             navigationItem.setRightBarButton(rightSaveButton, animated: true)
         }
     }
-   
-}
-
-extension ProfileSettingViewController {
-    private func bindingAction() {
+    
+    override func bindAction() {
         mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(fieldEndEditing)))
+        mainView.profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToProfileImageSelect)))
         mainView.profileChangeButton.addTarget(self, action: #selector(goToProfileImageSelect), for: .touchUpInside)
         mainView.confirmButton.addTarget(self, action: #selector(saveUserProfile), for: .touchUpInside)
         mainView.withdrawButton.addTarget(self, action: #selector(deleteUserProfile), for: .touchUpInside)
     }
-    
+   
+}
+
+extension ProfileSettingViewController {
     @objc
     private func bindingMbtiButtonAction(_ sender: UIButton) {
          viewModel.mbtiButtonTouchInput.value = (sender.tag, sender.configuration?.title)
@@ -136,8 +140,10 @@ extension ProfileSettingViewController {
         if let currentImage = viewModel.currentProfileImage {
             let vm = ProfileImageSettingViewModel()
             vm.currentImage = currentImage
-            vm.sender = { image in
+            vm.sender = { [weak self] image in
+                guard let self else { return }
                 self.viewModel.currentProfileImage = image
+                self.mainView.profileImage.setImage(for: image)
             }
             let vc = ProfileImageSettingViewController(
                 viewModel: vm, mainView: ProfileImageSelectView()
@@ -148,6 +154,7 @@ extension ProfileSettingViewController {
     
     @objc
     private func goBack() {
+        mainView.profileNicknameField.text = ""
         navigationController?.popViewController(animated: true)
     }
     
@@ -161,13 +168,13 @@ extension ProfileSettingViewController {
     @objc
     private func deleteUserProfile() {
         let alert = UIAlertController(
-            title: "프로필 삭제가 정말인가요? 🥹", 
-            message: "정말 모든 데이터를 삭제하고\n 좋아요한 사진을 다 날리고\n 프로필을 삭제하실건가요?",
+            title: Text.Titles.ALERT_PROFILE_DELETE.rawValue,
+            message: Text.Labels.ALERT_PROFILE_DELETE.rawValue,
             preferredStyle: .alert
         )
         
         alert.addAction(UIAlertAction(
-            title: "정말 삭제하기",
+            title: Text.Buttons.ALERT_PROFILE_DELETE.rawValue,
             style: .destructive,
             handler: { [weak self] action in
                 guard let self else { return }
@@ -183,7 +190,7 @@ extension ProfileSettingViewController {
                 window?.makeKeyAndVisible()
             })
         )
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alert.addAction(UIAlertAction(title: Text.Buttons.ALERT_CANCEL.rawValue, style: .cancel))
         
         present(alert, animated: true)
     }

@@ -56,6 +56,12 @@ class MainTabBarController: UITabBarController {
         randomVC.tabBarItem = UITabBarItem(title: "", image: UIImage.tabRandomInactive, selectedImage: .tabRandom)
         
         
+//        let dummy = UINavigationController(
+//            rootViewController: DummyViewController()
+//        )
+//        dummy.tabBarItem = UITabBarItem(title: "", image: UIImage.tabRandomInactive, selectedImage: .tabRandom)
+        
+        
         setViewControllers([topicVC, randomVC, searchVC, likeListVC], animated: true)
         
         tabBar.backgroundColor = .systemBackground

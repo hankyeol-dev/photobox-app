@@ -11,11 +11,15 @@ final class OnboardingViewController: BaseViewController<OnboardingViewModel, On
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.startButton.addTarget(self, action: #selector(goToProfileSettingVC), for: .touchUpInside)
     }
     
     override func loadView() {
         self.view = mainView
+    }
+    
+    override func bindAction() {
+        super.bindAction()
+        mainView.startButton.addTarget(self, action: #selector(goToProfileSettingVC), for: .touchUpInside)
     }
     
     @objc

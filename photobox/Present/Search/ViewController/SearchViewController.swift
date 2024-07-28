@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Toast
 
 final class SearchViewController: BaseViewController<SearchViewModel, SearchView> {
     private var dataSource: UICollectionViewDiffableDataSource<String, SearchedPhotoOutput>!
@@ -19,12 +18,10 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
         super.viewDidLoad()
         setCollection()
         setSearchController()
-        bindAction()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        mainView.searchBar.text = ""
     }
     
     override func setNavigation() {
@@ -33,8 +30,8 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
         navigationItem.title = "사진 검색"
     }
     
-    override func bindData() {
-        super.bindData()
+    override func bindDataAtDidLoad() {
+        super.bindDataAtDidLoad()
         
         viewModel.didLoadInput.value = ()
         viewModel.didLoadOutput.binding { [weak self] output in
@@ -50,6 +47,11 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
                 }
             }
         }
+    }
+    
+    override func bindData() {
+        super.bindData()
+        
         viewModel.searchErrorOutput.bindingWithoutInitCall { [weak self] output in
             guard let output, let self else { return }
             self.genToast(for: output, state: .error)
@@ -57,7 +59,7 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
         viewModel.likeButtonOutput.bindingWithoutInitCall { [weak self] message in
             guard let self else { return }
             if message.count != 0 {
-                self.mainView.makeToast(message, duration: 1, position: .top)
+                self.genToast(for: message, state: .success)
             }
         }
         
@@ -98,7 +100,6 @@ extension SearchViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let data = dataSource.itemIdentifier(for: indexPath) else { return }
-        
         let vm = DetailViewModel(
             networkManager: NetworkService.shared,
             repository: LikedPhotoRepository.shared,
@@ -114,6 +115,7 @@ extension SearchViewController: UICollectionViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        mainView.endEditing(true)
         let collection = mainView.searchCollection
         
         if collection.contentOffset.y >= (collection.contentSize.height - collection.bounds.size.height) {
@@ -138,16 +140,5 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.searchTextDidChangeInput.value = ""
-    }
-}
-
-extension SearchViewController {
-    private func bindAction() {
-        mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bindEndEditing)))
-    }
-    
-    @objc
-    private func bindEndEditing() {
-        mainView.endEditing(true)
     }
 }

@@ -78,9 +78,21 @@ extension RandomViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return item
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vm = DetailViewModel(
+            networkManager: NetworkService.shared,
+            repository: LikedPhotoRepository.shared,
+            fileManager: FileManageService.shared
+        )
+        vm.didLoadInput.value = viewModel.didLoadOutput.value[indexPath.item].photo.id
+        
+        let vc = DetailViewController(viewModel: vm, mainView: DetailView())
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc
     private func onTouchLikeButton(_ sender: UIButton) {
-        print(sender.tag)
         viewModel.likeButtonTouchInput.value = sender.tag
     }
 }

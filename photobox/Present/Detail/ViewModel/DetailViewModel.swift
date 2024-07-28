@@ -13,6 +13,7 @@ final class DetailViewModel: ViewModelProtocol {
     weak var repository: LikedPhotoRepository?
     weak var fileManager: FileManageService?
     
+    private var photoId = ""
     
     // MARK: Input
     var didLoadInput = Observable("")
@@ -37,6 +38,7 @@ final class DetailViewModel: ViewModelProtocol {
     func bindingInput() {
         didLoadInput.bindingWithoutInitCall { [weak self] photoId in
             guard let self else { return }
+            self.photoId = photoId
             self.fetchPhoto(by: photoId)
         }
         
@@ -63,7 +65,50 @@ final class DetailViewModel: ViewModelProtocol {
                     )
                 }
             case .failure(let failure):
-                failureOutput.value = failure.rawValue
+                DispatchQueue.main.async {
+                    if self.validatingIsLikedImage(by: photoId) {
+                        
+                        guard let dbResult = self.repository?.getLikedPhotoById(for: photoId) else {
+                            self.failureOutput.value = "검색 결과를 찾을 수 없습니다."
+                            return
+                        }
+                        
+                        let getResult = self.fileManager?.getImage(for: dbResult.id)
+                        
+                        switch getResult {
+                        case .success(let success):
+                            self.didLoadOutput.value = DetailOutput(
+                                photo: Photo(
+                                    id: dbResult.id,
+                                    created_at: dbResult.ownerCreatedAt,
+                                    width: dbResult.width,
+                                    height: dbResult.height,
+                                    urls: PhotoUrls(
+                                        regular: success, small: nil
+                                    ),
+                                    user: PhotoOwner(
+                                        username: dbResult.ownerName,
+                                        profile_image: PhotoUrls(
+                                            regular: nil,
+                                            small: dbResult.ownerImage)
+                                    ),
+                                    likes: 0,
+                                    views: dbResult.views,
+                                    downloads: dbResult.views
+                                ),
+                                isLiked: true
+                            )
+                        case .failure(let failure):
+                            self.failureOutput.value = "검색 결과를 찾을 수 없습니다."
+                        case nil:
+                            break
+                        }
+                        
+                        
+                    } else {
+                        self.failureOutput.value = failure.rawValue
+                    }
+                }
             case nil:
                 break
             }
@@ -105,26 +150,48 @@ final class DetailViewModel: ViewModelProtocol {
                 break
             }
         } else {
-            let saveResult = fileManager?.saveImage(for: url, by: id)
-            
-            switch saveResult {
-            case .success(_):
-                DispatchQueue.main.async {
-                    let dbResult = self.repository?.addLikedPhoto(for: LikedPhoto(id: id))
+            Task {
+                let result = await networkManager?.fetch(by: .detail(id: photoId), of: Photo.self)
+                
+                switch result {
+                case .success(let success):
+                    let saveResult = fileManager?.saveImage(for: url, by: id)
                     
-                    switch dbResult {
+                    switch saveResult {
                     case .success(_):
-                        self.didLoadOutput.value?.isLiked = true
+                        DispatchQueue.main.async {
+                            let dbResult = self.repository?.addLikedPhoto(
+                                for: LikedPhoto(
+                                    id: success.id,
+                                    ownerName: success.user.username,
+                                    ownerImage: success.user.profile_image.small,
+                                    ownerCreatedAt: success.created_at,
+                                    width: success.width,
+                                    height: success.height,
+                                    views: success.views,
+                                    downloads: success.downloads
+                                )
+                            )
+                            
+                            switch dbResult {
+                            case .success(_):
+                                self.didLoadOutput.value?.isLiked = true
+                            case .failure(let failure):
+                                self.failureOutput.value = failure.rawValue
+                            case .none:
+                                break
+                            }
+                        }
                     case .failure(let failure):
-                        self.failureOutput.value = failure.rawValue
-                    case .none:
+                        failureOutput.value = failure.rawValue
+                    case nil:
                         break
                     }
+                case .failure(let failure):
+                    failureOutput.value = failure.rawValue
+                case nil:
+                    break
                 }
-            case .failure(let failure):
-                failureOutput.value = failure.rawValue
-            case nil:
-                break
             }
         }
     }

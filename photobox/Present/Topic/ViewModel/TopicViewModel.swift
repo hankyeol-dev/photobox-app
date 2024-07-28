@@ -17,11 +17,23 @@ final class TopicViewModel: ViewModelProtocol {
         case golden = "golden-hour"
         case business = "business-work"
         case architect = "architecture-interior"
+        
+        var byKorean: String {
+            switch self {
+            case .golden:
+                "골든 아워"
+            case .business:
+                "비즈니스 및 업무"
+            case .architect:
+                "건축 및 인테리어"
+            }
+        }
     }
     
     var userNickname = UserDefaultsService.shared.getValue(for: .nickname)
     var userProfileImage = UserDefaultsService.shared.getValue(for: .profileImage)
     var userMbti = UserDefaultsService.shared.getValue(for: .mbti)
+    var selectedIndex = (-1, -1)
     
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
@@ -47,6 +59,7 @@ final class TopicViewModel: ViewModelProtocol {
     func bindingInput() {
         didLoadInput.bindingWithoutInitCall { [weak self] _ in
             guard let self else { return }
+            self.selectedIndex = (-1, -1)
             self.bindingDidLoadOutput()
             self.userProfileImage = UserDefaultsService.shared.getValue(for: .profileImage)
         }
@@ -123,38 +136,65 @@ final class TopicViewModel: ViewModelProtocol {
             
         } else {
             // 좋아요 되지 않은 사진이라면,
-            // 사진을 먼저 저장
-            let saveResult = fileManageService?.saveImage(for: photo.url, by: photo.photoId)
-            
-            switch saveResult {
-            case .success(_):
-                let dbResult =  likedPhotoRepository?.addLikedPhoto(for: LikedPhoto(id: photo.photoId))
+            Task {
+                // 1. 사진 정보를 정확하게 확인
+                let result = await networkManager?.fetch(by: .detail(id: photo.photoId), of: Photo.self)
                 
-                switch dbResult {
+                switch result {
                 case .success(let success):
-                    likeButtonOutput.value = success
-                    DispatchQueue.main.async {
-                        self.didLoadOutput.value = self.didLoadOutput.value.map {
-                            $0.map {
-                                SearchedPhotoOutput(photoId: $0.photoId, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.photoId))
+                    // 2. 이미지 로컬에 저장
+                    let saveResult = fileManageService?.saveImage(for: photo.url, by: photo.photoId)
+                    
+                    // 2-1. 이미지 로컬에 저장 상태에 따라 분기
+                    switch saveResult {
+                        // 2-2. 이미지 로컬에 저장 상태 성공
+                    case .success(_):
+                        // 3. 로컬 db에 레코드 생성
+                        DispatchQueue.main.async {
+                            let dbResult = self.likedPhotoRepository?.addLikedPhoto(
+                                for: LikedPhoto(
+                                    id: success.id,
+                                    ownerName: success.user.username,
+                                    ownerImage: success.user.profile_image.small,
+                                    ownerCreatedAt: success.created_at,
+                                    width: success.width,
+                                    height: success.height,
+                                    views: success.views,
+                                    downloads: success.downloads
+                                )
+                            )
+                            // 3-1. 로컬 db에 레코드 생성에 따른 분기
+                            switch dbResult {
+                                // 3-2. 로컬 db에 레코드 생성 성공
+                            case .success(let success):
+                                self.likeButtonOutput.value = success
+                                DispatchQueue.main.async {
+                                    self.didLoadOutput.value = self.didLoadOutput.value.map {
+                                        $0.map {
+                                            SearchedPhotoOutput(photoId: $0.photoId, url: $0.url, likes: $0.likes, isLiked: self.validatingIsLikedImage(by: $0.photoId))
+                                        }
+                                    }
+                                }
+                                // 3-2. 로컬 db에 레코드 생성 실패
+                            case .failure(let failure):
+                                self.failureOutput.value = failure.rawValue
+                            case nil:
+                                break
                             }
                         }
+                        // 2-2. 이미지 로컬에 저장 상태 실패
+                    case .failure(let failure):
+                        failureOutput.value = failure.rawValue
+                    case nil:
+                        break
                     }
                 case .failure(let failure):
                     failureOutput.value = failure.rawValue
-                case nil:
+                case .none:
                     break
                 }
-                
-            case .failure(let failure):
-                failureOutput.value = failure.rawValue
-            case nil:
-                break
             }
         }
-        
-        
-        
     }
     
     private func validatingIsLikedImage(by imageId: String) -> Bool {

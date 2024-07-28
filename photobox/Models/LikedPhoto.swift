@@ -8,14 +8,45 @@
 import Foundation
 import RealmSwift
 
+/**
+ user name
+ user profile - small (link)
+ upload date - T 포함한 데이터
+ width
+ height
+ views
+ downloads
+ */
 
 final class LikedPhoto: Object {
     @Persisted(primaryKey: true) var id: String
+    @Persisted var ownerName: String
+    @Persisted var ownerImage: String?
+    @Persisted var ownerCreatedAt: String
+    @Persisted var width: Int
+    @Persisted var height: Int
+    @Persisted var views: Int?
+    @Persisted var downloads: Int?
     @Persisted var created_at = Date()
     
-    convenience init(id: String) {
+    convenience init(
+        id: String,
+        ownerName: String, 
+        ownerImage: String? = nil,
+        ownerCreatedAt: String,
+        width: Int,
+        height: Int,
+        views: Int? = nil,
+        downloads: Int? = nil
+    ) {
         self.init()
         self.id = id
+        self.ownerName = ownerName
+        self.ownerImage = ownerImage
+        self.width = width
+        self.height = height
+        self.views = views
+        self.downloads = downloads
     }
 }
 
