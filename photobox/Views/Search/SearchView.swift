@@ -89,10 +89,12 @@ final class SearchView: BaseView, MainViewProtocol {
     
     private func setPullDownButton() {
         
+        searchFilterMenu.setButtionTitle(for: OrderBy.relevant.byKorean)
+        
         let menus = OrderBy.allCases.map { order in
             UIAction(title: order.byKorean) { [weak self] action in
                 guard let self else { return }
-                self.searchFilterMenu.sortButton.configuration?.title = order.byKorean
+                self.searchFilterMenu.setButtionTitle(for: order.byKorean)
                 self.sender?(order)
             }
         }

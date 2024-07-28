@@ -59,7 +59,8 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
         }
         viewModel.failureOutput.bindingWithoutInitCall { [weak self] output in
             guard let self else { return }
-            self.mainView.makeToast(output, duration: 1, position: .top)
+//            self.mainView.makeToast(output, duration: 1, position: .top)
+            self.genToast(for: output, state: .error)
         }
     }
 }

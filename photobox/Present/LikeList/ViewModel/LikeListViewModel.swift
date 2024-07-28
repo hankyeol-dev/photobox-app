@@ -12,9 +12,12 @@ final class LikeListViewModel: ViewModelProtocol {
     weak var repository: LikedPhotoRepository?
     weak var filemanger: FileManageService?
     
+    private var currentSort: LikePhotoSortOption = .latest
+    
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
     var likeButtonInput = Observable<SearchedPhotoOutput?>(nil)
+    var sortOptionInput = Observable<LikePhotoSortOption>(.oldest)
     
     // MARK: Output
     var didLoadOutput = Observable<[SearchedPhotoOutput]>([])
@@ -35,17 +38,24 @@ final class LikeListViewModel: ViewModelProtocol {
     func bindingInput() {
         didLoadInput.bindingWithoutInitCall { [weak self] _ in
             guard let self else { return }
-            self.bindingDidLoadOutput()
+            self.bindingDidLoadOutput(by: currentSort)
         }
         
         likeButtonInput.bindingWithoutInitCall { [weak self] item in
             guard let self else { return }
             self.photoLikeHandler(for: item)
         }
+        sortOptionInput.bindingWithoutInitCall { [weak self] sort in
+            guard let self else { return }
+            if sort != currentSort {
+                self.currentSort = sort
+                self.bindingDidLoadOutput(by: sort)
+            }
+        }
     }
     
-    private func bindingDidLoadOutput() {
-        let likedRecords = repository?.getLikedPhotos()
+    private func bindingDidLoadOutput(by sortOption: LikePhotoSortOption) {
+        let likedRecords = repository?.getLikedPhotos(by: sortOption)
         
         if let likedRecords, likedRecords.count != 0 {
             self.didLoadOutput.value = []

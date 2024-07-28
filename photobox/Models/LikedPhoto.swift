@@ -19,6 +19,20 @@ final class LikedPhoto: Object {
     }
 }
 
+enum LikePhotoSortOption: CaseIterable {
+    case latest
+    case oldest
+    
+    var byKorean: String {
+        switch self {
+        case .latest:
+            return "최신순"
+        case .oldest:
+            return "과거순"
+        }
+    }
+}
+
 final class LikedPhotoRepository: ServiceProtocol {
     private let db = try! Realm()
     static let shared = LikedPhotoRepository()
@@ -42,6 +56,10 @@ final class LikedPhotoRepository: ServiceProtocol {
     
     func getLikedPhotos() -> [LikedPhoto] {
         return Array(db.objects(LikedPhoto.self))
+    }
+    
+    func getLikedPhotos(by sortOption: LikePhotoSortOption) -> [LikedPhoto] {
+        return Array(db.objects(LikedPhoto.self).sorted(byKeyPath: "created_at", ascending: sortOption == .latest ? false : true))
     }
     
     func getLikedPhotoById(for id: String) -> LikedPhoto? {

@@ -16,11 +16,12 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
     let profileNicknameValidationLabel = ProfileNicknameValidationLabel()
     let mbtiBox = BoxWithTitle(for: "MBTI 설정하기")
     let confirmButton = CircleButton(for: "완료")
+    let withdrawButton = UIButton()
     
     override func setSubviews() {
         super.setSubviews()
         
-        [profileBackView, profileNicknameField, profileNicknameValidationLabel, mbtiBox, confirmButton].forEach {
+        [profileBackView, profileNicknameField, profileNicknameValidationLabel, mbtiBox, confirmButton, withdrawButton].forEach {
             self.addSubview($0)
         }
         [profileImage, profileChangeButton].forEach {
@@ -31,8 +32,10 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
     override func setLayout() {
         super.setLayout()
         
+        let guide = self.safeAreaLayoutGuide
+        
         profileBackView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(guide)
             make.height.equalTo(150)
         }
         
@@ -49,24 +52,30 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
         
         profileNicknameField.snp.makeConstraints { make in
             make.top.equalTo(profileBackView.snp.bottom).offset(24)
-            make.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(16)
+            make.horizontalEdges.equalTo(guide).inset(16)
             make.height.equalTo(60)
         }
         
         profileNicknameValidationLabel.snp.makeConstraints { make in
             make.top.equalTo(profileNicknameField.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(guide).inset(20)
         }
         
         mbtiBox.snp.makeConstraints { make in
             make.top.equalTo(profileNicknameValidationLabel.snp.bottom).offset(24)
-            make.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(guide)
             make.height.equalTo(140)
         }
         
         confirmButton.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
+            make.horizontalEdges.bottom.equalTo(guide).inset(16)
             make.height.equalTo(60)
+        }
+        
+        withdrawButton.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(guide).inset(16)
+            make.bottom.equalTo(guide).inset(44)
+            make.height.equalTo(44)
         }
     }
     
@@ -83,6 +92,7 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
         profileImage.setBorder(for: true)
         
         confirmButton.isCantTouched()
+        setWithdrawButton()
     }
     
     func generateMBTI(by mbtiArray: [[MbtiButton]], target: Any?, action: Selector) {
@@ -116,7 +126,21 @@ final class ProfileSettingView: BaseView, MainViewProtocol {
         mbtiBox.setUpContentsView(by: totalStack)
     }
     
-    func hideConfirmButton() {
+    func showConfirmButton() {
+        confirmButton.isHidden = false
+        withdrawButton.isHidden = true
+    }
+    
+    func showWithdrawButton() {
         confirmButton.isHidden = true
+        withdrawButton.isHidden = false
+    }
+    
+    private func setWithdrawButton() {
+        withdrawButton.configuration = .borderless()
+        withdrawButton.configuration?.baseForegroundColor = .error
+        var titleContainer = AttributeContainer()
+        titleContainer.font = UIFont.boldSystemFont(ofSize: 14)
+        withdrawButton.configuration?.attributedTitle = AttributedString("프로필 삭제하기", attributes: titleContainer)
     }
 }

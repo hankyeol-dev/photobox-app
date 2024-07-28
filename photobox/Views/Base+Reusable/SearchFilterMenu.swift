@@ -41,19 +41,20 @@ final class SearchFilterMenu: BaseView {
         filterCollection.backgroundColor = .brown
         
         sortButton.configuration = .filled()
-        sortButton.layer.cornerRadius = 16
-        sortButton.layer.borderWidth = 1
-        sortButton.layer.borderColor = UIColor.gray_lg.cgColor
         sortButton.configuration?.cornerStyle = .capsule
-        sortButton.configuration?.image = .sort
-        sortButton.configuration?.title = "관련순"
+        sortButton.configuration?.titleAlignment = .leading
         sortButton.configuration?.imagePadding = 4
-        sortButton.configuration?.baseBackgroundColor = .white
+        sortButton.configuration?.baseBackgroundColor = .systemGray6
         sortButton.configuration?.baseForegroundColor = .gray_lg
+        sortButton.configuration?.image = .sort
+        sortButton.configuration?.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 13)
     }
     
-    func hideFilterCollection() {
-        filterCollection.isHidden = true
+    func setButtionTitle(for title: String) {
+        var titleContainer = AttributeContainer()
+        titleContainer.font = UIFont.boldSystemFont(ofSize: 14)
+
+        sortButton.configuration?.attributedTitle = AttributedString(title, attributes: titleContainer)
     }
 }
 
@@ -71,5 +72,9 @@ extension SearchFilterMenu {
         section.orthogonalScrollingBehavior = .continuous
         
         return UICollectionViewCompositionalLayout(section: section)
+    }
+    
+    func hideFilterCollection() {
+        filterCollection.isHidden = true
     }
 }

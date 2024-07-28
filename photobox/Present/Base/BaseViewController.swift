@@ -56,4 +56,31 @@ extension ViewController {
         
         return leftItem
     }
+    
+    func genToast(for message : String, state: ToastState) {
+        let toast = UILabel()
+        
+        toast.backgroundColor = state.stateColor
+        toast.textColor = UIColor.white
+        toast.font = .systemFont(ofSize: 14, weight: .semibold)
+        toast.textAlignment = .center
+        toast.numberOfLines = 0
+        toast.text = message
+        toast.layer.cornerRadius = 16
+        toast.clipsToBounds  =  true
+        toast.alpha = 1.0
+        
+        view.addSubview(toast)
+        toast.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(120)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(80)
+            make.height.equalTo(44)
+        }
+        
+        UIView.animate(withDuration: 1.5, delay: 0.1, options: .curveEaseOut, animations: {
+            toast.alpha = 0.0
+        }, completion: { _ in
+            toast.removeFromSuperview()
+        })
+    }
 }

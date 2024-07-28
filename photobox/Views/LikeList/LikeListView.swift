@@ -9,11 +9,30 @@ import UIKit
 import SnapKit
 
 final class LikeListView: BaseView, MainViewProtocol {
+    var sender: ((LikePhotoSortOption) -> Void)?
+    
     let listFilterMenu = SearchFilterMenu()
     lazy var listCollection = UICollectionView(
         frame: .zero, collectionViewLayout: setCollectionLayout()
     )
     private let listNoneView = UILabel()
+    
+    override func setUI() {
+        super.setUI()
+        
+        listFilterMenu.setButtionTitle(for: OrderBy.latest.byKorean)
+        
+        let menus = LikePhotoSortOption.allCases.map { sort in
+            UIAction(title: sort.byKorean) { [weak self] action in
+                guard let self else { return }
+                self.listFilterMenu.setButtionTitle(for: sort.byKorean)
+                self.sender?(sort)
+            }
+        }
+        
+        listFilterMenu.sortButton.menu = UIMenu(
+            identifier: nil, options: .singleSelection, children: menus)
+    }
     
     private func setCollectionLayout() -> UICollectionViewCompositionalLayout {
         
@@ -46,6 +65,7 @@ final class LikeListView: BaseView, MainViewProtocol {
         }
         
         listFilterMenu.hideFilterCollection()
+        
     }
     
     func onListNoneView() {

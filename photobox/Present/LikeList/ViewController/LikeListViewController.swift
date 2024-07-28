@@ -39,6 +39,11 @@ final class LikeListViewController: BaseViewController<LikeListViewModel, LikeLi
                 self.mainView.onListNoneView()
             }
         }
+        
+        mainView.sender = { [weak self] sort in
+            guard let self else { return }
+            self.viewModel.sortOptionInput.value = sort
+        }
     }
 }
 

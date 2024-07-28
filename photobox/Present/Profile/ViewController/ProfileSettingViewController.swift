@@ -20,7 +20,9 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
         bindingAction()
         
         if !viewModel.isInitial {
-            mainView.hideConfirmButton()
+            mainView.showWithdrawButton()
+        } else {
+            mainView.showConfirmButton()
         }
     }
     
@@ -64,7 +66,6 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
         }
         viewModel.profileCreationOutput.bindingWithoutInitCall { [weak self] output in
             guard let self else { return }
-            print(output)
             if output {
                 self.mainView.confirmButton.isAbled()
                 self.navigationItem.rightBarButtonItem?.tintColor = .primary
@@ -116,6 +117,7 @@ extension ProfileSettingViewController {
         mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(fieldEndEditing)))
         mainView.profileChangeButton.addTarget(self, action: #selector(goToProfileImageSelect), for: .touchUpInside)
         mainView.confirmButton.addTarget(self, action: #selector(saveUserProfile), for: .touchUpInside)
+        mainView.withdrawButton.addTarget(self, action: #selector(deleteUserProfile), for: .touchUpInside)
     }
     
     @objc
@@ -156,6 +158,35 @@ extension ProfileSettingViewController {
         }
     }
 
+    @objc
+    private func deleteUserProfile() {
+        let alert = UIAlertController(
+            title: "프로필 삭제가 정말인가요? 🥹", 
+            message: "정말 모든 데이터를 삭제하고\n 좋아요한 사진을 다 날리고\n 프로필을 삭제하실건가요?",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(
+            title: "정말 삭제하기",
+            style: .destructive,
+            handler: { [weak self] action in
+                guard let self else { return }
+                self.viewModel.deleteUserProfileInput.value = ()
+                
+                let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                let sceneDelegate = scene?.delegate as? SceneDelegate
+                
+                let window = sceneDelegate?.window
+                let vc = UINavigationController(rootViewController: OnboardingViewController(viewModel: OnboardingViewModel(), mainView: OnboardingView()))
+                
+                window?.rootViewController = vc
+                window?.makeKeyAndVisible()
+            })
+        )
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        present(alert, animated: true)
+    }
 }
 
 extension ProfileSettingViewController: UITextFieldDelegate {

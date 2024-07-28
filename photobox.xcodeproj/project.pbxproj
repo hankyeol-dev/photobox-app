@@ -74,6 +74,7 @@
 		81C1EE3E2C54BFDC00C8C658 /* DetailOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE3D2C54BFDC00C8C658 /* DetailOwnerView.swift */; };
 		81C1EE402C54CD1B00C8C658 /* DetailInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE3F2C54CD1B00C8C658 /* DetailInfoItem.swift */; };
 		81C1EE4C2C554E4700C8C658 /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE4B2C554E4700C8C658 /* MainTabbarController.swift */; };
+		81C1EE4E2C55D15000C8C658 /* Enum+Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C1EE4D2C55D15000C8C658 /* Enum+Toast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +144,7 @@
 		81C1EE3D2C54BFDC00C8C658 /* DetailOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOwnerView.swift; sourceTree = "<group>"; };
 		81C1EE3F2C54CD1B00C8C658 /* DetailInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoItem.swift; sourceTree = "<group>"; };
 		81C1EE4B2C554E4700C8C658 /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
+		81C1EE4D2C55D15000C8C658 /* Enum+Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Toast.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +323,7 @@
 				81C1ED9A2C4FE0C000C8C658 /* Extension+UIView.swift */,
 				81A4AABC2C4E9E86008E2F8C /* Enum+Text.swift */,
 				81A4AACE2C4F6A36008E2F8C /* Enum+UIImage.swift */,
+				81C1EE4D2C55D15000C8C658 /* Enum+Toast.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				81C1EDAD2C4FF3A000C8C658 /* OnboardingView.swift in Sources */,
 				81A4AAB82C4E9DAE008E2F8C /* ProfileNicknameValidationLabel.swift in Sources */,
 				81A4AACF2C4F6A36008E2F8C /* Enum+UIImage.swift in Sources */,
+				81C1EE4E2C55D15000C8C658 /* Enum+Toast.swift in Sources */,
 				81A4AA7F2C4E20EE008E2F8C /* ENV.swift in Sources */,
 				81C1EE162C52A79A00C8C658 /* SearchViewModel.swift in Sources */,
 				81C1EE2F2C5494D600C8C658 /* LikeListViewController.swift in Sources */,

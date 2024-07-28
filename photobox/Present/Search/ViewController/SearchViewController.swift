@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast
 
 final class SearchViewController: BaseViewController<SearchViewModel, SearchView> {
     private var dataSource: UICollectionViewDiffableDataSource<String, SearchedPhotoOutput>!
@@ -51,7 +52,7 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
         }
         viewModel.searchErrorOutput.bindingWithoutInitCall { [weak self] output in
             guard let output, let self else { return }
-            self.mainView.makeToast(output, duration: 2, position: .top)
+            self.genToast(for: output, state: .error)
         }
         viewModel.likeButtonOutput.bindingWithoutInitCall { [weak self] message in
             guard let self else { return }
@@ -113,7 +114,6 @@ extension SearchViewController: UICollectionViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let query = mainView.searchBar.text else { return }
         let collection = mainView.searchCollection
         
         if collection.contentOffset.y >= (collection.contentSize.height - collection.bounds.size.height) {

@@ -37,6 +37,7 @@ final class ProfileSettingViewModel: ViewModelProtocol {
     var nicknameInput = Observable<String?>("")
     var mbtiButtonTouchInput = Observable<(Int, String?)?>(nil)
     var saveUserProfileInput = Observable<Void?>(nil)
+    var deleteUserProfileInput = Observable<Void?>(nil)
     
     // MARK: Output
     var didLoadOutput = Observable<ProfileDidLoadOutput?>(nil)
@@ -72,6 +73,9 @@ final class ProfileSettingViewModel: ViewModelProtocol {
             self.saveUserProfile()
         }
         
+        deleteUserProfileInput.bindingWithoutInitCall { _ in
+            UserDefaultsService.shared.removeValues()
+        }
     }
     
     func bindUpdateValues(profileImageName: String, nickname: String, mbti: String) {
