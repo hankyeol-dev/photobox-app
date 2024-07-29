@@ -16,6 +16,8 @@ enum Text: String {
         
         case NAVIGATION_PROFILE_SETTING  = "프로필 생성"
         case NAVIGATION_PROFILE_IMAGE_SETTING = "프로필 이미지 선택"
+        case NAVIGATION_SEARCH_PHOTO = "사진 검색"
+        case NAVIGATION_LIKED_PHOTO = "좋아요한 사진 목록"
         
         case ALERT_PROFILE_DELETE = "프로필 삭제가 정말인가요? 🥹"
         
@@ -26,10 +28,14 @@ enum Text: String {
         case NICKNAME_SUCCESS = "정말 멋진 닉네임이에요!"
         
         case ALERT_PROFILE_DELETE = "정말 모든 데이터를 삭제하고\n 좋아요한 사진을 다 날리고\n 프로필을 삭제하실건가요?"
+        
+        case LIST_NO_LIKED_PHOTOS = "좋아요한 사진이 없습니다."
+        case LIST_NO_SEARCHED_PHOTOS = "검색 결과가 없습니다."
     }
     
     enum Placeholder: String {
         case NICKNAMEFIELD = "멋진 닉네임을 만들어보세요."
+        case SEARCHFIELD = "사진을 검색해보세요."
     }
     
     enum Errors: String, Error {

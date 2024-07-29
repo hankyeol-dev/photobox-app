@@ -84,7 +84,7 @@ final class ProfileSettingViewModel: ViewModelProtocol {
         }
         currentNickname = nickname
         
-        var compare = mbti.map { String($0) }
+        let compare = mbti.map { String($0) }
         
         currentMbti.enumerated().forEach { index, buttons in
             buttons.enumerated().forEach { idx, button in

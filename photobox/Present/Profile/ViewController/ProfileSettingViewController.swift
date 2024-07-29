@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProfileSettingViewController: BaseViewController<ProfileSettingViewModel, ProfileSettingView> {
-
+    
     override func loadView() {
         self.view = mainView
     }
@@ -24,7 +24,7 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
     
     override func bindDataAtDidLoad() {
         super.bindDataAtDidLoad()
-     
+        
         if !viewModel.isInitial {
             mainView.showWithdrawButton()
         } else {
@@ -108,7 +108,7 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
                 target: self,
                 action: #selector(saveUserProfile)
             )
-
+            
             navigationItem.setRightBarButton(rightSaveButton, animated: true)
         }
     }
@@ -120,13 +120,14 @@ final class ProfileSettingViewController: BaseViewController<ProfileSettingViewM
         mainView.confirmButton.addTarget(self, action: #selector(saveUserProfile), for: .touchUpInside)
         mainView.withdrawButton.addTarget(self, action: #selector(deleteUserProfile), for: .touchUpInside)
     }
-   
+    
 }
 
 extension ProfileSettingViewController {
     @objc
     private func bindingMbtiButtonAction(_ sender: UIButton) {
-         viewModel.mbtiButtonTouchInput.value = (sender.tag, sender.configuration?.title)
+        mainView.endEditing(true)
+        viewModel.mbtiButtonTouchInput.value = (sender.tag, sender.configuration?.title)
     }
     
     @objc
@@ -164,7 +165,7 @@ extension ProfileSettingViewController {
             viewModel.saveUserProfileInput.value = ()
         }
     }
-
+    
     @objc
     private func deleteUserProfile() {
         let alert = UIAlertController(

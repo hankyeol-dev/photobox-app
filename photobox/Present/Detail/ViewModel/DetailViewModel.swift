@@ -98,7 +98,7 @@ final class DetailViewModel: ViewModelProtocol {
                                 ),
                                 isLiked: true
                             )
-                        case .failure(let failure):
+                        case .failure(_):
                             self.failureOutput.value = "검색 결과를 찾을 수 없습니다."
                         case nil:
                             break

@@ -20,6 +20,10 @@ final class SearchViewModel: ViewModelProtocol {
     private var total_pages = 0
     private var isFetching = false
     private var currentOrder: OrderBy = .relevant
+    private var currentColor: ColorBy = .black
+    var colorSortOptionOutput: [ColorButtonOutput] = ColorBy.allCases.map {
+        ColorButtonOutput(color: $0, isSelected: false)
+    }
     
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
@@ -28,12 +32,12 @@ final class SearchViewModel: ViewModelProtocol {
     var likeButtonInput = Observable<SearchedPhotoOutput?>(nil)
     var scrollInput = Observable<Void?>(nil)
     var sortOptionInput = Observable<OrderBy>(.latest)
+    var colorSortOptionInput = Observable<Int>(-1)
 
     // MARK: Output
     var didLoadOutput = Observable<[SearchedPhotoOutput]>([])
     var likeButtonOutput = Observable<String>("")
     var searchErrorOutput = Observable<String?>(nil)
-    
     
     init(
         networkManager: NetworkService,
@@ -81,6 +85,22 @@ final class SearchViewModel: ViewModelProtocol {
                 self.bindingSearchTextInput(for: self.query)
             }
         }
+        colorSortOptionInput.bindingWithoutInitCall { [weak self] colorIndex in
+            guard let self else { return }
+            if let color = ColorBy(rawValue: colorIndex), self.currentColor != color {
+                self.currentColor = color
+                self.colorSortOptionOutput = ColorBy.allCases.map {
+                    ColorButtonOutput(color: $0, isSelected:  $0.rawValue == colorIndex)
+                }
+            } else {
+                self.currentColor = .black
+                self.colorSortOptionOutput = ColorBy.allCases.map {
+                    ColorButtonOutput(color: $0, isSelected: false)
+                }
+            }
+            self.didLoadOutput.value = []
+            self.bindingSearchTextInput(for: self.query)
+        }
     }
     
     private func bindingSearchTextInput(for text: String?) {
@@ -96,7 +116,7 @@ final class SearchViewModel: ViewModelProtocol {
         
         Task {
             let result = await networkManager?.fetch(
-                by: .search(query: text, order_by: currentOrder),
+                by: .search(query: text, order_by: currentOrder, color: currentColor),
                 of: PhotoSearchResult.self
             )
             

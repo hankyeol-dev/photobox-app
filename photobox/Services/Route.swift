@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum OrderBy: String, CaseIterable {
     case relevant
@@ -24,7 +25,7 @@ enum OrderBy: String, CaseIterable {
     }
 }
 
-enum ColorBy: String, CaseIterable {
+enum ColorBy: Int, CaseIterable, Hashable {
     case black
     case white
     case yellow
@@ -32,6 +33,44 @@ enum ColorBy: String, CaseIterable {
     case purple
     case green
     case blue
+    
+    var byEnglish: String {
+        switch self {
+        case .black:
+            return "black"
+        case .white:
+            return "white"
+        case .yellow:
+            return "yellow"
+        case .red:
+            return "red"
+        case .purple:
+            return "purple"
+        case .green:
+            return "green"
+        case .blue:
+            return "blue"
+        }
+    }
+    
+    var byUIColor: UIColor {
+        switch self {
+        case .black:
+            return UIColor(hexCode: "#000000")
+        case .white:
+            return UIColor(hexCode: "#FFFFFF")
+        case .yellow:
+            return UIColor(hexCode: "#FFEF62")
+        case .red:
+            return UIColor(hexCode: "#F04452")
+        case .purple:
+            return UIColor(hexCode: "#9636E1")
+        case .green:
+            return UIColor(hexCode: "#02B946")
+        case .blue:
+            return UIColor(hexCode: "#3C59FF")
+        }
+    }
     
     var byKorean: String {
         switch self {
@@ -89,7 +128,7 @@ enum RouteService {
                 URLQueryItem(name: "page", value: String(page)),
                 URLQueryItem(name: "per_page", value: String(per_page)),
                 URLQueryItem(name: "order_by", value: order_by.rawValue),
-                URLQueryItem(name: "color_by", value: color_by.rawValue)
+                URLQueryItem(name: "color_by", value: color_by.byEnglish)
             ]
         case .random:
             return [

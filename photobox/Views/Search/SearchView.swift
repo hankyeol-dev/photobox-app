@@ -34,7 +34,7 @@ final class SearchView: BaseView, MainViewProtocol {
     override func setUI() {
         super.setUI()
         
-        searchBar.placeholder = "사진을 검색해보세요."
+        searchBar.placeholder = Text.Placeholder.SEARCHFIELD.rawValue
         searchBar.searchBarStyle = .minimal
         
         setPullDownButton()
@@ -81,7 +81,7 @@ final class SearchView: BaseView, MainViewProtocol {
         }
         
         searchNoneView.backgroundColor = .systemBackground
-        searchNoneView.text = "검색 결과가 없습니다."
+        searchNoneView.text = Text.Labels.LIST_NO_SEARCHED_PHOTOS.rawValue
         searchNoneView.textAlignment = .center
         searchNoneView.font = .systemFont(ofSize: 16, weight: .semibold)
     }

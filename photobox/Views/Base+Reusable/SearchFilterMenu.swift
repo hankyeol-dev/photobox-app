@@ -38,7 +38,7 @@ final class SearchFilterMenu: BaseView {
     override func setUI() {
         super.setUI()
         
-        filterCollection.backgroundColor = .brown
+        filterCollection.showsHorizontalScrollIndicator = false
         
         sortButton.configuration = .filled()
         sortButton.configuration?.cornerStyle = .capsule
@@ -64,7 +64,7 @@ extension SearchFilterMenu {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .absolute(56))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.32), heightDimension: .absolute(36))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(8)
         

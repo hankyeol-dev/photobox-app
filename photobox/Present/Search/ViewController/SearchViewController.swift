@@ -9,6 +9,7 @@ import UIKit
 
 final class SearchViewController: BaseViewController<SearchViewModel, SearchView> {
     private var dataSource: UICollectionViewDiffableDataSource<String, SearchedPhotoOutput>!
+    private var filterDataSource: UICollectionViewDiffableDataSource<String, ColorButtonOutput>!
     
     override func loadView() {
         self.view = mainView
@@ -27,7 +28,7 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
     override func setNavigation() {
         super.setNavigation()
         
-        navigationItem.title = "사진 검색"
+        navigationItem.title = Text.Titles.NAVIGATION_SEARCH_PHOTO.rawValue
     }
     
     override func bindDataAtDidLoad() {
@@ -44,6 +45,7 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
                 DispatchQueue.main.async {
                     self.mainView.onSearchTableView()
                     self.bindCollectionDataSource(for: output)
+                    self.bindFilterMenuDataSource(by: self.viewModel.colorSortOptionOutput)
                 }
             }
         }
@@ -58,9 +60,7 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
         }
         viewModel.likeButtonOutput.bindingWithoutInitCall { [weak self] message in
             guard let self else { return }
-            if message.count != 0 {
-                self.genToast(for: message, state: .success)
-            }
+            self.genToast(for: message, state: .success)
         }
         
         mainView.sender = { [weak self] order in
@@ -73,6 +73,7 @@ final class SearchViewController: BaseViewController<SearchViewModel, SearchView
 extension SearchViewController: UICollectionViewDelegate {
     private func setCollection() {
         mainView.searchCollection.delegate = self
+        mainView.searchFilterMenu.filterCollection.delegate = self
     }
     
     private func bindCollectionDataSource(for datas: [SearchedPhotoOutput]) {
@@ -96,6 +97,28 @@ extension SearchViewController: UICollectionViewDelegate {
         snapshot.appendItems(datas, toSection: "main")
         
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func bindFilterMenuDataSource(by datas: [ColorButtonOutput]) {
+        let cellRegister = UICollectionView.CellRegistration<SearchColorFilterItem, ColorButtonOutput> {
+            [weak self] cell, indexPath, item in
+            cell.bindView(for: item)
+            cell.colorButton.tag = item.color.rawValue
+            cell.colorButton.addTarget(self, action: #selector(self?.onTouchColorFilterButton), for: .touchUpInside)
+        }
+        
+        filterDataSource = UICollectionViewDiffableDataSource(
+            collectionView: mainView.searchFilterMenu.filterCollection,
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: cellRegister, for: indexPath, item: item)
+            }
+        )
+        
+        var snapshot = NSDiffableDataSourceSnapshot<String, ColorButtonOutput>()
+        snapshot.appendSections(["filter"])
+        snapshot.appendItems(datas, toSection: "filter")
+        filterDataSource.apply(snapshot)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -140,5 +163,12 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.searchTextDidChangeInput.value = ""
+    }
+}
+
+extension SearchViewController {
+    @objc
+    private func onTouchColorFilterButton(_ sender: UIButton) {
+        viewModel.colorSortOptionInput.value = sender.tag
     }
 }

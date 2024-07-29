@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class CapsuleItem: BaseView {
+final class LikeCountView: BaseView {
     private var image = UIImageView()
     private let label = UILabel()
     

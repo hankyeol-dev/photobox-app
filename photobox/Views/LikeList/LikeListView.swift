@@ -75,7 +75,7 @@ final class LikeListView: BaseView, MainViewProtocol {
         }
         
         listNoneView.backgroundColor = .systemBackground
-        listNoneView.text = "좋아요한 사진이 없습니다."
+        listNoneView.text = Text.Labels.LIST_NO_LIKED_PHOTOS.rawValue
         listNoneView.textAlignment = .center
         listNoneView.font = .systemFont(ofSize: 16, weight: .semibold)
     }

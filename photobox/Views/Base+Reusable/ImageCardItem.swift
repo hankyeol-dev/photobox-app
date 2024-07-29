@@ -12,7 +12,7 @@ final class ImageCardItem: BaseCollectionItem {
     var likeButtonHandler: (() -> Void)?
     
     private let cardImage = UIImageView()
-    private let likeCountView = CapsuleItem()
+    private let likeCountView = LikeCountView()
     
     let likeButton = UIButton()
     
@@ -60,7 +60,7 @@ final class ImageCardItem: BaseCollectionItem {
             
             likeCountView.bind(
                 backgroundColor: .gray_lg,
-                image: UIImage(systemName: "star.fill")!.withTintColor(.systemYellow, renderingMode: .alwaysTemplate),
+                image: UIImage(systemName: "star.fill")!,
                 text: String(data.likes.formatted())
             )
         }

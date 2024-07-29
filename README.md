@@ -2,26 +2,39 @@
 
 ### 목차
 - [1️⃣ 프로젝트 소개](#-프로젝트-소개)
-- [2️⃣ 프로젝트 Flow](#-프로젝트-Scene-Flow)
+- [2️⃣ 프로젝트 안에서 고민한 것들](#-프로젝트-안에서-고민한-것들)
 - [3️⃣ 프로젝트 구현 조건](#-프로젝트-구현-조건)
-- [4️⃣ 프로젝트 안에서 고민한 것들](#-프로젝트-안에서-고민한-것들)
 
 ### 프로젝트 소개
 
-- 구현 기간: 2024.07.22~
-(tbd)
+- 기본 소개
+    - Unslash Open API를 활용하여 사진 데이터를 조회하고, 조건에 맞게 검색하고, 좋아요한 사진을 모아보는 앱
 
-<br />
+- 구현 기간
+    - 1차: 2024.07.22 ~ 07.29
+    - 2차: TBD    
 
-### 프로젝트 Scene Flow
-(tbd)
+- 구현 방식
+    - `Custom Observable` 객체를 활용하여 **MVVM 패턴**으로 코드 적용
+    - `URLSession dataTask`를 통한 비동기 데이터 통신 및 `Task + Async/Await` 를 활용한 비동기 코드 활용
+    - `Realm Swift` 라이브러리를 활용하여 좋아요한 사진 데이터 백그라운드에 저장
+    - `FileManager API`를 활용하여 로컬에 좋아요한 사진 이미지 저장/조회/삭제
+    - `DiffableDataSource`, `CollectionViewCompositionalLayout`을 활용한 컬렉션 뷰 구현
+
+- 구현된 앱 스크린샷
+
+|1. 계정 설정|2. Topic 테이블|3. 사진 디테일|
+|-|-|-|
+|<img width="180" src="https://github.com/user-attachments/assets/93539ed4-8234-4f45-85fe-2851fd798999" />|<img width="180" src="https://github.com/user-attachments/assets/07b0e708-15bb-4382-aa9c-db3ddcddb930" />|<img width="180" src="https://github.com/user-attachments/assets/1ed644bb-bd7d-42d2-bd50-5cb1b467e078" />|
+
+|4. 랜덤 사진 목록|5. 사진 검색 및 필터 목록|6. 좋아요한 사진 목록|
+|-|-|-|
+|<img width="180" src="https://github.com/user-attachments/assets/6b9614a2-1522-45a7-b039-8dde4008fc37" />|<img width="180" src="https://github.com/user-attachments/assets/c1750e6c-7915-47c4-81fc-0ac94ef4a0b7" />|<img width="180" src="https://github.com/user-attachments/assets/4516b712-a83c-43da-a5d3-642a39c73a7a" />|
 
 <br />
 
 ### 프로젝트 안에서 고민한 것들
 
-- 왜 네비게이팅 패턴이 잘 먹히지 않았을까? (삽질을 많이 했지만 잘 해결하지 못했음)
-- sender?() 와 같이 클로저로 값을 캡쳐하는 경우에는 클로저 정의를 ViewModel에서 하는게 맞을까 아니면 ViewController, View 또는 필요한 곳마다 하는게 좋을까?
 (TBD)
 
 <br />
@@ -117,5 +130,5 @@ Advanced Requirements
 - [x] RandomImageView
     - [x] randomAPI를 사용해서 전체 페이지 기반의 컬렉션 뷰 구현
 
-- [ ] SearchView
-    - [ ] 색감 선택 버튼 컬랙션
+- [x] SearchView
+    - [x] 색감 선택 버튼 컬랙션

@@ -23,7 +23,7 @@ final class LikeListViewController: BaseViewController<LikeListViewModel, LikeLi
     override func setNavigation() {
         super.setNavigation()
         
-        navigationItem.title = "좋아요한 사진 목록"
+        navigationItem.title = Text.Titles.NAVIGATION_LIKED_PHOTO.rawValue
     }
     
     override func bindData() {

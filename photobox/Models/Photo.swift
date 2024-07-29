@@ -89,3 +89,8 @@ struct DetailOutput {
     let photo: Photo
     var isLiked: Bool
 }
+
+struct ColorButtonOutput: Hashable {
+    let color: ColorBy
+    let isSelected: Bool
+}

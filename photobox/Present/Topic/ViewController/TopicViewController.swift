@@ -42,6 +42,10 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
     
     override func bindDataAtDidLoad() {
         super.bindDataAtDidLoad()
+    }
+    
+    override func bindData() {
+        super.bindData()
         viewModel.didLoadInput.value = ()
         viewModel.didLoadOutput.binding { [weak self] output in
             guard let self else { return }
@@ -55,10 +59,6 @@ final class TopicViewController: BaseViewController<TopicViewModel, TopicView> {
                 self.mainView.topicTable.reloadRows(at: [IndexPath(row: row, section: section)], with: .none)
             }
         }
-    }
-    
-    override func bindData() {
-        super.bindData()
         viewModel.likeButtonOutput.bindingWithoutInitCall { [weak self] output in
             guard let self else { return }
             self.genToast(for: output, state: .success)
