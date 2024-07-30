@@ -25,17 +25,70 @@
 
 |1. 계정 설정|2. Topic 테이블|3. 사진 디테일|
 |-|-|-|
-|<img width="180" src="https://github.com/user-attachments/assets/93539ed4-8234-4f45-85fe-2851fd798999" />|<img width="180" src="https://github.com/user-attachments/assets/07b0e708-15bb-4382-aa9c-db3ddcddb930" />|<img width="180" src="https://github.com/user-attachments/assets/1ed644bb-bd7d-42d2-bd50-5cb1b467e078" />|
+|<img width="200" src="https://github.com/user-attachments/assets/93539ed4-8234-4f45-85fe-2851fd798999" />|<img width="200" src="https://github.com/user-attachments/assets/07b0e708-15bb-4382-aa9c-db3ddcddb930" />|<img width="200" src="https://github.com/user-attachments/assets/1ed644bb-bd7d-42d2-bd50-5cb1b467e078" />|
 
 |4. 랜덤 사진 목록|5. 사진 검색 및 필터 목록|6. 좋아요한 사진 목록|
 |-|-|-|
-|<img width="180" src="https://github.com/user-attachments/assets/6b9614a2-1522-45a7-b039-8dde4008fc37" />|<img width="180" src="https://github.com/user-attachments/assets/c1750e6c-7915-47c4-81fc-0ac94ef4a0b7" />|<img width="180" src="https://github.com/user-attachments/assets/4516b712-a83c-43da-a5d3-642a39c73a7a" />|
+|<img width="200" src="https://github.com/user-attachments/assets/6b9614a2-1522-45a7-b039-8dde4008fc37" />|<img width="200" src="https://github.com/user-attachments/assets/c1750e6c-7915-47c4-81fc-0ac94ef4a0b7" />|<img width="200" src="https://github.com/user-attachments/assets/4516b712-a83c-43da-a5d3-642a39c73a7a" />|
 
 <br />
 
 ### 프로젝트 안에서 고민한 것들
 
-(TBD)
+1. ProfileSetting 페이지에서 MBTI 버튼 구현을 위한 output 객체를 만들어 터치에 따라 VStack이 새롭게 그려지도록 코드를 작성했습니다.
+   - 처음에는 모든 MBTI 속성에 대한 버튼 객체를 각각 만들어야 할 것 같다고 생각했지만, -> **반복되는 코드가 너무 많이 생길 것이라 판단했습니다.**
+   - 각 MBTI 속성 그룹에 대해서 <u>선택된 값이 있는지 / 선택된 값이 없다면 선택 / 이미 선택된 걸 다시 선택한다면 해제</u> 해주는 처리를 반복처리 해줄 수 있는 로직을 만들고,
+   - (ex. I와 E는 하나의 속성 그룹에 분류되어, 두 요소 사이에서 터치 이벤트를 다르게 처리해줘야 했습니다. 즉, S/N, F/T, J/P가 각각의 그룹으로 다르게 처리 필요.)
+   - 로직 내부에서 스택 객체를 만들어 뷰에 업데이트 해주는 형식으로 구현하면 될 것이라고 판단했습니다.
+   - MBTI 설정 뷰를 랜더하는 ViewController에서는 ViewModel의 output이 업데이트 될 경우, 해당 로직이 바인딩되어 돌아갈 수 있도록 설정해주었습니다.
+   - 버튼 터치 이벤트가 발생할 때마다, 전체 스택 객체를 다시 만들어 다시 삽입하는 오버 랜더링이 발생할 수 있을 것 같아서 각각의 그룹 스택을 감싸는 전체 스택 객체는 따로 외부에서 정의하여 사용하는 방향으로 수정해보는 것도 좋을 것 같다는 생각을 가지고 있습니다.
+     
+   ```swift
+   // ProfileSettingView
+   func generateMBTI(by mbtiArray: [[MbtiButton]], target: Any?, action: Selector) {
+        // 전체 스택을 만들고
+        let totalStack = UIStackView()
+        totalStack.alignment = .center
+        totalStack.distribution = .fillEqually
+
+        // 버튼 터치 여부를 반영한 버튼 그룹을 만들어서        
+        let mbtiViews = mbtiArray.map { $0.map {
+            let btn = CircleButton(for: $0.value)
+            btn.isSelected = $0.isSelected
+            return btn
+        } }
+
+        // 각 속성별로 개별 스택을 만들어 배열로 준비
+        mbtiViews.enumerated().forEach { idx, buttons in
+            let stack = UIStackView()
+            buttons.forEach {
+                $0.tag = idx
+                $0.snp.makeConstraints { make in
+                    make.size.equalTo(50)
+                }
+                $0.addTarget(target, action: action, for: .touchUpInside)
+                stack.addArrangedSubview($0)
+            }
+            stack.distribution = .fillEqually
+            stack.spacing = 8
+            stack.alignment = .center
+            stack.axis = .vertical
+            totalStack.addArrangedSubview(stack)
+        }
+
+        // 전체 스택에 각 그룹별 스택을 삽입
+        mbtiBox.setUpContentsView(by: totalStack)
+    }
+
+   // ProfileSettingViewController
+   {
+       ...
+       view.generateMBTI(by: viewModel.mbtiOutput.value, target: self, action: #selector(onTouchMBTIbutton))
+   }
+   ```
+
+2. tbd
+
 
 <br />
 
@@ -107,7 +160,7 @@ Basic Implementation Requirements
     - [x] 좋아요 취소할 경우, 목록에서 삭제
     - [x] 좋아요 한 사진이 없는 경우 "저장된 사진이 없어요" 레이블 노출
 
-- [x] 사진 상제 화면
+- [x] 사진 상세 화면
     - [x] MVVM 패턴으로 구현
     - [x] 탭-1~4에서 노출되는 모든 아이템 셀 터치할 경우 상세 화면으로 이동
     - [x] 좋아요 취소, 선택 가능
