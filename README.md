@@ -20,6 +20,36 @@
     - `Realm Swift` 라이브러리를 활용하여 좋아요한 사진 데이터 백그라운드에 저장
     - `FileManager API`를 활용하여 로컬에 좋아요한 사진 이미지 저장/조회/삭제
     - `DiffableDataSource`, `CollectionViewCompositionalLayout`을 활용한 컬렉션 뷰 구현
+    
+- 폴더링
+
+```
+├── photobox
+│   ├── App
+│   ├── Presentation
+│   │   ├── Profile
+│   │   │   ├── ViewController
+│   │   │   ├── ViewModel
+│   │   ├── Topic
+│   │   ├── Search
+│   │   ├── LikeList
+│   │   ├── Search
+│   │   ├── Detail
+│   ├── Views
+│   ├── Models
+│   ├── Presentation
+│   ├── Service
+│   │   ├── Network
+│   │   ├── Route
+│   │   ├── Validation
+│   │   ├── UserDefaults
+│   │   ├── FileManage
+│   ├── Model
+│   ├── Utility
+│   ├── Protocol
+└── └── Constants
+
+```
 
 - 구현된 앱 스크린샷
 
@@ -87,8 +117,67 @@
    }
    ```
 
-2. tbd
+2. TopicVC, RandomVC, SearchVC, LikeListVC, DetailVC 모든 ViewModel에 구현된 like / dislike 로직이 반복되는데, ViewModelProtocol을 확장해서 로직을 재사용할 수 없을까?
+    - 메인 화면안에 있는 모든 ViewController에 연결된 ViewModel에서 각각 아래의 거의 동일한 로직으로 like, dislike 이벤트가 처리되고 있었습니다.
+        ```swift
+        private func photoLikeHandler() {
+            
+            if photo.isLiked {
+                0. 이미 좋아요를 한 사진 -> dislike logic
+                1. fileManager에서 이미지를 삭제하고
+                switch 1의 결과 {
+                    2. repository에서 이미지 레코드 삭제하고
+                    switch 2의 결과 {
+                        3. 여기서 각 viewmodel의 이벤트 처리
+                    }
+                }
+                
+            } else {
+                0. 좋아요를 할 사진 -> like logic
+                0. 좋아요를 할 사진에 대한 정확한 데이터를 networkService에서 fetch하고
+                switch 0의 결과 {
+                    1. fileManager에서 이미지 추가하고
+                    switch 1의 결과 {
+                        2. repository에서 이미지 레코드 추가하고
+                        switch 2의 결과 {
+                            3. 여기서 각 viewmodel의 이벤트 처리
+                        }
+                    }
+                }
+            }
+        } 
+        ```
+    - 위의 코드 0 ~ 2에 해당하는 부분은 모든 viewModel에서 동일하게 가지고 있었기 때문에, 이 부분을 모든 viewModel이 채택하고 있는 ViewModelProtocol에서 메서드로 확장하여 분리하였습니다.
+    - 각 viewModel 내부에서 핸들링이 필요한 로직은 completionHandler 형태의 클로저로 받아, 해당 시점에 구현될 수 있도록 처리하였습니다.
+        ```swift
+        func disLikeHandler(
+            fileManager: FileManageService,
+            repository: LikedPhotoRepository,
+            by photoId: String,
+            handler: @escaping (Result<String, any Error>) -> Void
+        ) {
+            let removeResult = fileManager.removeImage(for: photoId)
+                
+            switch removeResult {
+            case .success(_):
+                DispatchQueue.main.async {
+                    let dbResult = repository.deleteLikedPhotoById(by: photoId)
+                        
+                    switch dbResult {
+                    case .success(let success):
+                        handler(.success(success))
+                    case .failure(let failure):
+                        handler(.failure(failure))
+                    }
+                }
+            case .failure(let failure):
+                handler(.failure(failure))
+            }
+        }
+        ```
+    - like, dislike를 위한 메서드를 구분하여 확장하였습니다. viewModel에서 호출할 때, 조금 더 역할이 명확하게 정의된 메서드를 프로토콜 자체에서 불러와 사용할 수 있어 중복 구현 없이 코드를 재사용할 수 있었습니다.
 
+3. tbd
 
 <br />
 

@@ -75,28 +75,29 @@ final class LikeListViewModel: ViewModelProtocol {
     
     private func photoLikeHandler(for photo: SearchedPhotoOutput?) {
         guard let photo else { return }
+        guard let filemanger, let repository else { return }
         
-        let removeResult = filemanger?.removeImage(for: photo.photoId)
-        
-        switch removeResult {
-        case .success(_):
-            DispatchQueue.main.async {
-                let dbResult = self.repository?.deleteLikedPhotoById(by: photo.photoId)
+        disLikeHandler(
+            fileManager: filemanger,
+            repository: repository,
+            by: photo.photoId
+        ) { [weak self] result in
+            
+            guard let self else { return }
+            
+            switch result {
+            case .success(let success):
+                self.likeButtonOutput.value = success
+                self.didLoadOutput.value = self.didLoadOutput.value.filter { $0.photoId != photo.photoId }
+            case .failure(let failure):
+                if type(of: failure) == LikedPhotoRepository.RepositoryError.self {
+                    failureOutput.value = (failure as! LikedPhotoRepository.RepositoryError).rawValue
+                }
                 
-                switch dbResult {
-                case .success(let success):
-                    self.likeButtonOutput.value = success
-                    self.didLoadOutput.value = self.didLoadOutput.value.filter { $0.id != photo.id }
-                case .failure(let failure):
-                    self.failureOutput.value = failure.rawValue
-                case nil:
-                    break
+                if type(of: failure) == FileManageService.FileManageError.self {
+                    failureOutput.value = (failure as! FileManageService.FileManageError).rawValue
                 }
             }
-        case .failure(let failure):
-            failureOutput.value = failure.rawValue
-        case nil:
-            break
         }
     }
 }
