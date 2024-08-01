@@ -105,6 +105,8 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         table.register(TopicTableCell.self, forCellReuseIdentifier: TopicTableCell.identifier)
         table.rowHeight = 300
         table.separatorStyle = .none
+        
+        tableRefreshControl()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,7 +118,7 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         
         let collection = cell.sectionCollection
         
-        cell.setSectionTitle(for: TopicViewModel.SectionKind.allCases[indexPath.row].byKorean)
+        cell.setSectionTitle(for: viewModel.topicTitles[indexPath.row])
         collection.delegate = self
         collection.dataSource = self
         collection.register(ImageCardItem.self, forCellWithReuseIdentifier: ImageCardItem.identifier)
@@ -124,6 +126,19 @@ extension TopicViewController: UITableViewDelegate, UITableViewDataSource {
         collection.reloadData()
         
         return cell
+    }
+    
+    private func tableRefreshControl() {
+        mainView.topicTable.refreshControl = UIRefreshControl() // control 등록
+        mainView.topicTable.refreshControl?.addTarget(self, action: #selector(handlerScrollToRefresh), for: .valueChanged)
+    }
+    
+    @objc
+    private func handlerScrollToRefresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.mainView.topicTable.refreshControl?.endRefreshing()
+            self.viewModel.didLoadInput.value = ()
+        }
     }
 }
 

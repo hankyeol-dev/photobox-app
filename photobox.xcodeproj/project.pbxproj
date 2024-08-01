@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8121AA5E2C5B10CE00B2ABFC /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8121AA5D2C5B10CE00B2ABFC /* DummyViewController.swift */; };
+		8121AA602C5B13A000B2ABFC /* DummyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8121AA5F2C5B13A000B2ABFC /* DummyDetailView.swift */; };
+		818570042C5BB26A00BACFAA /* Enum+TopicSectionKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818570032C5BB26A00BACFAA /* Enum+TopicSectionKind.swift */; };
 		81A4AA682C4E20A2008E2F8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AA672C4E20A2008E2F8C /* AppDelegate.swift */; };
 		81A4AA6A2C4E20A2008E2F8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AA692C4E20A2008E2F8C /* SceneDelegate.swift */; };
 		81A4AA712C4E20A3008E2F8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81A4AA702C4E20A3008E2F8C /* Assets.xcassets */; };
@@ -97,6 +100,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8121AA5D2C5B10CE00B2ABFC /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
+		8121AA5F2C5B13A000B2ABFC /* DummyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyDetailView.swift; sourceTree = "<group>"; };
+		818570032C5BB26A00BACFAA /* Enum+TopicSectionKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+TopicSectionKind.swift"; sourceTree = "<group>"; };
 		81A4AA642C4E20A2008E2F8C /* photobox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photobox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81A4AA672C4E20A2008E2F8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81A4AA692C4E20A2008E2F8C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +191,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8121AA5C2C5B10C400B2ABFC /* Dummys */ = {
+			isa = PBXGroup;
+			children = (
+				8121AA5D2C5B10CE00B2ABFC /* DummyViewController.swift */,
+				8121AA5F2C5B13A000B2ABFC /* DummyDetailView.swift */,
+			);
+			path = Dummys;
+			sourceTree = "<group>";
+		};
 		81A4AA5B2C4E20A2008E2F8C = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +221,7 @@
 		81A4AA662C4E20A2008E2F8C /* photobox */ = {
 			isa = PBXGroup;
 			children = (
+				8121AA5C2C5B10C400B2ABFC /* Dummys */,
 				81C1ED9E2C4FEBD400C8C658 /* Utils */,
 				81A4AAB02C4E8E6D008E2F8C /* Constants */,
 				81A4AA8E2C4E3F3E008E2F8C /* Protocols */,
@@ -348,6 +364,7 @@
 				81A4AABC2C4E9E86008E2F8C /* Enum+Text.swift */,
 				81A4AACE2C4F6A36008E2F8C /* Enum+UIImage.swift */,
 				81C1EE4D2C55D15000C8C658 /* Enum+Toast.swift */,
+				818570032C5BB26A00BACFAA /* Enum+TopicSectionKind.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -636,8 +653,10 @@
 				81C1EE5E2C56077C00C8C658 /* RandomViewModel.swift in Sources */,
 				81A4AA8A2C4E368E008E2F8C /* Photo.swift in Sources */,
 				81C1EE102C52928700C8C658 /* BaseTableCell.swift in Sources */,
+				8121AA5E2C5B10CE00B2ABFC /* DummyViewController.swift in Sources */,
 				81C1EDEB2C50E98000C8C658 /* TopicView.swift in Sources */,
 				81C1EE242C53275D00C8C658 /* FileManage.swift in Sources */,
+				818570042C5BB26A00BACFAA /* Enum+TopicSectionKind.swift in Sources */,
 				81C1EDB62C5081F500C8C658 /* ProfileImageSettingViewController.swift in Sources */,
 				81A4AABB2C4E9DD9008E2F8C /* Extension+UIFont.swift in Sources */,
 				81C1EE3A2C54A87300C8C658 /* DetailViewController.swift in Sources */,
@@ -646,6 +665,7 @@
 				81C1EDA22C4FEDDC00C8C658 /* OnboardingViewController.swift in Sources */,
 				81C1EE012C52044800C8C658 /* ImageCardItem.swift in Sources */,
 				81C1EE632C5609B700C8C658 /* RandomViewController.swift in Sources */,
+				8121AA602C5B13A000B2ABFC /* DummyDetailView.swift in Sources */,
 				81C1EE182C52A7D100C8C658 /* SearchView.swift in Sources */,
 				81C1EE0E2C52927700C8C658 /* TopicTableCell.swift in Sources */,
 				81C1EE0C2C527FD500C8C658 /* ProfileUpdateOutput.swift in Sources */,

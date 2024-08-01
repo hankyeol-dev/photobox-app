@@ -29,16 +29,16 @@ final class BoxWithTitle: BaseView {
         super.setLayout()
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).inset(16)
+            make.top.equalTo(self.safeAreaLayoutGuide).inset(4)
             make.leading.equalTo(self.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(24)
             make.width.equalTo(90)
         }
         
         contentsView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(self.safeAreaLayoutGuide).inset(16)
-            make.leading.equalTo(titleLabel.snp.trailing).offset(4)
+            make.verticalEdges.equalTo(self.safeAreaLayoutGuide).inset(4)
             make.trailing.equalTo(self.safeAreaLayoutGuide).inset(16)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(4)
         }
     }
     

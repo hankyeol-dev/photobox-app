@@ -13,27 +13,11 @@ final class TopicViewModel: ViewModelProtocol {
     weak var fileManageService: FileManageService?
     weak var likedPhotoRepository: LikedPhotoRepository?
     
-    enum SectionKind: String, CaseIterable {
-        case golden = "golden-hour"
-        case business = "business-work"
-        case architect = "architecture-interior"
-        
-        var byKorean: String {
-            switch self {
-            case .golden:
-                "골든 아워"
-            case .business:
-                "비즈니스 및 업무"
-            case .architect:
-                "건축 및 인테리어"
-            }
-        }
-    }
-    
     var userNickname = UserDefaultsService.shared.getValue(for: .nickname)
     var userProfileImage = UserDefaultsService.shared.getValue(for: .profileImage)
     var userMbti = UserDefaultsService.shared.getValue(for: .mbti)
     var selectedIndex = (-1, -1)
+    var topicTitles: [String] = []
     
     // MARK: Input
     var didLoadInput = Observable<Void?>(nil)
@@ -60,6 +44,7 @@ final class TopicViewModel: ViewModelProtocol {
         didLoadInput.bindingWithoutInitCall { [weak self] _ in
             guard let self else { return }
             self.selectedIndex = (-1, -1)
+            self.topicTitles = []
             self.bindingDidLoadOutput()
             self.userProfileImage = UserDefaultsService.shared.getValue(for: .profileImage)
         }
@@ -73,8 +58,11 @@ final class TopicViewModel: ViewModelProtocol {
     private func bindingDidLoadOutput() {
         let group = DispatchGroup()
         
-        SectionKind.allCases.enumerated().forEach { (idx, value) in
+        SectionKind.randomThree.enumerated().forEach { [weak self] (idx, value) in
+            guard let self else { return }
+            
             group.enter()
+            self.topicTitles.append(value.byKorean)
             DispatchQueue.global().async(group: group) {
                 self.networkManager?.fetch(
                     by: .topic(topicName: value.rawValue),

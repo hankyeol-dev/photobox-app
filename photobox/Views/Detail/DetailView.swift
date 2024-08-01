@@ -11,14 +11,24 @@ import Kingfisher
 
 final class DetailView: BaseView, MainViewProtocol {
     let detailOwnerView = DetailOwnerView()
+    
+    private let detailScroll = UIScrollView()
+    private let detailContentView = UIView()
+    
     let detailImage = UIImageView()
     let detailInfoBox = BoxWithTitle(for: "정보")
     
     override func setSubviews() {
         super.setSubviews()
         
-        [detailOwnerView, detailImage, detailInfoBox].forEach {
+        [detailOwnerView, detailScroll].forEach {
             self.addSubview($0)
+        }
+        
+        detailScroll.addSubview(detailContentView)
+                
+        [detailImage, detailInfoBox].forEach {
+            detailContentView.addSubview($0)
         }
     }
     
@@ -32,15 +42,25 @@ final class DetailView: BaseView, MainViewProtocol {
             make.height.equalTo(56)
         }
         
-        detailImage.snp.makeConstraints { make in
+        detailScroll.snp.makeConstraints { make in
             make.top.equalTo(detailOwnerView.snp.bottom)
-            make.horizontalEdges.equalTo(guide)
-            make.height.equalTo(200)
+            make.horizontalEdges.bottom.equalTo(guide)
+            make.bottom.equalTo(guide)
+        }
+        
+        detailContentView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.verticalEdges.equalTo(detailScroll)
+        }
+        
+        detailImage.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(detailContentView.safeAreaLayoutGuide)
+            make.height.lessThanOrEqualTo(500)
         }
         
         detailInfoBox.snp.makeConstraints { make in
             make.top.equalTo(detailImage.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(guide)
+            make.horizontalEdges.bottom.equalTo(detailContentView.safeAreaLayoutGuide)
         }
     }
     
