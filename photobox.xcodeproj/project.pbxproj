@@ -10,6 +10,7 @@
 		8121AA5E2C5B10CE00B2ABFC /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8121AA5D2C5B10CE00B2ABFC /* DummyViewController.swift */; };
 		8121AA602C5B13A000B2ABFC /* DummyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8121AA5F2C5B13A000B2ABFC /* DummyDetailView.swift */; };
 		818570042C5BB26A00BACFAA /* Enum+TopicSectionKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818570032C5BB26A00BACFAA /* Enum+TopicSectionKind.swift */; };
+		818570072C5BBEEA00BACFAA /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 818570062C5BBEEA00BACFAA /* DGCharts */; };
 		81A4AA682C4E20A2008E2F8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AA672C4E20A2008E2F8C /* AppDelegate.swift */; };
 		81A4AA6A2C4E20A2008E2F8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AA692C4E20A2008E2F8C /* SceneDelegate.swift */; };
 		81A4AA712C4E20A3008E2F8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81A4AA702C4E20A3008E2F8C /* Assets.xcassets */; };
@@ -182,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				818570072C5BBEEA00BACFAA /* DGCharts in Frameworks */,
 				81C1EE1F2C52B11000C8C658 /* RealmSwift in Frameworks */,
 				81C1EE042C5207D600C8C658 /* Kingfisher in Frameworks */,
 				81A4AA852C4E2ED1008E2F8C /* SnapKit in Frameworks */,
@@ -589,6 +591,7 @@
 				81A4AA842C4E2ED1008E2F8C /* SnapKit */,
 				81C1EE032C5207D600C8C658 /* Kingfisher */,
 				81C1EE1E2C52B11000C8C658 /* RealmSwift */,
+				818570062C5BBEEA00BACFAA /* DGCharts */,
 			);
 			productName = photobox;
 			productReference = 81A4AA642C4E20A2008E2F8C /* photobox.app */;
@@ -622,6 +625,7 @@
 				81A4AA832C4E2ED1008E2F8C /* XCRemoteSwiftPackageReference "SnapKit" */,
 				81C1EE022C5207D600C8C658 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				81C1EE1D2C52B10F00C8C658 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				818570052C5BBEEA00BACFAA /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 81A4AA652C4E20A2008E2F8C /* Products */;
 			projectDirPath = "";
@@ -938,6 +942,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		818570052C5BBEEA00BACFAA /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ChartsOrg/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		81A4AA832C4E2ED1008E2F8C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -965,6 +977,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		818570062C5BBEEA00BACFAA /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 818570052C5BBEEA00BACFAA /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
 		81A4AA842C4E2ED1008E2F8C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 81A4AA832C4E2ED1008E2F8C /* XCRemoteSwiftPackageReference "SnapKit" */;

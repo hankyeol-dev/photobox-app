@@ -134,6 +134,10 @@ enum RouteService {
             return [
                 URLQueryItem(name: "count", value: "10")
             ]
+        case .statistic:
+            return [
+                URLQueryItem(name: "quantity", value: "7")
+            ]
         default:
             return []
         }

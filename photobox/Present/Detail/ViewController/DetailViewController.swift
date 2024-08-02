@@ -15,7 +15,7 @@ final class DetailViewController: BaseViewController<DetailViewModel, DetailView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainView.detailOwnerView.likeButton.addTarget(self, action: #selector(onTouchLikebutton), for: .touchUpInside)
+        addActions()
     }
     
     override func bindData() {
@@ -36,16 +36,31 @@ final class DetailViewController: BaseViewController<DetailViewModel, DetailView
         
         navigationItem.leftBarButtonItem = genLeftGoBackButton(target: self, action: #selector(goBack))
     }
-    
+}
+
+extension DetailViewController {
+    private func addActions() {
+        mainView.detailOwnerView.likeButton.addTarget(self, action: #selector(onTouchLikebutton), for: .touchUpInside)
+        mainView.chartSegment.addTarget(self, action: #selector(onTouchChartSegment), for: .valueChanged)
+    }
     
     @objc
-    func onTouchLikebutton() {
+    private func onTouchLikebutton() {
         viewModel.likeButtonInput.value = ()
     }
     
     @objc
-    func goBack() {
+    private func goBack() {
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc
+    private func onTouchChartSegment(_ sender: UISegmentedControl) {
+        guard let statisticData = viewModel.didLoadStatisticOutput.value else { return }
+        if sender.selectedSegmentIndex == 0 {
+            mainView.bindChartView(for: statisticData.views)
+        } else {
+            mainView.bindChartView(for: statisticData.downloads)
+        }
+    }
 }
-

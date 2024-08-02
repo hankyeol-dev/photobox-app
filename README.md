@@ -12,7 +12,8 @@
 
 - 구현 기간
     - 1차: 2024.07.22 ~ 07.29
-    - 2차: TBD    
+    - 2차: 2024.07.31 ~ 08.02
+    - 3차: TBD
 
 - 구현 방식
     - `Custom Observable` 객체를 활용하여 **MVVM 패턴**으로 코드 적용
@@ -20,6 +21,7 @@
     - `Realm Swift` 라이브러리를 활용하여 좋아요한 사진 데이터 백그라운드에 저장
     - `FileManager API`를 활용하여 로컬에 좋아요한 사진 이미지 저장/조회/삭제
     - `DiffableDataSource`, `CollectionViewCompositionalLayout`을 활용한 컬렉션 뷰 구현
+    - `DGChart` 라이브러리를 활용하여 LineChart 구현
     
 - 폴더링
 
@@ -55,7 +57,7 @@
 
 |1. 계정 설정|2. Topic 테이블|3. 사진 디테일|
 |-|-|-|
-|<img width="200" src="https://github.com/user-attachments/assets/93539ed4-8234-4f45-85fe-2851fd798999" />|<img width="200" src="https://github.com/user-attachments/assets/07b0e708-15bb-4382-aa9c-db3ddcddb930" />|<img width="200" src="https://github.com/user-attachments/assets/1ed644bb-bd7d-42d2-bd50-5cb1b467e078" />|
+|<img width="200" src="https://github.com/user-attachments/assets/93539ed4-8234-4f45-85fe-2851fd798999" />|<img width="200" src="https://github.com/user-attachments/assets/07b0e708-15bb-4382-aa9c-db3ddcddb930" />|<img width="200" src="https://github.com/user-attachments/assets/d8357185-23b4-4489-9492-5461b6b1a3e3" />|
 
 |4. 랜덤 사진 목록|5. 사진 검색 및 필터 목록|6. 좋아요한 사진 목록|
 |-|-|-|
@@ -268,9 +270,9 @@
 
 Advanced Requirements
 
-- [ ] DetailView
+- [x] DetailView
     - [x] 스크롤 뷰 반영하여 이미지 사이즈에 맞게 스크롤 크기 반영 (maxHeight: 500)
-    - [ ] statistics 데이터 기반으로 차트 구현
+    - [x] statistics 데이터 기반으로 차트 구현
     
 - [ ] TopicView
     - [x] 랜덤 토픽 랜더링 되도록 설계

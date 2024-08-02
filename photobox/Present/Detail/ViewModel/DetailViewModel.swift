@@ -21,6 +21,7 @@ final class DetailViewModel: ViewModelProtocol {
     
     // MARK: Output
     var didLoadOutput = Observable<DetailOutput?>(nil)
+    var didLoadStatisticOutput = Observable<PhotoStatisticsResult?>(nil)
     var failureOutput = Observable("")
     
     init(
@@ -40,6 +41,7 @@ final class DetailViewModel: ViewModelProtocol {
             guard let self else { return }
             self.photoId = photoId
             self.fetchPhoto(by: photoId)
+            self.fetchPhotoStatistic(by: photoId)
         }
         
         likeButtonInput.bindingWithoutInitCall { [weak self] _ in
@@ -110,6 +112,22 @@ final class DetailViewModel: ViewModelProtocol {
                     }
                 }
             case nil:
+                break
+            }
+        }
+    }
+    
+    private func fetchPhotoStatistic(by photoId: String) {
+        Task {
+            let result = await networkManager?
+                .fetch(by: .statistic(id: photoId), of: PhotoStatisticsResult.self)
+            
+            switch result {
+            case .success(let success):
+                self.didLoadStatisticOutput.value = success
+            case .failure(let failure):
+                self.failureOutput.value = failure.rawValue
+            case .none:
                 break
             }
         }
